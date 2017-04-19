@@ -12,6 +12,15 @@
  */
 
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import theme from 'theme/default';
+import styled from 'styled-components';
+
+import Header from 'components/Main/Header';
+import Menu from 'components/Main/Menu';
+
+const Wrapper = styled.div`
+`;
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -21,9 +30,15 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div>
-        {React.Children.toArray(this.props.children)}
-      </div>
+      <ThemeProvider theme={theme}>
+        <Wrapper id="outer-container">
+          <Menu />
+          <div id="page-wrap">
+            <Header />
+            {React.Children.toArray(this.props.children)}
+          </div>
+        </Wrapper>
+      </ThemeProvider>
     );
   }
 }
