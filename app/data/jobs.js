@@ -19,6 +19,13 @@ export default [
       'Provide assistance to the back-end developers in troubleshooting and coding.',
       'Optimize website performance using latest technology.'
     ],
+    toolsLogos: [
+      'http://yycjs.com/real-world-react/img/flux-logo.png',
+      'https://code-maven.com/img/angularjs.png',
+      'http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg',
+      'https://s3.amazonaws.com/media-p.slid.es/uploads/129681/images/2480811/wallpaper-angular2-rxjs.png',
+      'http://blog.teamtreehouse.com/wp-content/uploads/2015/05/87a5a0fdc86455c3f94b0b0eebfdb1b9_400x400.png',
+    ],
     tools: ['AngularJS', 'Typescript', 'Flux', 'RxJS', 'SASS'],
     years: 2,
   },
@@ -37,6 +44,9 @@ export default [
       'Recommended technical solutions and architecture to clients.',
     ],
     tools: ['React', 'Redux', 'Redux Saga'],
+    toolsLogos: [
+      'http://vincent.billey.me/talks/react-putting-js-in-your-face/assets/react-logo.png',
+    ],
     years: 2,
   },
   {
@@ -53,6 +63,9 @@ export default [
       'Working with MongoDB',
     ],
     tools: ['React', 'Relay', 'GraphQL', 'MongoDB'],
+    toolsLogos: [
+      'http://vincent.billey.me/talks/react-putting-js-in-your-face/assets/react-logo.png',
+    ],
     years: 0.5,
   },
   {
@@ -69,6 +82,9 @@ export default [
       'Working with MongoDB',
     ],
     tools: ['React', 'Redux', 'NodeJS', 'MongoDB'],
+    toolsLogos: [
+      'http://vincent.billey.me/talks/react-putting-js-in-your-face/assets/react-logo.png',
+    ],
     years: 0.5,
   },
   {
@@ -82,6 +98,9 @@ export default [
       'Converting web themes to blade templates',
     ],
     tools: ['PHP', 'Laravel', 'SQL'],
+    toolsLogos: [
+      'http://vincent.billey.me/talks/react-putting-js-in-your-face/assets/react-logo.png',
+    ],
     years: 4,
   },
   {
@@ -96,6 +115,9 @@ export default [
       'Converting web themes to blade templates',
     ],
     tools: ['Java'],
+    toolsLogos: [
+      'http://vincent.billey.me/talks/react-putting-js-in-your-face/assets/react-logo.png',
+    ],
     years: 2,
   },
   {
@@ -110,6 +132,9 @@ export default [
       'Converting web themes to blade templates',
     ],
     tools: ['ActionScript 3', 'Flash CS5'],
+    toolsLogos: [
+      'http://vincent.billey.me/talks/react-putting-js-in-your-face/assets/react-logo.png',
+    ],
     years: 3,
   },
 ];

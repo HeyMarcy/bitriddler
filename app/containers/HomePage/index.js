@@ -17,9 +17,11 @@ import { Element, animateScroll } from 'react-scroll';
 import styled from 'styled-components';
 import About from 'components/Home/About';
 import Timeline from 'components/Home/Timeline';
+import SectionPagination from 'components/Main/SectionPagination';
 import { getWindowHeight } from 'utils/screen';
 import {
-  blue400,
+  blue600,
+  black,
 } from 'material-ui/styles/colors';
 import selector from './selectors';
 import messages from './messages';
@@ -39,6 +41,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   componentWillMount() {
     this.setState({
       scrollValue: 0,
+      activeIndex: 0,
     });
   }
 
@@ -46,6 +49,21 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.setState({
       scrollValue: topPosition,
     });
+  }
+
+  getIndicators = (colors, activeIndex) => ([
+      {
+        onClick: () => console.log("Kareem Mohamed"),
+        isActive: activeIndex === 0,
+      },
+      {
+        onClick: () => this.scrollTo(1),
+        isActive: activeIndex === 1,
+      },
+  ]);
+
+  getActiveIndex = (scrollValue) => {
+    return Math.ceil((scrollValue - getWindowHeight() / 2) / getWindowHeight()) || 0;
   }
 
   render() {
@@ -57,27 +75,40 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       jobs,
     } = this.props;
 
+    const colors = [
+      blue600,
+      black,
+    ];
+
+    const activeIndex = this.getActiveIndex(scrollValue);
+
     return (
       <StyledScrollArea
-        speed={0.1}
+        speed={0.4}
         horizontal={false}
         onScroll={this.onScroll}
         verticalScrollbarStyle={{ background: '#333' }}
         smoothScrolling
       >
-        <Element name="timeline">
-          <Timeline
-            jobs={jobs}
-            scrollValue={scrollValue}
-          />
-        </Element>
         <Element name="about">
           <About
-            primaryColor={blue400}
+            primaryColor={colors[0]}
             scrollValue={scrollValue}
             scrollTo={getWindowHeight()}
           />
         </Element>
+        <Element name="timeline">
+          <Timeline
+            primaryColor={colors[1]}
+            jobs={jobs}
+            scrollValue={scrollValue}
+          />
+        </Element>
+        <SectionPagination
+          length={2}
+          sectionHeight={getWindowHeight()}
+          activeIndex={activeIndex}
+        />
       </StyledScrollArea>
     );
   }

@@ -1,0 +1,105 @@
+import React from 'react';
+import Measure from 'react-measure';
+import styled from 'styled-components';
+import {
+  white,
+  lightWhite,
+  darkWhite,
+  grey200,
+} from 'material-ui/styles/colors';
+
+const JobWrapper = styled.div`
+  background: ${white};
+  display: flex;
+  flex-direction: row;
+`;
+
+const JobDetails = styled.div`
+  padding: 12px 24px;
+`;
+
+const JobTitle = styled.h2`
+  font-size: 2em;
+  line-height: 36px;
+`;
+
+const JobSubtitle = styled.h3`
+  font-size: 1.4em;
+  line-height: 24px;
+`;
+
+const JobDescription = styled.p`
+  font-size: 0.9em;
+  line-height: 24px;
+`;
+
+const Arrow = styled.div`
+  width: 200px;
+  height: ${(props) => props.height}px;
+  background: ${darkWhite};
+`;
+
+const JobLeftArrow = styled(Arrow)`
+  border-right: 1px solid ${grey200};
+`;
+
+const JobRightArrow = styled(Arrow)`
+  border-left: 1px solid ${grey200};
+`;
+
+const JobDetailsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const JobDetailsLeft = styled.div`
+  flex-shrink: 0;
+`;
+
+const JobDetailsRight = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const JobToolLogo = styled.img`
+  max-height: 32px;
+  margin-left: 10px;
+`;
+
+const Job = ({ job, primaryColor, onLeftArrowClick, onRightArrowClick, ...props }) => (
+  <Measure whitelist={['height']}>
+    {({ height }) => (
+      <JobWrapper>
+        <JobLeftArrow
+          onClick={onLeftArrowClick}
+          primaryColor={primaryColor}
+          height={height}
+        />
+        <JobDetails>
+          <JobDetailsHeader>
+            <JobDetailsLeft>
+              <JobTitle>{job.title}</JobTitle>
+              <JobSubtitle>{job.subtitle}</JobSubtitle>
+            </JobDetailsLeft>
+            <JobDetailsRight>
+              {job.toolsLogos.map((logo, index) => (
+                <JobToolLogo key={index} src={logo} />
+              ))}
+            </JobDetailsRight>
+          </JobDetailsHeader>
+          <JobDescription>{job.description}</JobDescription>
+        </JobDetails>
+        <JobRightArrow
+          onClick={onRightArrowClick}
+          primaryColor={primaryColor}
+          height={height}
+        />
+      </JobWrapper>
+    )}
+    </Measure>
+);
+
+Job.propTypes = {
+};
+
+export default Job;

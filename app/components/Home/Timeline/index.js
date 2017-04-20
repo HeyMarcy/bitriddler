@@ -4,8 +4,11 @@ import styled from 'styled-components';
 import {
   white,
   lightWhite,
+  darkWhite,
+  grey200,
 } from 'material-ui/styles/colors';
 import flatten from 'lodash/flatten';
+import Job from 'components/Home/Job';
 import { getWindowWidth } from 'utils/screen';
 
 const pointWidth = 15;
@@ -14,7 +17,7 @@ const timelineColor = lightWhite;
 const timlineActiveColor = white;
 
 const Wrapper = styled.div`
-  background: #000;
+  background: ${(props) => props.primaryColor};
   height: 100vh;
   overflow: hidden;
   position: relative;
@@ -108,15 +111,6 @@ const TimelineConnector = styled.div`
   background: ${timelineColor};
 `;
 
-const JobWrapper = styled.div`
-  max-width: 600px;
-  padding: 12px 24px;
-  background: ${white};
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-`;
-
 const JobCover = styled.div`
   background: url(${(props) => props.image});
   background-size: cover;
@@ -126,24 +120,10 @@ const JobCover = styled.div`
   margin-bottom: 20px;
 `;
 
-const JobDetails = styled.div`
+const JobWrapper = styled.div`
+  max-width: 600px;
+  z-index: 1000;
 `;
-
-const JobTitle = styled.h2`
-  font-size: 2em;
-  line-height: 36px;
-`;
-
-const JobSubtitle = styled.h3`
-  font-size: 1.4em;
-  line-height: 24px;
-`;
-
-const JobDescription = styled.p`
-  font-size: 0.9em;
-  line-height: 24px;
-`;
-
 
 export default class Timeline extends React.Component {
 
@@ -218,6 +198,19 @@ export default class Timeline extends React.Component {
     );
   }
 
+  previousTab = (activeJobIndex) => {
+    if(activeJobIndex > 0) {
+      this.changeActiveJob(activeJobIndex - 1);
+    }
+  }
+
+
+  nextTab = (activeJobIndex, jobs) => {
+    if(activeJobIndex < jobs.length - 1) {
+      this.changeActiveJob(activeJobIndex + 1);
+    }
+  }
+
   render() {
     const {
       activeJobIndex,
@@ -227,21 +220,22 @@ export default class Timeline extends React.Component {
 
     const {
       jobs,
+      primaryColor,
     } = this.props;
 
     const job = jobs[activeJobIndex];
 
     return (
-      <Wrapper>
+      <Wrapper primaryColor={primaryColor}>
         <JobWrapper>
-          <JobDetails>
-            <JobTitle>{job.title}</JobTitle>
-            <JobSubtitle>{job.subtitle}</JobSubtitle>
-            <JobDescription>{job.description}</JobDescription>
-          </JobDetails>
+          <Job
+            primaryColor={primaryColor}
+            job={job}
+            onLeftArrowClick={() => this.nextTab(activeJobIndex, jobs)}
+            onRightArrowClick={() => this.previousTab(activeJobIndex)}
+          />
         </JobWrapper>
-        <CoverWrapper cover={job.cover}>
-        </CoverWrapper>
+        <CoverWrapper cover={job.cover} />
         {this.renderTimeline({ jobs, activeJobIndex, timelineWidth, connectorWidths })}
       </Wrapper>
     );
