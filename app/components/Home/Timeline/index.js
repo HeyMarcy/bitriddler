@@ -1,9 +1,249 @@
 import React from 'react';
+import Measure from 'react-measure';
+import styled from 'styled-components';
+import {
+  white,
+  lightWhite,
+} from 'material-ui/styles/colors';
+import flatten from 'lodash/flatten';
+import { getWindowWidth } from 'utils/screen';
+
+const pointWidth = 15;
+const connectorHeight = 1;
+const timelineColor = lightWhite;
+const timlineActiveColor = white;
+
+const Wrapper = styled.div`
+  background: #000;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CoverWrapper = styled.div`
+  background: url(${(props) => props.cover});
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  transition: opacity 0.5s ease;
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const TimelineWrapper = styled.div`
+  position: absolute;
+  bottom: 50px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  transition: transform 0.5s ease;
+  transform: translateX(${(props) => props.translateX}px);
+`;
+
+const getTimelinePointActiveStyle = (props) => `
+  background: ${timlineActiveColor};
+`;
+
+const TimelinePointWrapper = styled.div`
+  position: relative;
+`;
+
+const TimelinePoint = styled.div`
+  background: ${timelineColor};
+  border-radius: 50%;
+  width: ${pointWidth}px;
+  height: ${pointWidth}px;
+  cursor: pointer;
+  transition: background 0.5s ease;
+  ${(props) => props.isActive && getTimelinePointActiveStyle(props)}
+  &:hover {
+    ${(props) => getTimelinePointActiveStyle(props)}
+  }
+`;
+
+const TimelinePointDetails = styled.div`
+  position: absolute;
+  bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  min-width: ${(props) => props.previousConnectorWidth}px;
+`;
+
+const TimelinePointTitle = styled.span`
+  color: ${white};
+  font-size: 1em;
+`;
+
+const TimelinePointSubtitle = styled.span`
+  color: ${lightWhite};
+  font-size: 0.8em;
+`;
+
+const TimelinePointTools = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const TimelinePointTool = styled.span`
+  font-size: 0.8em;
+  background: ${white};
+  flex-shrink: 0;
+  padding: 2px 5px;
+  margin-right: 5px;
+`;
+
+const TimelineConnector = styled.div`
+  width: ${(props) => props.width}px;
+  height: ${connectorHeight}px;
+  background: ${timelineColor};
+`;
+
+const JobWrapper = styled.div`
+  max-width: 600px;
+  padding: 12px 24px;
+  background: ${white};
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+`;
+
+const JobCover = styled.div`
+  background: url(${(props) => props.image});
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
+`;
+
+const JobDetails = styled.div`
+`;
+
+const JobTitle = styled.h2`
+  font-size: 2em;
+  line-height: 36px;
+`;
+
+const JobSubtitle = styled.h3`
+  font-size: 1.4em;
+  line-height: 24px;
+`;
+
+const JobDescription = styled.p`
+  font-size: 0.9em;
+  line-height: 24px;
+`;
+
 
 export default class Timeline extends React.Component {
-  render() {
+
+  componentWillMount() {
+    this.setState({
+      activeJobIndex: 0,
+      connectorWidths: this.props.jobs.map(this.getConnectorWidth),
+    });
+  }
+
+  getConnectorWidth = (job) => {
+    return Math.random() * 80 + 220;
+  };
+
+  changeActiveJob = (activeJobIndex) => this.setState({ activeJobIndex });
+
+  calculateTranslateX = ({ jobs, activeJobIndex, timelineWidth, connectorWidths }) => {
+    let totalConnectorWidth = 0;
+
+    for (var i = 0; i < activeJobIndex; i++) {
+      totalConnectorWidth += connectorWidths[i];
+    }
+
+    return -timelineWidth / 2 + totalConnectorWidth;
+  }
+
+  renderTimeline = ({ jobs, activeJobIndex, timelineWidth, connectorWidths }) => {
     return (
-      <div>Timeline</div>
+      <Measure
+        onMeasure={({ width }) => this.setState({ timelineWidth: width })}
+        whitelist={['width']}
+      >
+        <TimelineWrapper
+          translateX={this.calculateTranslateX({
+            jobs,
+            activeJobIndex,
+            timelineWidth,
+            connectorWidths,
+          })}
+        >
+          {flatten(jobs.map((job, index) => ([
+            <TimelinePointWrapper key={`point${index}`}>
+              <TimelinePointDetails
+                onClick={() => this.changeActiveJob(index)}
+                previousConnectorWidth={index > 1 ? connectorWidths[index - 1] : 0}
+              >
+                <TimelinePointTitle>
+                  {job.title}
+                </TimelinePointTitle>
+                <TimelinePointSubtitle>
+                  {job.subtitle}
+                </TimelinePointSubtitle>
+                <TimelinePointTools>
+                  {job.tools.map((tool, j) => (
+                    <TimelinePointTool key={j}>
+                      {tool}
+                    </TimelinePointTool>
+                  ))}
+                </TimelinePointTools>
+              </TimelinePointDetails>
+              <TimelinePoint
+                onClick={() => this.changeActiveJob(index)}
+              />
+            </TimelinePointWrapper>,
+            <TimelineConnector
+              key={`connector${index}`}
+              width={index === jobs.length - 1 ? 2000 : connectorWidths[index]}
+            />,
+          ])))}
+        </TimelineWrapper>
+      </Measure>
+    );
+  }
+
+  render() {
+    const {
+      activeJobIndex,
+      timelineWidth,
+      connectorWidths,
+    } = this.state;
+
+    const {
+      jobs,
+    } = this.props;
+
+    const job = jobs[activeJobIndex];
+
+    return (
+      <Wrapper>
+        <JobWrapper>
+          <JobDetails>
+            <JobTitle>{job.title}</JobTitle>
+            <JobSubtitle>{job.subtitle}</JobSubtitle>
+            <JobDescription>{job.description}</JobDescription>
+          </JobDetails>
+        </JobWrapper>
+        <CoverWrapper cover={job.cover}>
+        </CoverWrapper>
+        {this.renderTimeline({ jobs, activeJobIndex, timelineWidth, connectorWidths })}
+      </Wrapper>
     );
   }
 }

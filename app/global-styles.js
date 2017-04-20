@@ -24,6 +24,10 @@ injectGlobal`
     font-weight: normal;
   }
 
+  li {
+    list-style-position: inside;
+  }
+
   h1 {
     /* 112sp */
     font-size: 6.98em;

@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import ScrollArea from 'react-scrollbar';
 import { Element, animateScroll } from 'react-scroll';
@@ -20,6 +21,7 @@ import { getWindowHeight } from 'utils/screen';
 import {
   blue400,
 } from 'material-ui/styles/colors';
+import selector from './selectors';
 import messages from './messages';
 
 const Wrapper = styled.div`
@@ -29,7 +31,7 @@ const StyledScrollArea = styled(ScrollArea)`
   max-height: 100vh;
 `;
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static contextTypes = {
     scrollArea: React.PropTypes.object,
   };
@@ -51,6 +53,10 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       scrollValue,
     } = this.state;
 
+    const {
+      jobs,
+    } = this.props;
+
     return (
       <StyledScrollArea
         speed={0.1}
@@ -59,6 +65,12 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         verticalScrollbarStyle={{ background: '#333' }}
         smoothScrolling
       >
+        <Element name="timeline">
+          <Timeline
+            jobs={jobs}
+            scrollValue={scrollValue}
+          />
+        </Element>
         <Element name="about">
           <About
             primaryColor={blue400}
@@ -66,12 +78,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             scrollTo={getWindowHeight()}
           />
         </Element>
-        <Element name="timeline">
-          <Timeline
-            scrollValue={scrollValue}
-          />
-        </Element>
       </StyledScrollArea>
     );
   }
 }
+
+const mapStateToProps = selector();
+
+export default connect(mapStateToProps, null)(HomePage);
