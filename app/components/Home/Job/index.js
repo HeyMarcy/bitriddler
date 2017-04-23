@@ -34,7 +34,7 @@ const JobDescription = styled.p`
 `;
 
 const Arrow = styled.div`
-  width: 200px;
+  flex: 0 0 30px;
   height: ${(props) => props.height}px;
   background: ${darkWhite};
 `;
@@ -66,6 +66,14 @@ const JobToolLogo = styled.img`
   margin-left: 10px;
 `;
 
+const JobRoles = styled.ul`
+
+`;
+
+const JobRole = styled.li`
+
+`;
+
 const Job = ({ job, primaryColor, onLeftArrowClick, onRightArrowClick, ...props }) => (
   <Measure whitelist={['height']}>
     {({ height }) => (
@@ -82,12 +90,16 @@ const Job = ({ job, primaryColor, onLeftArrowClick, onRightArrowClick, ...props 
               <JobSubtitle>{job.subtitle}</JobSubtitle>
             </JobDetailsLeft>
             <JobDetailsRight>
-              {job.toolsLogos.map((logo, index) => (
+              {job.tools.map(({ logo }, index) => (
                 <JobToolLogo key={index} src={logo} />
               ))}
             </JobDetailsRight>
           </JobDetailsHeader>
-          <JobDescription>{job.description}</JobDescription>
+          <JobRoles>
+            {job.roles.map((role, index) => (
+              <JobRole>{role}</JobRole>
+            ))}
+          </JobRoles>
         </JobDetails>
         <JobRightArrow
           onClick={onRightArrowClick}

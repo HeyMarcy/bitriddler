@@ -9,6 +9,7 @@ import {
 } from 'material-ui/styles/colors';
 import flatten from 'lodash/flatten';
 import Job from 'components/Home/Job';
+import MiniJob from 'components/Home/MiniJob';
 import { getWindowWidth } from 'utils/screen';
 
 const pointWidth = 15;
@@ -75,34 +76,7 @@ const TimelinePoint = styled.div`
 const TimelinePointDetails = styled.div`
   position: absolute;
   bottom: 15px;
-  display: flex;
-  flex-direction: column;
   min-width: ${(props) => props.previousConnectorWidth}px;
-`;
-
-const TimelinePointTitle = styled.span`
-  color: ${white};
-  font-size: 1em;
-`;
-
-const TimelinePointSubtitle = styled.span`
-  color: ${lightWhite};
-  font-size: 0.8em;
-`;
-
-const TimelinePointTools = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-const TimelinePointTool = styled.span`
-  font-size: 0.8em;
-  background: ${white};
-  flex-shrink: 0;
-  padding: 2px 5px;
-  margin-right: 5px;
 `;
 
 const TimelineConnector = styled.div`
@@ -135,7 +109,7 @@ export default class Timeline extends React.Component {
   }
 
   getConnectorWidth = (job) => {
-    return Math.random() * 80 + 220;
+    return Math.random() * 80 + 300;
   };
 
   changeActiveJob = (activeJobIndex) => this.setState({ activeJobIndex });
@@ -170,19 +144,7 @@ export default class Timeline extends React.Component {
                 onClick={() => this.changeActiveJob(index)}
                 previousConnectorWidth={index > 1 ? connectorWidths[index - 1] : 0}
               >
-                <TimelinePointTitle>
-                  {job.title}
-                </TimelinePointTitle>
-                <TimelinePointSubtitle>
-                  {job.subtitle}
-                </TimelinePointSubtitle>
-                <TimelinePointTools>
-                  {job.tools.map((tool, j) => (
-                    <TimelinePointTool key={j}>
-                      {tool}
-                    </TimelinePointTool>
-                  ))}
-                </TimelinePointTools>
+                <MiniJob job={job} />
               </TimelinePointDetails>
               <TimelinePoint
                 onClick={() => this.changeActiveJob(index)}

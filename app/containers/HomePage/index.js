@@ -16,6 +16,7 @@ import ScrollArea from 'react-scrollbar';
 import { Element, animateScroll } from 'react-scroll';
 import styled from 'styled-components';
 import About from 'components/Home/About';
+import StackGrid from 'components/Home/StackGrid';
 import Timeline from 'components/Home/Timeline';
 import SectionPagination from 'components/Main/SectionPagination';
 import { getWindowHeight } from 'utils/screen';
@@ -73,6 +74,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     const {
       jobs,
+      stacks,
     } = this.props;
 
     const colors = [
@@ -90,20 +92,20 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         verticalScrollbarStyle={{ background: '#333' }}
         smoothScrolling
       >
-        <Element name="about">
-          <About
-            primaryColor={colors[0]}
-            scrollValue={scrollValue}
-            scrollTo={getWindowHeight()}
-          />
-        </Element>
-        <Element name="timeline">
-          <Timeline
-            primaryColor={colors[1]}
-            jobs={jobs}
-            scrollValue={scrollValue}
-          />
-        </Element>
+        <StackGrid
+          stacks={stacks}
+          scrollValue={scrollValue}
+        />
+        <About
+          primaryColor={colors[0]}
+          scrollValue={scrollValue}
+          scrollTo={getWindowHeight()}
+        />
+        <Timeline
+          primaryColor={colors[1]}
+          jobs={jobs}
+          scrollValue={scrollValue}
+        />
         <SectionPagination
           length={2}
           sectionHeight={getWindowHeight()}
