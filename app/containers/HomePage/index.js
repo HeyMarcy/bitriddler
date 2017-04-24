@@ -21,9 +21,10 @@ import Timeline from 'components/Home/Timeline';
 import SectionPagination from 'components/Main/SectionPagination';
 import { getWindowHeight } from 'utils/screen';
 import {
-  blue600,
+  grey900,
   black,
 } from 'material-ui/styles/colors';
+import SkillChart from 'components/Home/SkillChart';
 import selector from './selectors';
 import messages from './messages';
 
@@ -45,6 +46,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       activeIndex: 0,
     });
   }
+
+  gotoBlackcrows = (scrollArea) => scrollArea.scrollYTo(getWindowHeight());
 
   onScroll = ({ topPosition }) => {
     this.setState({
@@ -75,10 +78,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const {
       jobs,
       stacks,
+      skills,
     } = this.props;
 
     const colors = [
-      blue600,
+      grey900,
       black,
     ];
 
@@ -92,22 +96,21 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         verticalScrollbarStyle={{ background: '#333' }}
         smoothScrolling
       >
-        <StackGrid
-          stacks={stacks}
-          scrollValue={scrollValue}
-        />
         <About
           primaryColor={colors[0]}
           scrollValue={scrollValue}
-          scrollTo={getWindowHeight()}
+          gotoBlackcrows={this.gotoBlackcrows}
         />
         <Timeline
           primaryColor={colors[1]}
           jobs={jobs}
           scrollValue={scrollValue}
         />
+        <SkillChart
+          skills={skills}
+        />
         <SectionPagination
-          length={2}
+          length={3}
           sectionHeight={getWindowHeight()}
           activeIndex={activeIndex}
         />
