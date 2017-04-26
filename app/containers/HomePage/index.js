@@ -44,10 +44,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.setState({
       scrollValue: 0,
       activeIndex: 0,
+      runLeaveAnimation: false,
     });
   }
 
-  gotoBlackcrows = (scrollArea) => scrollArea.scrollYTo(getWindowHeight());
+  gotoBlackcrows = (scrollArea) => {
+    this.setState({ runLeaveAnimation: true });
+  };
 
   onScroll = ({ topPosition }) => {
     this.setState({
@@ -56,14 +59,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   getIndicators = (colors, activeIndex) => ([
-      {
-        onClick: () => console.log("Kareem Mohamed"),
-        isActive: activeIndex === 0,
-      },
-      {
-        onClick: () => this.scrollTo(1),
-        isActive: activeIndex === 1,
-      },
+    {
+      onClick: () => console.log("Kareem Mohamed"),
+      isActive: activeIndex === 0,
+    },
+    {
+      onClick: () => this.scrollTo(1),
+      isActive: activeIndex === 1,
+    },
   ]);
 
   getActiveIndex = (scrollValue) => {
@@ -73,6 +76,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   render() {
     const {
       scrollValue,
+      runLeaveAnimation,
     } = this.state;
 
     const {
@@ -97,22 +101,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         smoothScrolling
       >
         <About
+          runLeaveAnimation={runLeaveAnimation}
           primaryColor={colors[0]}
           scrollValue={scrollValue}
           gotoBlackcrows={this.gotoBlackcrows}
-        />
-        <Timeline
-          primaryColor={colors[1]}
-          jobs={jobs}
-          scrollValue={scrollValue}
-        />
-        <SkillChart
-          skills={skills}
-        />
-        <SectionPagination
-          length={3}
-          sectionHeight={getWindowHeight()}
-          activeIndex={activeIndex}
         />
       </StyledScrollArea>
     );

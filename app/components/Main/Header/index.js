@@ -16,6 +16,7 @@ const Wrapper = styled.div`
 `;
 
 const LogoWrapper = styled.div`
+  display: none;
 `;
 
 export default ({ ...props }) => (

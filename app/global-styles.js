@@ -18,7 +18,7 @@ injectGlobal`
   }
 
   /* https://material.io/guidelines/style/typography.html# */
-  h1, h2, h3, h4, h5, h6, p, a, hr, ul, li {
+  h1, h2, h3, h4, h5, h6, p, a, hr, ul, li, pre {
     padding: 0px;
     margin: 0px;
     font-weight: normal;

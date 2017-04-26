@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Highlight from 'react-highlight';
-import 'highlight.js/styles/tomorrow-night.css';
+import 'highlight.js/styles/atom-one-light.css';
 
 const StyledHighlight = styled(Highlight)`
-  height: 100vh;
 `;
 
 export default class CodeBreaker extends React.Component {
@@ -22,7 +21,7 @@ export default class CodeBreaker extends React.Component {
 
   componentWillMount() {
     this.setState({
-      codeIndex: 0,
+      codeIndex: 100000,
     });
 
     setTimeout(this.animateText, this.props.waitFor);
@@ -50,7 +49,7 @@ export default class CodeBreaker extends React.Component {
     } = this.props;
 
     return (
-      <StyledHighlight className={"javascript"}>
+      <StyledHighlight className={"dust"}>
         {code.slice(0, codeIndex) + (codeIndex >= code.length -1 ? '' : `_`)}
       </StyledHighlight>
     );

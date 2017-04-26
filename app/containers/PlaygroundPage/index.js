@@ -1,6 +1,11 @@
 import React from 'react';
-import CodeBreaker from 'components/Home/About/CodeBreaker';
+import Line from 'components/Shape/Line';
 
 export default () => (
-  <CodeBreaker />
+  <Line
+    x={0}
+    y={0}
+    angle={45}
+    distance={500}
+  />
 );

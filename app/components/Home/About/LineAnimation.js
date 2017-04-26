@@ -30,6 +30,7 @@ export default class LineAnimation extends React.Component {
     repeatAt: React.PropTypes.number,
     repeatInterval: React.PropTypes.number,
     stopAnimation: React.PropTypes.number,
+    onAnimationRun: React.PropTypes.func,
   };
 
   static defaultProps = {
@@ -47,11 +48,18 @@ export default class LineAnimation extends React.Component {
     }, this.props.waitFor)
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if(nextState.animationIndex !== this.state.animationIndex && nextProps.onAnimationRun) {
+      nextProps.onAnimationRun(nextState.animationIndex);
+    }
+  }
+
   renderLine = ({ x, y, angle, distance, opacity }) => (
     <Line
       distance={distance}
       angle={toRadians(angle)}
-      from={{ x, y }}
+      x={x}
+      y={y}
       color={this.props.color}
       thickness={this.props.thickness}
       opacity={opacity}

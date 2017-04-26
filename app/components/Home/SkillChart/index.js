@@ -14,7 +14,10 @@ import {
   blue600,
   black,
 } from 'material-ui/styles/colors';
+import CodeBreaker from 'components/Home/About/CodeBreaker';
 import sortBy from 'lodash/sortBy';
+import code1 from 'components/Home/About/code1';
+import code2 from 'components/Home/About/code2';
 
 const percentageToColor = val => {
   if(val > 90) {
@@ -32,10 +35,15 @@ const percentageToColor = val => {
 const Wrapper = styled.div`
   height: 100vh;
   display: flex;
-  flex-direction: column;
-  padding: 24px;
+  flex-direction: row;
   max-width: 1200px;
   margin: 0 auto;
+  background: #fafafa;
+`;
+
+const SkillsColumn = styled.div`
+  padding: 24px;
+  width: 40%;
 `;
 
 const Title = styled.div`
@@ -59,7 +67,7 @@ const SkillsWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const SkillsColumn = styled.div`
+const SkillsSection = styled.div`
   margin-bottom: 20px;
   text-align: left;
   display: flex;
@@ -68,7 +76,7 @@ const SkillsColumn = styled.div`
   align-items: flex-start;
 `;
 
-const ColumnTitle = styled.h4`
+const SectionTitle = styled.h4`
 `;
 
 const Skill = styled.div`
@@ -88,6 +96,14 @@ const SkillScoreText = styled.div`
   margin-left: 10px;
 `;
 
+const CodeBreakerColumn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 60%;
+  border-left: 1px solid #EEE;
+`;
+
 export default class SkillChart extends React.Component {
 
   getFrontendSkills = (skills) => sortBy(skills.filter(skill => skill.tool.type === 'frontend'), [ 'scorePercentage' ]).reverse();
@@ -102,58 +118,58 @@ export default class SkillChart extends React.Component {
 
     return (
       <Wrapper>
-        <Title>
-          <TitleText>
-            Skills
-          </TitleText>
-        </Title>
-        <SkillsWrapper>
-          <SkillsColumn>
-            <ColumnTitle>Front-end</ColumnTitle>
-            {this.getFrontendSkills(skills).map((skill, index) => (
-              <Skill key={index}>
-                <CheckIcon />
-                <SkillName>{skill.tool.name}</SkillName>
-                <SkillScore
-                  percentage={skill.scorePercentage}
-                />
-                <SkillScoreText
-                  percentage={skill.scorePercentage}
-                >{skill.scorePercentage}%</SkillScoreText>
-              </Skill>
-            ))}
-          </SkillsColumn>
-          <SkillsColumn>
-            <ColumnTitle>Back-end</ColumnTitle>
-            {this.getBackendSkills(skills).map((skill, index) => (
-              <Skill key={index}>
-                <CheckIcon />
-                <SkillName>{skill.tool.name}</SkillName>
-                <SkillScore
-                  percentage={skill.scorePercentage}
-                />
-                <SkillScoreText
-                  percentage={skill.scorePercentage}
-                >{skill.scorePercentage}%</SkillScoreText>
-              </Skill>
-            ))}
-          </SkillsColumn>
-          <SkillsColumn>
-            <ColumnTitle>Database</ColumnTitle>
-            {this.getDatabaseSkills(skills).map((skill, index) => (
-              <Skill key={index}>
-                <CheckIcon />
-                <SkillName>{skill.tool.name}</SkillName>
-                <SkillScore
-                  percentage={skill.scorePercentage}
-                />
-                <SkillScoreText
-                  percentage={skill.scorePercentage}
-                >{skill.scorePercentage}%</SkillScoreText>
-              </Skill>
-            ))}
-          </SkillsColumn>
-        </SkillsWrapper>
+        <SkillsColumn>
+          <SkillsWrapper>
+            <SkillsSection>
+              <SectionTitle>Front-end</SectionTitle>
+              {this.getFrontendSkills(skills).map((skill, index) => (
+                <Skill key={index}>
+                  <CheckIcon />
+                  <SkillName>{skill.tool.name}</SkillName>
+                  <SkillScore
+                    percentage={skill.scorePercentage}
+                  />
+                  <SkillScoreText
+                    percentage={skill.scorePercentage}
+                  >{skill.scorePercentage}%</SkillScoreText>
+                </Skill>
+              ))}
+            </SkillsSection>
+            <SkillsSection>
+              <SectionTitle>Back-end</SectionTitle>
+              {this.getBackendSkills(skills).map((skill, index) => (
+                <Skill key={index}>
+                  <CheckIcon />
+                  <SkillName>{skill.tool.name}</SkillName>
+                  <SkillScore
+                    percentage={skill.scorePercentage}
+                  />
+                  <SkillScoreText
+                    percentage={skill.scorePercentage}
+                  >{skill.scorePercentage}%</SkillScoreText>
+                </Skill>
+              ))}
+            </SkillsSection>
+            <SkillsSection>
+              <SectionTitle>Database</SectionTitle>
+              {this.getDatabaseSkills(skills).map((skill, index) => (
+                <Skill key={index}>
+                  <CheckIcon />
+                  <SkillName>{skill.tool.name}</SkillName>
+                  <SkillScore
+                    percentage={skill.scorePercentage}
+                  />
+                  <SkillScoreText
+                    percentage={skill.scorePercentage}
+                  >{skill.scorePercentage}%</SkillScoreText>
+                </Skill>
+              ))}
+            </SkillsSection>
+          </SkillsWrapper>
+        </SkillsColumn>
+        <CodeBreakerColumn>
+          <CodeBreaker code={code1} />
+        </CodeBreakerColumn>
       </Wrapper>
     );
   }
