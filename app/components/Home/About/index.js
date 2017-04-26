@@ -15,13 +15,12 @@ import Button from 'components/Utils/Button';
 import Wall from 'components/AI/Wall';
 import Creature from 'components/AI/Creature';
 import CodeBreaker from './CodeBreaker';
-import LineAnimation from './LineAnimation';
-import AnimationBox from './AnimationBox';
+import Line from 'components/LineAnimations/Line';
+import BoxAnimation from 'components/Animations/BoxAnimation';
 
 const stringifyTranslate = ({ x, y, z }) => `transform: perspective(100px) translate3d(${x}px, ${y}px, ${z}px);`;
 
 const Wrapper = styled.div`
-  background: ${(props) => props.primaryColor};
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -85,173 +84,172 @@ const StyledButton = styled(Button)`
 `;
 
 export default class About extends React.Component {
-  static contextTypes = {
-    scrollArea: React.PropTypes.object,
-  };
-
   componentWillMount(nextProps, nextState) {
     this.setState({
       contentWidth: 0,
       contentHeight: 0,
-    })
+      contentPadding: 60,
+      lineAnimations: [],
+      initialLinesPosition: this.getInitialLinesPosition(),
+    });
   }
 
-  renderLineAnimations({ contentWidth, contentHeight, stopAnimation, runLeaveAnimation }) {
-    const padding = 60;
-    const horizontalSpace = getWindowWidth() / 2 - contentWidth / 2 - padding;
-    const verticalSpace = getWindowHeight() / 2 - contentHeight / 2 - padding;
-    const constWidth = contentWidth;
-    const constHeight = contentHeight;
-    const thickness = 1;
-    const color = lightWhite;
-    const waitFor = 100;
-    const repeatInterval = 10000;
+  componentWillUpdate(nextProps, nextState) {
+    if(nextState.contentWidth > 10 && nextState.lineAnimations.length === 0) {
+      this.runLinesEnterAnimations(nextState);
+    }
+  }
 
-    const animations = runLeaveAnimation ?
-      this.getLeaveAnimations({
-        constWidth,
-        constHeight,
-      }) :
-      this.getStartAnimations({
+  componentWillReceiveProps(nextProps) {
+    const { onLeaveAnimationFinish } = nextProps;
+    const { contentWidth, contentHeight } = this.state;
+
+    if(nextProps.runLeaveAnimation && nextProps.runLeaveAnimation !== this.props.runLeaveAnimation) {
+      this.runLinesLeaveAnimations({ contentWidth, contentHeight, onLeaveAnimationFinish });
+    }
+  }
+
+  runLinesEnterAnimations = ({ contentWidth, contentHeight, contentPadding }) => {
+    const horizontalSpace = getWindowWidth() / 2 - contentWidth / 2 - contentPadding;
+    const verticalSpace = getWindowHeight() / 2 - contentHeight / 2 - contentPadding;
+
+    this.setState({
+      lineAnimations: this.getStartAnimations({
         verticalSpace,
         horizontalSpace,
-        constWidth,
-        constHeight,
         contentWidth,
         contentHeight,
-      });
+      })
+    });
+  }
 
-    const initialAnimations = this.getInitialAnimations();
+  runLinesLeaveAnimations = ({ contentWidth, contentHeight, onLeaveAnimationFinish }) => {
+    this.setState({
+      lineAnimations: this.getLeaveAnimations({
+        contentWidth,
+        contentHeight,
+        onLeaveAnimationFinish,
+      }),
+    });
+  }
+
+  runBoxAnimation = () => this.setState({ runBoxAnimation: true })
+  runBoxLeaveAnimation = () => this.setState({ runBoxLeaveAnimation: true });
+
+  // Top bottom, left right
+  getInitialLinesPosition = () => ([
+    { opacity: 0, y: getWindowHeight() / 2, x: getWindowWidth() / 2 },
+    { opacity: 0, y: getWindowHeight() / 2, x: getWindowWidth() / 2 },
+    { opacity: 0, y: getWindowHeight() / 2, x: getWindowWidth() / 2, angle: 90 },
+    { opacity: 0, y: getWindowHeight() / 2, x: getWindowWidth() / 2, angle: 90 },
+  ]);
+
+  getStartAnimations = ({ verticalSpace, horizontalSpace, contentHeight, contentWidth }) => ([
+    [
+      { opacity: 1, x: 0, distance: getWindowWidth() },
+      { y: verticalSpace, onStart: this.runBoxAnimation },
+      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
+      { x: getWindowWidth() / 2 - contentWidth / 2 - contentWidth },
+    ],
+    [
+      { opacity: 1, x: 0, distance: getWindowWidth() },
+      { y: getWindowHeight() - verticalSpace },
+      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
+      { x: getWindowWidth() / 2 - contentWidth / 2 + contentWidth },
+    ],
+    [
+      { opacity: 1, y: 0, distance: getWindowHeight() },
+      { x: horizontalSpace },
+      { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
+      { y: getWindowHeight() / 2 - contentHeight / 2 - contentHeight },
+    ],
+    [
+      { opacity: 1, y: 0, distance: getWindowHeight() },
+      { x: getWindowWidth() - horizontalSpace },
+      { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
+      { y: getWindowHeight() / 2 - contentHeight / 2 + contentHeight },
+    ]
+  ]);
+
+  getLeaveAnimations = ({ contentWidth, contentHeight, onLeaveAnimationFinish }) => ([
+    // top
+    [
+      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
+      { y: getWindowHeight() / 2, onStart: this.runBoxLeaveAnimation },
+    ],
+    // Bottom
+    [
+      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
+      { y: getWindowHeight() / 2, onFinish: (config) => onLeaveAnimationFinish({ lineConfig: config }) },
+    ],
+    // Left
+    [
+      { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
+      { distance: 0, y: getWindowHeight() / 2 },
+    ],
+    // Right
+    [
+      { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
+      { distance: 0, y: getWindowHeight() / 2 },
+    ]
+  ]);
+
+  renderLineAnimations({ initialLinesPosition, lineAnimations }) {
+    const waitFor = 100;
 
     return [
       // Top and bottom
-      <LineAnimation
+      <Line
         waitFor={waitFor}
-        color={'#900'}
-        thickness={thickness}
         key={1}
-        initial={initialAnimations[0]}
-        onAnimationRun={(index) => {
-          this.setState({ runBoxAnimation: true });
-        }}
-        animations={animations[0]}
+        initial={initialLinesPosition[0]}
+        animations={lineAnimations[0]}
       />,
-      <LineAnimation
+      <Line
         waitFor={waitFor}
-        color={'#990'}
-        thickness={thickness}
         key={4}
-        initial={initialAnimations[1]}
-        animations={animations[1]}
+        initial={initialLinesPosition[1]}
+        animations={lineAnimations[1]}
       />,
       // Left and right
-      <LineAnimation
+      <Line
         waitFor={waitFor}
-        color={'#090'}
-        thickness={thickness}
         key={2}
-        initial={initialAnimations[2]}
-        animations={animations[2]}
+        initial={initialLinesPosition[2]}
+        animations={lineAnimations[2]}
       />,
-      <LineAnimation
+      <Line
         waitFor={waitFor}
-        color={'#009'}
-        thickness={thickness}
         key={3}
-        initial={initialAnimations[3]}
-        animations={animations[3]}
+        initial={initialLinesPosition[3]}
+        animations={lineAnimations[3]}
       />,
     ];
   }
 
-  // Top bottom, left right
-  getInitialAnimations = () => ([
-    { y: getWindowHeight() / 2 },
-    { y: getWindowHeight() / 2},
-    { x: getWindowWidth() / 2, angle: 90 },
-    { x: getWindowWidth() / 2, angle: 90 },
-  ]);
-
-  getStartAnimations = ({ verticalSpace, horizontalSpace, constWidth, constHeight, contentHeight, contentWidth }) => ([
-    [
-      { distance: getWindowWidth() },
-      { y: verticalSpace },
-      { x: getWindowWidth() / 2 - constWidth / 2, distance: constWidth },
-      { x: getWindowWidth() / 2 - constWidth / 2 - contentWidth },
-      { x: getWindowWidth() / 2 - constWidth / 2 + contentWidth },
-      { x: getWindowWidth() / 2 - constWidth / 2 - contentWidth },
-    ],
-    [
-      { distance: getWindowWidth() },
-      { y: getWindowHeight() - verticalSpace },
-      { x: getWindowWidth() / 2 - constWidth / 2, distance: constWidth },
-      { x: getWindowWidth() / 2 - constWidth / 2 + contentWidth },
-      { x: getWindowWidth() / 2 - constWidth / 2 - contentWidth },
-      { x: getWindowWidth() / 2 - constWidth / 2 + contentWidth },
-    ],
-    [
-      { distance: getWindowHeight() },
-      { x: horizontalSpace },
-      { y: getWindowHeight() / 2 - constHeight / 2, distance: constHeight },
-      { y: getWindowHeight() / 2 - constHeight / 2 - contentHeight },
-      { y: getWindowHeight() / 2 - constHeight / 2 + contentHeight },
-      { y: getWindowHeight() / 2 - constHeight / 2 - contentHeight },
-    ],
-    [
-      { distance: getWindowHeight() },
-      { x: getWindowWidth() - horizontalSpace },
-      { y: getWindowHeight() / 2 - constHeight / 2, distance: constHeight },
-      { y: getWindowHeight() / 2 - constHeight / 2 + constHeight },
-      { y: getWindowHeight() / 2 - constHeight / 2 - constHeight },
-      { y: getWindowHeight() / 2 - constHeight / 2 + constHeight },
-    ]
-  ]);
-
-  getLeaveAnimations = ({ constWidth, constHeight }) => ([
-    [
-      { x: -constWidth, distance: 0 },
-    ],
-    [
-      { x: -constWidth, distance: 0 },
-    ],
-    [
-      { y: -constHeight },
-    ],
-    [
-      { y: getWindowHeight() / 2 - constHeight / 2 },
-      { x: - constHeight },
-    ]
-  ]);
-
   render() {
     const {
-      gotoBlackcrows,
       primaryColor,
-      scrollValue,
+      onLoadingReady,
       runLeaveAnimation,
+      onLeaveAnimationFinish,
+      onWorkExperienceClick,
+      onSkillsClick,
+      onReactPlaygroundClick,
     } = this.props;
 
     const {
       contentWidth,
       contentHeight,
       runBoxAnimation,
+      runBoxLeaveAnimation,
+      initialLinesPosition,
+      lineAnimations,
+      contentPadding,
     } = this.state;
-
-    const {
-      scrollArea,
-    } = this.context;
-
-    const stopAnimation = scrollValue > getWindowHeight() / 2;
 
     return (
       <Wrapper primaryColor={primaryColor}>
-        <AnimationBox
-          closeValue={runLeaveAnimation ? 3 : 1}
-          closeRight={runLeaveAnimation}
-          closeAll={!runBoxAnimation}
-          primaryColor={primaryColor}
-        />
-        {this.renderLineAnimations({ contentWidth, contentHeight, stopAnimation, runLeaveAnimation })}
         <InnerWrapper>
           <Measure
             whitelist={['width', 'height']}
@@ -269,33 +267,36 @@ export default class About extends React.Component {
               </Description>
               <ButtonsWrapper>
                 <StyledButton
-                  onClick={() => gotoBlackcrows(scrollArea)}
+                  onClick={onWorkExperienceClick}
                   activeColor={primaryColor}
                 >
                   Work experience
                 </StyledButton>
                 <StyledButton
-                  onClick={() => gotoSkills(scrollArea)}
+                  onClick={onSkillsClick}
                   activeColor={primaryColor}
                 >
                   Skills
                 </StyledButton>
                 <StyledButton
-                  onClick={() => gotoSkills(scrollArea)}
+                  onClick={onReactPlaygroundClick}
                   activeColor={primaryColor}
                 >
                   React playground
-                </StyledButton>
-                <StyledButton
-                  onClick={() => gotoSkills(scrollArea)}
-                  activeColor={primaryColor}
-                >
-                  Blog
                 </StyledButton>
               </ButtonsWrapper>
             </AboutContentWrapper>
           </Measure>
         </InnerWrapper>
+        <BoxAnimation
+          openVerticalValue={1 - ((contentHeight + contentPadding * 2) / getWindowHeight())}
+          openHorizontalValue={1 - ((contentWidth + contentPadding * 2) / getWindowWidth())}
+          closeTop={runBoxLeaveAnimation}
+          closeBottom={runBoxLeaveAnimation}
+          closeAll={!runBoxAnimation}
+          primaryColor={primaryColor}
+        />
+        {this.renderLineAnimations({ initialLinesPosition, lineAnimations })}
       </Wrapper>
     );
   }

@@ -1,11 +1,20 @@
 import React from 'react';
-import Line from 'components/Shape/Line';
+import LoadingBar from 'components/LineAnimations/LoadingBar';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  background: #333;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+`;
 
 export default () => (
-  <Line
-    x={0}
-    y={0}
-    angle={45}
-    distance={500}
-  />
+  <Wrapper>
+    <LoadingBar
+      initialDistance={500}
+      onRest={() => console.log("onREST")}
+    />
+  </Wrapper>
 );

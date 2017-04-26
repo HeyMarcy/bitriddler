@@ -245,6 +245,7 @@
     "react-slick": "^0.14.11",
     "react-star-rating": "^1.4.2",
     "react-star-rating-component": "^1.2.4",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "3.6.0",
     "redux-immutable": "3.0.8",
     "redux-saga": "0.14.0",

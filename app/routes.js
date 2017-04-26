@@ -35,6 +35,23 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/work',
+      name: 'work',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/JobsPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '/playground',
       name: 'playground',
       getComponent(nextState, cb) {

@@ -40,21 +40,24 @@ const calculatePosition = ({ x, y, angle, distance }) => {
 
 const StyledSvg = styled.svg`
   position: absolute;
-  top: 0;
-  left: 0;
+  left: ${(props) => props.x}px;
+  top: ${(props) => props.y}px;
 `;
 
-export default ({ x, y, color, thickness = 1, angle, distance }) => {
+export default ({ x, y, opacity = 1, color, thickness = 1, angle, distance }) => {
   const position = calculatePosition({ x, y, angle, distance });
+  const x2 = position.x - x;
+  const y2 = position.y - y;
 
   return (
-    <StyledSvg height={getWindowHeight()} width={getWindowWidth()}>
+    <StyledSvg x={x} y={y} height={y2 + 1} width={x2 + 1}>
       <line
-        x1={x}
-        y1={y}
-        x2={position.x}
-        y2={position.y}
+        x1={0}
+        y1={0}
+        x2={x2}
+        y2={y2}
         style={{
+          opacity,
           stroke: color,
           strokeWidth: thickness,
         }}

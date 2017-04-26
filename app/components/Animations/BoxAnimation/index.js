@@ -3,11 +3,6 @@ import { Motion, spring } from 'react-motion';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
 `;
 
 const LeftBox = styled.div`
@@ -51,12 +46,18 @@ export default class AnimationBox extends React.Component {
     closeRight: React.PropTypes.bool,
     closeTop: React.PropTypes.bool,
     closeBottom: React.PropTypes.bool,
-    closeValue: React.PropTypes.bool,
+    closeHorizontalValue: React.PropTypes.number,
+    closeVerticalValue: React.PropTypes.number,
+    openHorizontalValue: React.PropTypes.number,
+    openVerticalValue: React.PropTypes.number,
     primaryColor: React.PropTypes.string,
   };
 
   static defaultProps = {
-    closeValue: 1,
+    closeVerticalValue: 1,
+    closeHorizontalValue: 1,
+    openVerticalValue: 0,
+    openHorizontalValue: 0,
   };
 
   componentWillMount() {
@@ -71,12 +72,15 @@ export default class AnimationBox extends React.Component {
     closeRight,
     closeTop,
     closeBottom,
-    closeValue,
+    closeHorizontalValue,
+    closeVerticalValue,
+    openHorizontalValue,
+    openVerticalValue,
   }) => ({
-    animateLeft: closeAll || closeLeft ? closeValue : 0,
-    animateRight: closeAll || closeRight ? closeValue : 0,
-    animateTop: closeAll || closeTop ? closeValue : 0,
-    animateBottom: closeAll || closeBottom ? closeValue : 0,
+    animateLeft: closeAll || closeLeft ? closeHorizontalValue : openHorizontalValue,
+    animateRight: closeAll || closeRight ? closeHorizontalValue : openHorizontalValue,
+    animateTop: closeAll || closeTop ? closeVerticalValue : openVerticalValue,
+    animateBottom: closeAll || closeBottom ? closeVerticalValue : openVerticalValue,
   });
 
   render() {
