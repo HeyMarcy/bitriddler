@@ -26,6 +26,9 @@ export default class LineAnimation extends React.Component {
       angle: React.PropTypes.number,
       distance: React.PropTypes.number,
       opacity: React.PropTypes.number,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      restOn: React.PropTypes.func,
     })),
     initial: React.PropTypes.shape({
       x: React.PropTypes.number,
@@ -98,7 +101,7 @@ export default class LineAnimation extends React.Component {
     const opacityThreshold = 0.1;
 
     if(['distance', 'x', 'y', 'angle'].indexOf(key) > -1) {
-      return Math.floor(config[key]) === Math.floor(destination[key]);
+      return Math.ceil(config[key]) === Math.ceil(destination[key]);
     }
     if(key === 'opacity') {
       return destination.opacity === 1 ?
