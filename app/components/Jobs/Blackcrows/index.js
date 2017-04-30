@@ -18,11 +18,13 @@ import Creature from 'components/AI/Creature';
 import Line from 'components/LineAnimations/Line';
 import BoxAnimation from 'components/Animations/BoxAnimation';
 import Writer from 'components/Animations/Writer';
+import FadeInBottom from 'components/Animations/FadeInBottom';
 import SublimeHelper from 'components/Animations/SublimeHelper';
 
 const stringifyTranslate = ({ x, y, z }) => `transform: perspective(100px) translate3d(${x}px, ${y}px, ${z}px);`;
 
 const Wrapper = styled.div`
+  background: #333;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -149,16 +151,11 @@ export default class Blackcrows extends React.Component {
   getInitialLinesPosition = () => ([
     { distance: getWindowWidth(), y: getWindowHeight() / 2 },
     { angle: 90, distance: 0, x: getWindowWidth() / 2 },
-    { angle: 90, distance: 0, x: getWindowWidth() / 2 },
   ]);
 
   getStartAnimations = () => ([
     [
       { x: getWindowWidth() / 2, distance: 0 },
-    ],
-    [
-      { y: getWindowHeight() / 2, restOn: ({ y }) => y > getWindowHeight() / 2 - 10 },
-      { y: 0, opacity: 1, distance: getWindowHeight() },
     ],
     [
       { y: getWindowHeight() / 2, restOn: ({ y }) => y > getWindowHeight() / 2 - 10 },
@@ -169,7 +166,7 @@ export default class Blackcrows extends React.Component {
         restOn: ({ distance }) => distance > getWindowHeight() - 10,
         onFinish: () => this.setState({ openRightWall: true }),
       },
-      { x: getWindowWidth() },
+      { x: getWindowWidth(), onFinish: () => this.setState({ startTitleAnimation: true }) },
     ],
   ]);
 
@@ -184,6 +181,8 @@ export default class Blackcrows extends React.Component {
     ));
   }
 
+  delay = (later, now) => () => setTimeout(later, 500) && now && now();
+
   render() {
     const {
       loaderLineConfig,
@@ -195,15 +194,11 @@ export default class Blackcrows extends React.Component {
       initialLinesPosition,
       lineAnimations,
       openRightWall,
+      startTitleAnimation,
       startSubtitleAnimation,
       startRolesAnimation,
-      startRolesSelectorAnimation,
-      showRoles,
       startToolsAnimation,
-      startToolsSelectorAnimation,
-      showTools,
       startStoryAnimation,
-      startStoryTitleAnimation,
     } = this.state;
 
     const sublimeWaitFor = 1000;
@@ -214,81 +209,44 @@ export default class Blackcrows extends React.Component {
           <JobDetails>
             <JobTitle>
               <Writer
-                onRest={() => this.setState({ startSubtitleAnimation: true })}
+                onRest={this.delay(() => this.setState({ startSubtitleAnimation: true }))}
                 text={blackcrowsJob.title}
-                start
-                cpm={1000}
+                start={startTitleAnimation}
+                cpm={500}
               />
             </JobTitle>
             <JobSubtitle>
               <Writer
-                onRest={() => this.setState({ startRolesAnimation: true })}
+                onRest={this.delay(() => this.setState({ startToolsAnimation: true }))}
                 text={blackcrowsJob.subtitle}
                 start={startSubtitleAnimation}
-                cpm={1300}
+                cpm={900}
               />
             </JobSubtitle>
-            <JobSectionTitle>
-              <Writer
-                onRest={() => this.setState({ startToolsSelectorAnimation: true })}
-                text={'Tools'}
-                start={startToolsAnimation}
-                cpm={1300}
-              />
-            </JobSectionTitle>
-            <SublimeHelper
-              start={startToolsSelectorAnimation}
-              onSelect={() => this.setState({ startToolsSelectorAnimation: false, showTools: true, startStoryTitleAnimation: true })}
-              itemIndex={5}
-              item={{ left: 'Tools', right: 'Blackcrows' }}
-              waitFor={sublimeWaitFor}
-            />
-            {
-              showTools &&
+            <FadeInBottom start={startToolsAnimation}>
+              <JobSectionTitle>
+                Tools
+              </JobSectionTitle>
               <JobToolsWrapper>
                 {blackcrowsJob.tools.map(({ logo }, index) => (
                   <JobToolLogo key={index} src={logo} />
                 ))}
               </JobToolsWrapper>
-            }
-            <JobSectionTitle>
-              <Writer
-                onRest={() => this.setState({ startRolesSelectorAnimation: true })}
-                text={'Roles'}
-                start={startRolesAnimation}
-                cpm={1300}
-              />
-            </JobSectionTitle>
-            <SublimeHelper
-              start={startRolesSelectorAnimation}
-              onSelect={() => this.setState({ startRolesSelectorAnimation: false, showRoles: true, startToolsAnimation: true })}
-              itemIndex={3}
-              item={{ left: 'Roles', right: 'Blackcrows' }}
-              waitFor={sublimeWaitFor}
-            />
-            {
-              showRoles &&
+              <JobSectionTitle>
+                Roles
+              </JobSectionTitle>
               <JobRoles>
                 {blackcrowsJob.roles.map((role, index) => (
                   <JobRole key={index}>{role}</JobRole>
                 ))}
               </JobRoles>
-            }
-            <JobSectionTitle>
-              <Writer
-                onRest={() => this.setState({ startStoryAnimation: true })}
-                text={'Story'}
-                start={startStoryTitleAnimation}
-                cpm={1300}
-              />
-            </JobSectionTitle>
-            <JobStory>
-              <Writer
-                text={blackcrowsJob.story}
-                start={startStoryAnimation}
-                cpm={1600}
-              />
-            </JobStory>
+              <JobSectionTitle>
+                Story
+              </JobSectionTitle>
+              <JobStory>
+                {blackcrowsJob.story}
+              </JobStory>
+            </FadeInBottom>
           </JobDetails>
           <CoverImage
             image={blackcrowsJob.cover}

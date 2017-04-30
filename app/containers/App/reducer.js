@@ -25,6 +25,10 @@ export default (state = initialState, action) => {
     case ROUTE_READY:
       return state.mergeIn(['requestedRoute'], {
         isReady: true,
+      });
+
+    case SET_PAGE_PRIMARY_COLOR:
+      return state.mergeIn(['requestedRoute'], {
         primaryColor: action.primaryColor,
       });
 

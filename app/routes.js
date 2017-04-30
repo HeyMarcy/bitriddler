@@ -69,6 +69,23 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/skills',
+      name: 'skills',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/SkillsPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

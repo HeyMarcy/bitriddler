@@ -150,11 +150,15 @@ export default class About extends React.Component {
       { y: verticalSpace, onStart: this.runBoxAnimation },
       { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
       { x: getWindowWidth() / 2 - contentWidth / 2 - contentWidth },
+      { x: getWindowWidth() / 2 - contentWidth / 2 + contentWidth },
+      { x: getWindowWidth() / 2 - contentWidth / 2 - contentWidth },
     ],
     [
       { opacity: 1, x: 0, distance: getWindowWidth() },
       { y: getWindowHeight() - verticalSpace },
       { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
+      { x: getWindowWidth() / 2 - contentWidth / 2 + contentWidth },
+      { x: getWindowWidth() / 2 - contentWidth / 2 - contentWidth },
       { x: getWindowWidth() / 2 - contentWidth / 2 + contentWidth },
     ],
     [
@@ -162,11 +166,15 @@ export default class About extends React.Component {
       { x: horizontalSpace },
       { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
       { y: getWindowHeight() / 2 - contentHeight / 2 - contentHeight },
+      { y: getWindowHeight() / 2 - contentHeight / 2 + contentHeight },
+      { y: getWindowHeight() / 2 - contentHeight / 2 - contentHeight },
     ],
     [
       { opacity: 1, y: 0, distance: getWindowHeight() },
       { x: getWindowWidth() - horizontalSpace },
       { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
+      { y: getWindowHeight() / 2 - contentHeight / 2 + contentHeight },
+      { y: getWindowHeight() / 2 - contentHeight / 2 - contentHeight },
       { y: getWindowHeight() / 2 - contentHeight / 2 + contentHeight },
     ]
   ]);
@@ -175,22 +183,22 @@ export default class About extends React.Component {
     // top
     [
       { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
-      { y: getWindowHeight() / 2, onStart: this.runBoxLeaveAnimation },
+      { y: getWindowHeight() / 2, onStart: this.runBoxLeaveAnimation, restOn: true },
     ],
     // Bottom
     [
       { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
-      { y: getWindowHeight() / 2, onFinish: (config) => onLeaveAnimationFinish({ lineConfig: config }) },
+      { y: getWindowHeight() / 2, restOn: true, onFinish: (config) => onLeaveAnimationFinish({ lineConfig: config }) },
     ],
     // Left
     [
       { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
-      { distance: 0, y: getWindowHeight() / 2 },
+      { distance: 0, y: getWindowHeight() / 2, restOn: true },
     ],
     // Right
     [
       { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
-      { distance: 0, y: getWindowHeight() / 2 },
+      { distance: 0, y: getWindowHeight() / 2, restOn: true },
     ]
   ]);
 

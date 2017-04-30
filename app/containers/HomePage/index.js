@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import ScrollArea from 'react-scrollbar';
-import { Element, animateScroll } from 'react-scroll';
 import styled from 'styled-components';
 import About from 'components/Home/About';
 import StackGrid from 'components/Home/StackGrid';
@@ -12,6 +10,7 @@ import { getWindowHeight } from 'utils/screen';
 import {
   requestToLeaveRoute,
   routeIsReady,
+  setPagePrimaryColor,
 } from 'containers/App/actions';
 import {
   blue900,
@@ -37,7 +36,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   componentDidMount() {
-    this.props.routeIsReady(PAGE_PRIMARY_COLOR);
+    this.props.setPagePrimaryColor(PAGE_PRIMARY_COLOR);
+    this.props.routeIsReady();
   }
 
   leavePage = (route) => {
@@ -82,6 +82,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 const mapStateToProps = selector();
 
 const mapDispatchToProps = {
+  setPagePrimaryColor,
   routeIsReady,
   onAnimationFinish: requestToLeaveRoute,
 };

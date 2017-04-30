@@ -8,6 +8,10 @@ export const requestToLeaveRoute = (route, loaderLineConfig) => ({
 
 export const routeIsReady = (primaryColor) => ({
   type: ROUTE_READY,
+});
+
+export const setPagePrimaryColor = (primaryColor) => ({
+  type: SET_PAGE_PRIMARY_COLOR,
   primaryColor,
 });
 

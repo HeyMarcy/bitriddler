@@ -6,6 +6,10 @@ import { toRadians } from 'utils/math';
 import {
   lightWhite,
 } from 'material-ui/styles/colors';
+import isFunction from 'lodash/isFunction';
+import isString from 'lodash/isString';
+import isArray from 'lodash/isArray';
+import findKey from 'lodash/findKey';
 
 const ANIMATION_BREAK = 30;
 const animations = [
@@ -28,7 +32,7 @@ export default class LineAnimation extends React.Component {
       y: React.PropTypes.number,
       angle: React.PropTypes.number,
       distance: React.PropTypes.number,
-      opacity: React.PropTypes.number,
+      opacity: React.PropTypes.oneOf([0, 1]),
       onStart: React.PropTypes.func,
       onFinish: React.PropTypes.func,
       restOn: React.PropTypes.func,
@@ -53,7 +57,7 @@ export default class LineAnimation extends React.Component {
     this.setState({
       animationIndex: 0,
       wait: true,
-      animations: this.props.animations || [],
+      animations: isArray(this.props.animations) ? this.prepareAnimations(this.props.animations) : [],
     });
 
     setTimeout(() => {
@@ -75,41 +79,53 @@ export default class LineAnimation extends React.Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.animations !== this.props.animations) {
       this.setState({
-        animations: [
+        animations: this.prepareAnimations([
           ...this.state.animations.slice(0, this.state.animationIndex + 1),
           ...nextProps.animations,
-        ],
+        ]),
       });
     }
   }
 
-  renderLine = (configuration) => {
-    this.currentConfiguration = configuration;
-    const { x, y, angle, distance, opacity } = configuration;
+  prepareAnimations = (animations) => {
+    return animations.map(animation => ({
+      ...animation,
+      restOn: this.getRestOn(animation),
+    }))
+  }
 
-    const {
-      animationIndex,
-      animations,
-    } = this.state;
+  checkConfigEquality = (config, destination, key) => {
+    const opacityThreshold = 0.1;
 
-    const { restOn } = animations[animationIndex] || {};
+    if(['distance', 'x', 'y', 'angle'].indexOf(key) > -1) {
+      return Math.floor(config[key]) === Math.floor(destination[key]);
+    }
+    if(key === 'opacity') {
+      return destination.opacity === 1 ?
+        config.opacity >= destination.opacity - opacityThreshold :
+        config.opacity <= destination.opacity + opacityThreshold;
+    }
+    return false;
+  }
 
-    if(restOn && restOn({ x, y, angle, distance, opacity }) && !this.nextAnimationTimer) {
-      this.nextAnimationTimer = setTimeout(() =>
-        this.runNextAnimation(this.state, this.props), ANIMATION_BREAK);
+  getRestOn = (animation) => {
+    if(isFunction(animation.restOn)) {
+      return animation.restOn;
     }
 
-    return (
-      <Line
-        distance={distance < 0 ? 0 : distance}
-        angle={toRadians(angle)}
-        x={x < 0 ? 0 : x}
-        y={y < 0 ? 0 : y}
-        color={this.props.color}
-        thickness={this.props.thickness}
-        opacity={opacity}
-      />
-    );
+    if(isString(animation.restOn)) {
+      return (config) => this.checkConfigEquality(animation, config, animation.restOn);
+    }
+
+    if(isArray(animation.restOn)) {
+      return (config) => animation.some(restOn => this.checkConfigEquality(animation, config, restOn));
+    }
+
+    if(animation.restOn === true) {
+      return (config) => !!findKey(animation, (value, key) => this.checkConfigEquality(animation, config, key));
+    }
+
+    return null;
   }
 
   checkNoAnimationChange = (animation) => {
@@ -118,7 +134,6 @@ export default class LineAnimation extends React.Component {
         return false;
       }
     }
-    console.log('checkNoAnimationChange', animation, this.currentConfiguration);
     return true;
   }
 
@@ -167,6 +182,35 @@ export default class LineAnimation extends React.Component {
       ...initialAnimation,
       ...previous,
     };
+  }
+
+  renderLine = (configuration) => {
+    this.currentConfiguration = configuration;
+    const { x, y, angle, distance, opacity } = configuration;
+
+    const {
+      animationIndex,
+      animations,
+    } = this.state;
+
+    const { restOn } = animations[animationIndex] || {};
+
+    if(restOn && restOn({ x, y, angle, distance, opacity }) && !this.nextAnimationTimer) {
+      this.nextAnimationTimer = setTimeout(() =>
+        this.runNextAnimation(this.state, this.props), ANIMATION_BREAK);
+    }
+
+    return (
+      <Line
+        distance={distance < 0 ? 0 : distance}
+        angle={toRadians(angle)}
+        x={x < 0 ? 0 : x}
+        y={y < 0 ? 0 : y}
+        color={this.props.color}
+        thickness={this.props.thickness}
+        opacity={opacity}
+      />
+    );
   }
 
   render() {

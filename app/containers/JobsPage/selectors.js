@@ -7,7 +7,7 @@ export default () => createSelector(
   selectPageStartAnimation(),
   (loadLineConfig, startAnimation) => ({
     loadLineConfig: loadLineConfig && loadLineConfig.toJS(),
-    blackcrowsJob: jobs.find(job => job.title === 'Blackcrows'),
+    jobs,
     startAnimation,
   })
 );

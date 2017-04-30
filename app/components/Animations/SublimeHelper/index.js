@@ -1,8 +1,11 @@
 import React from 'react';
 import Popover from 'material-ui/Popover';
 import styled from 'styled-components';
-import { grey200, grey500, grey800 } from 'material-ui/styles/colors';
+import { grey200, grey500, grey800, blue700 } from 'material-ui/styles/colors';
+import Writer from 'components/Animations/Writer';
 import randomItems from './random';
+
+const themePrimaryColor = blue700;
 
 const MenuWrapper = styled.div`
   display: flex;
@@ -20,6 +23,9 @@ const MenuItem = styled.div`
 `;
 
 const MenuItemLeft = styled.div`
+  b {
+    color: ${themePrimaryColor};
+  }
 `;
 
 const MenuItemRight = styled.div`
@@ -74,6 +80,9 @@ export default class SublimeHelper extends React.Component {
 
     if(activeFocusIndex >= itemIndex) {
       this.props.onSelect();
+      this.setState({
+        animationFinished: true,
+      });
     } else {
       this.setState({
         activeFocusIndex: activeFocusIndex + 1,
@@ -82,9 +91,17 @@ export default class SublimeHelper extends React.Component {
     }
   }
 
+  getFirstCharacters = () => {
+    return this.props.item.left.slice(0, 2);
+  }
+
   renderItem = ({ left, right }, index) => (
     <MenuItem key={index} active={this.state.activeFocusIndex === index}>
-      <MenuItemLeft>{left}</MenuItemLeft>
+      <MenuItemLeft
+        dangerouslySetInnerHTML={{
+          __html: left.slice(0, 20).replace(this.getFirstCharacters(), `<b>${this.getFirstCharacters()}</b>`)
+        }}
+      />
       <MenuItemRight>{right}</MenuItemRight>
     </MenuItem>
   );
@@ -93,6 +110,8 @@ export default class SublimeHelper extends React.Component {
     const {
       wrapperEle,
       activeFocusIndex,
+      cursorAnimationFinished,
+      animationFinished,
     } = this.state;
 
     const {
@@ -116,9 +135,21 @@ export default class SublimeHelper extends React.Component {
         {...props}
       >
         {
+          !animationFinished &&
+          <Writer
+            start={start}
+            text={this.getFirstCharacters()}
+            cpm={800}
+            onRest={() => this.setState({ cursorAnimationFinished: true })}
+            keepCursor
+          />
+        }
+        {
           wrapperEle
           &&
           start
+          &&
+          cursorAnimationFinished
           &&
           <Popover
             animated={false}

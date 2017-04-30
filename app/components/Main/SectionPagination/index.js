@@ -21,21 +21,21 @@ const IndicatorsWrapper = styled.div`
 `;
 
 const Indicator = styled.div`
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   margin-top: 10px;
   background: ${(props) => darken(white, !props.isActive ? 0.4 : 0)};
   border-radius: 50%;
   cursor: pointer;
 `;
 
-const SectionPagination = ({ length, onIndicatorClick, activeIndex, sectionHeight, ...props }, context) => (
+const SectionPagination = ({ length, activeIndex, onIndicatorClick, ...props }) => (
   <Wrapper {...props}>
     <IndicatorsWrapper>
       {range(length).map((val, index) => (
         <Indicator
           key={index}
-          onClick={() => context.scrollArea.scrollYTo(sectionHeight * index)}
+          onClick={() => onIndicatorClick(index)}
           isActive={index === activeIndex}
         />
       ))}
@@ -44,10 +44,6 @@ const SectionPagination = ({ length, onIndicatorClick, activeIndex, sectionHeigh
 );
 
 SectionPagination.propTypes = {
-};
-
-SectionPagination.contextTypes = {
-  scrollArea: React.PropTypes.object,
 };
 
 export default SectionPagination;

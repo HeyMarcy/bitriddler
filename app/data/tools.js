@@ -37,7 +37,7 @@ export default {
   },
   rxjs: {
     name: 'RxJS',
-    logo: 'https://s3.amazonaws.com/media-p.slid.es/uploads/129681/images/2480811/wallpaper-angular2-rxjs.png',
+    logo: 'https://storage.googleapis.com/gcs.milkr.io/topic/130/crawl/e9f0d1665974879787e7620aaec686b31b245161',
     color: pink600,
     type: 'frontend',
   },
