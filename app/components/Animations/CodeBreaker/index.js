@@ -12,16 +12,18 @@ export default class CodeBreaker extends React.Component {
     waitFor: React.PropTypes.number,
     speed: React.PropTypes.number,
     code: React.PropTypes.string,
+    noAnimation: React.PropTypes.bool,
   };
 
   static defaultProps = {
     waitFor: 1000,
     speed: 0.8,
+    noAnimation: false,
   };
 
   componentWillMount() {
     this.setState({
-      codeIndex: 100000,
+      codeIndex: this.props.noAnimation ? this.props.code.length : 0,
     });
 
     setTimeout(this.animateText, this.props.waitFor);

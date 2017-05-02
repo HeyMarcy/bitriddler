@@ -52,7 +52,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/playground',
+      path: '/playground/:packageName',
       name: 'playground',
       getComponent(nextState, cb) {
         const importModules = Promise.all([

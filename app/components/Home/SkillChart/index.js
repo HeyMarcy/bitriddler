@@ -14,10 +14,10 @@ import {
   blue600,
   black,
 } from 'material-ui/styles/colors';
-import CodeBreaker from 'components/Home/About/CodeBreaker';
+import CodeBreaker from 'components/Animations/CodeBreaker';
 import sortBy from 'lodash/sortBy';
-import code1 from 'components/Home/About/code1';
-import code2 from 'components/Home/About/code2';
+import code1 from 'components/Animations/CodeBreaker/code1';
+import code2 from 'components/Animations/CodeBreaker/code2';
 
 const percentageToColor = val => {
   if(val > 90) {

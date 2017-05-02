@@ -1,0 +1,33 @@
+import {
+  blue900,
+  blue200,
+  purple900,
+  purple200,
+  red900,
+  red200,
+  grey900,
+  grey200,
+  orange900,
+  orange200,
+  green900,
+  green200,
+  brown900,
+  brown200,
+} from 'material-ui/styles/colors';
+
+export default {
+  blue: blue900,
+  blueSecondary: blue200,
+  purple: purple900,
+  purpleSecondary: purple200,
+  red: red900,
+  redSecondary: red200,
+  grey: grey900,
+  greySecondary: grey200,
+  orange: orange900,
+  orangeSecondary: orange200,
+  green: green900,
+  greenSecondary: green200,
+  brown: brown900,
+  brownSecondary: brown200,
+};

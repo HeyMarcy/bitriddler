@@ -14,7 +14,6 @@ import {
 import Button from 'components/Utils/Button';
 import Wall from 'components/AI/Wall';
 import Creature from 'components/AI/Creature';
-import CodeBreaker from './CodeBreaker';
 import Line from 'components/LineAnimations/Line';
 import BoxAnimation from 'components/Animations/BoxAnimation';
 
