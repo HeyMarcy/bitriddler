@@ -26,6 +26,15 @@ export class PageContent extends React.Component {
 
     return (
       <Wrapper>
+        <EntranceAnimation
+          startAnimation={startEntranceAnimation}
+          primaryColor={firstPrimaryColor}
+          loaderLineConfig={loaderLineConfig || {
+            distance: getWindowWidth(),
+            y: getWindowHeight() / 2,
+          }}
+          onFinish={onEntranceAnimationFinish}
+        />
         {jobs.map((job, index) => (
           <JobSection
             key={index}
@@ -47,15 +56,6 @@ export class PageContent extends React.Component {
             this.context.scrollArea.scrollYTo(getWindowHeight() * index);
             updateActiveJobIndex(index);
           }}
-        />
-        <EntranceAnimation
-          startAnimation={startEntranceAnimation}
-          primaryColor={firstPrimaryColor}
-          loaderLineConfig={loaderLineConfig || {
-            distance: getWindowWidth(),
-            y: getWindowHeight() / 2,
-          }}
-          onFinish={onEntranceAnimationFinish}
         />
       </Wrapper>
     );

@@ -21,10 +21,20 @@ const SkillContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: ${(props) => props.bgColor};
+  background: #F1F1F1;
   height: ${(props) => props.height * 25}vh;
 `;
 
+
+const SkillLogoWrapper = styled.div`
+  height: 15vh;
+  width: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFF;
+  border-radius: 50%;
+`;
 
 const SkillLogo = styled(Image)`
   width: auto;
@@ -61,11 +71,13 @@ export class SkillsBoxes extends React.Component {
           {skills.map((skill, index) => (
             <Skill key={index}>
               <SkillContent height={styles[index].height} bgColor={skill.tool.color}>
-                <SkillLogo
-                  useImgTag
-                  image={styles[index].height > 0.9 ? skill.tool.logo : ''}
-                  noPreloader
-                />
+                <SkillLogoWrapper>
+                  <SkillLogo
+                    useImgTag
+                    image={styles[index].height > 0.9 ? skill.tool.logo : ''}
+                    noPreloader
+                  />
+                </SkillLogoWrapper>
               </SkillContent>
             </Skill>
           ))}

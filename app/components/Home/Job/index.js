@@ -19,18 +19,12 @@ const JobDetails = styled.div`
 `;
 
 const JobTitle = styled.h2`
-  font-size: 2em;
-  line-height: 36px;
 `;
 
 const JobSubtitle = styled.h3`
-  font-size: 1.4em;
-  line-height: 24px;
 `;
 
 const JobDescription = styled.p`
-  font-size: 0.9em;
-  line-height: 24px;
 `;
 
 const Arrow = styled.div`

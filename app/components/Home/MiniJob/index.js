@@ -12,12 +12,10 @@ const Wrapper = styled.div`
 
 const JobTitle = styled.span`
   color: ${white};
-  font-size: 1em;
 `;
 
 const JobSubtitle = styled.span`
   color: ${lightWhite};
-  font-size: 0.8em;
 `;
 
 const JobTools = styled.div`
@@ -28,9 +26,7 @@ const JobTools = styled.div`
 `;
 
 const JobTool = styled.span`
-  font-size: 0.8em;
   background: ${white};
-  flex-shrink: 0;
   padding: 2px 5px;
   margin-right: 5px;
 `;

@@ -10,110 +10,115 @@ import {
   orange600,
 } from 'material-ui/styles/colors';
 
+import reactLogo from 'assets/tools/react.png';
+import fluxLogo from 'assets/tools/flux.png';
+import angularjsLogo from 'assets/tools/angularjs.png';
+import sassLogo from 'assets/tools/sass.png';
+import rxjsLogo from 'assets/tools/rxjs.png';
+import typescriptLogo from 'assets/tools/typescript.png';
+import reduxLogo from 'assets/tools/redux.png';
+import lessLogo from 'assets/tools/less.png';
+import postcssLogo from 'assets/tools/postcss.png';
+import relayLogo from 'assets/tools/relay.png';
+import nodejsLogo from 'assets/tools/nodejs.png';
+import graphqlLogo from 'assets/tools/graphql.png';
+import mongodbLogo from 'assets/tools/mongodb.png';
+import javaLogo from 'assets/tools/java.png';
+import sparkLogo from 'assets/tools/spark.png';
+
 export default {
   react: {
     name: 'React',
-    logo: 'http://vincent.billey.me/talks/react-putting-js-in-your-face/assets/react-logo.png',
+    logo: reactLogo,
     color: lightBlue600,
     type: 'frontend',
   },
   flux: {
     name: 'Flux',
-    logo: 'http://yycjs.com/real-world-react/img/flux-logo.png',
+    logo: fluxLogo,
     color: green600,
     type: 'frontend',
   },
   angularjs: {
     name: 'AngularJS',
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: angularjsLogo,
     color: red600,
     type: 'frontend',
   },
   sass: {
     name: 'SASS',
-    logo: 'http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg',
+    logo: sassLogo,
     color: pink600,
     type: 'frontend',
   },
   rxjs: {
     name: 'RxJS',
-    logo: 'https://storage.googleapis.com/gcs.milkr.io/topic/130/crawl/e9f0d1665974879787e7620aaec686b31b245161',
+    logo: rxjsLogo,
     color: pink600,
     type: 'frontend',
   },
   typescript: {
     name: 'Typescript',
-    logo: 'http://blog.teamtreehouse.com/wp-content/uploads/2015/05/87a5a0fdc86455c3f94b0b0eebfdb1b9_400x400.png',
+    logo: typescriptLogo,
     color: indigo600,
     type: 'frontend',
   },
   redux: {
     name: 'Redux',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: reduxLogo,
     color: purple600,
     type: 'frontend',
   },
   reduxSaga: {
     name: 'ReduxSaga',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
     color: purple600,
     type: 'frontend',
   },
   less: {
     name: 'Less',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: lessLogo,
     color: indigo600,
     type: 'frontend',
   },
   postcss: {
     name: 'Postcss',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: postcssLogo,
     color: deepOrange600,
     type: 'frontend',
   },
   relay: {
     name: 'Relay',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: relayLogo,
     color: deepOrange600,
     type: 'frontend',
   },
   nodejs: {
     name: 'Nodejs',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: nodejsLogo,
     color: lightGreen600,
     type: 'backend',
   },
   graphql: {
     name: 'Graphql',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: graphqlLogo,
     color: pink600,
     type: 'backend',
   },
   mongodb: {
     name: 'Mongodb',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: mongodbLogo,
     color: green600,
     type: 'database',
   },
   java: {
     name: 'Java',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: javaLogo,
     color: red600,
     type: 'backend',
   },
   spark: {
     name: 'Spark',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
+    logo: sparkLogo,
     color: orange600,
     type: 'backend',
   },
@@ -147,8 +152,6 @@ export default {
   },
   reduxThunk: {
     name: 'ReduxThunk',
-    // @todo
-    logo: 'https://code-maven.com/img/angularjs.png',
     color: purple600,
     type: 'frontend',
   },

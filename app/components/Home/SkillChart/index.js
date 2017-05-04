@@ -53,7 +53,6 @@ const Title = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  font-size: 2em;
   margin-right: 10px;
 `;
 

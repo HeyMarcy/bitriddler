@@ -1,4 +1,5 @@
 import { injectGlobal } from 'styled-components';
+import theme from 'theme/default';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -9,7 +10,7 @@ injectGlobal`
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
   }
 
   #app {
@@ -24,50 +25,62 @@ injectGlobal`
     font-weight: normal;
   }
 
-  li {
-    list-style-position: inside;
+  a {
+    color: inherit;
+    cursor: pointer;
   }
 
   h1 {
-    /* 112sp */
     font-size: 6.98em;
     line-height: 48px;
+    margin: ${theme.h1.verticalMargin}px 0px;
   }
 
   h2 {
-    /* 56sp */
-    font-size: 3.49em;
-    line-height: 48px;
+    font-size: 2em;
+    line-height: 36px;
+    margin: ${theme.h2.verticalMargin}px 0px;
   }
 
   h3 {
-    /* 45sp */
-    font-size: 2.8em;
-    line-height: 48px;
+    font-size: 1.4em;
+    line-height: 24px;
+    margin: ${theme.h3.verticalMargin}px 0px;
   }
 
   h4 {
-    /* 24sp */
     font-size: 1.49em;
     line-height: 32px;
+    margin: ${theme.h4.verticalMargin}px 0px;
   }
 
   h5 {
-    /* 20sp */
-    font-size: 1.24em;
-    line-height: 30px;
+    font-size: 1em;
+    line-height: 21px;
+    margin: ${theme.h5.verticalMargin}px 0px;
   }
 
   h6 {
-    /* 16sp */
     font-size: 0.99em;
     line-height: 30px;
+    margin: ${theme.h6.verticalMargin}px 0px;
   }
 
   p {
-    /* 24sp */
-    font-size: 1.49em;
-    line-height: 30px;
+    font-size: 0.9em;
+    line-height: 21px;
+    margin: ${theme.p.verticalMargin}px 0px;
+  }
+
+  ul {
+    margin: ${theme.ul.verticalMargin}px 0px;
+  }
+
+  li {
+    font-size: 0.9em;
+    line-height: 21px;
+    list-style-position: inside;
+    margin: ${theme.li.verticalMargin}px 0px;
   }
 
   button {

@@ -16,6 +16,8 @@ const AnimationWrapper = styled.div`
   left: 0;
 `;
 
+const COVER_IMAGE_WIDTH_PERCENTAGE = 60;
+
 export default class EntranceAnimation extends React.Component {
 
   componentWillMount() {
@@ -37,6 +39,8 @@ export default class EntranceAnimation extends React.Component {
     }
   }
 
+  getCoverImageStartingX = () => getWindowWidth() * ((100 - COVER_IMAGE_WIDTH_PERCENTAGE) / 100);
+
   startAnimation = (props) => {
     this.setState({
       openRightWall: false,
@@ -53,14 +57,14 @@ export default class EntranceAnimation extends React.Component {
     {
       angle: 90,
       distance: 0,
-      x: getWindowWidth() / 2,
+      x: this.getCoverImageStartingX(),
     },
   ]);
 
   getStartAnimations = () => ([
     [
       {
-        x: getWindowWidth() / 2,
+        x: this.getCoverImageStartingX(),
         distance: 0,
       },
     ],
@@ -115,6 +119,7 @@ export default class EntranceAnimation extends React.Component {
           closeLeft={false}
           closeRight={!openRightWall}
           primaryColor={primaryColor}
+          rightWidth={COVER_IMAGE_WIDTH_PERCENTAGE}
         />
         {this.renderLineAnimations({ initialLinesPosition, lineAnimations })}
       </AnimationWrapper>

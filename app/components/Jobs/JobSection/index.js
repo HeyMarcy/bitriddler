@@ -17,36 +17,42 @@ import BoxAnimation from 'components/Animations/BoxAnimation';
 import Writer from 'components/Animations/Writer';
 import FadeInBottom from 'components/Animations/FadeInBottom';
 import SublimeHelper from 'components/Animations/SublimeHelper';
+import ReactMarkdown from 'react-markdown';
 
 const Wrapper = styled.div`
   background: ${(props) => props.primaryColor};
+  height: 100vh;
 `;
 
 const InnerWrapper = styled.div`
+  height: 100vh;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-direction: ${(props) => props.isLeft ? `row` : 'row-reverse'};
   padding: 0px 24px;
   max-width: 1400px;
 `;
 
 const CoverImage = styled.div`
-  width: 45%;
+  width: 60%;
+  height: 100vh;
   background: url(${(props) => props.image});
   background-size: contain;
-  background-position: left center;
+  background-position: center center;
   background-repeat: no-repeat;
 `;
 
 const JobDetails = styled(FadeInBottom)`
-  height: 100vh;
-  width: 50%;
-  color: white;
+  max-height: 90vh;
+  overflow: hidden;
+  width: 38%;
+  color: ${(props) => props.fontColor};
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const JobHeading = styled.div`
@@ -63,26 +69,25 @@ const JobLogo = styled.img`
 `;
 
 const JobTitle = styled.h2`
-  margin-top: 12px;
 `;
 
 const JobSubtitle = styled.h3`
-  font-size: 1.6em;
-  color: ${lightWhite};
+  color: ${(props) => props.fontColor};
 `;
 
 const JobSectionTitle = styled.h4`
-  margin-top: 10px;
-  margin-bottom: 10px;
 `;
 
 const JobToolsWrapper = styled.div`
   display: flex;
+  font-size: 0.9em;
 `;
 
-const JobToolLogo = styled.img`
-  max-height: 32px;
-  margin-left: 10px;
+const JobToolLogoWrapper = styled.h5`
+  margin-right: 10px;
+  background: ${(props) => props.fontColor};
+  color: ${(props) => props.primaryColor};
+  padding: 8px 10px;
 `;
 
 const JobRoles = styled.ul`
@@ -91,8 +96,7 @@ const JobRoles = styled.ul`
 
 const JobRole = styled.li`
   padding-left: 0;
-  font-size: 1em;
-  color: ${grey300};
+  color: ${(props) => props.fontColor};
   display: flex;
 `;
 
@@ -104,10 +108,8 @@ const JobRoleCheck = styled(CheckIcon)`
 const JobRoleText = styled.span`
 `;
 
-const JobStory = styled.p`
-  font-size: 1em;
-  line-height: 24px;
-  color: ${grey300};
+const JobStory = styled.div`
+  color: ${(props) => props.fontColor};
 `;
 
 export default class JobSection extends React.Component {
@@ -151,22 +153,25 @@ export default class JobSection extends React.Component {
       startAnimation,
     } = this.state;
 
+    const fontColor = job.fontColor;
+
     return (
       <Wrapper
         primaryColor={primaryColor}
       >
         <InnerWrapper isLeft={isLeft}>
           <JobDetails
+            fontColor={fontColor}
             fromLeft={isLeft}
             start={startAnimation}
           >
             <JobHeading>
-              {/*<JobLogo src={job.logo} />*/}
+              <JobLogo src={job.logo} />
               <JobHeadingRight>
                 <JobTitle>
                   {job.title}
                 </JobTitle>
-                <JobSubtitle>
+                <JobSubtitle fontColor={fontColor}>
                   {job.subtitle}
                 </JobSubtitle>
               </JobHeadingRight>
@@ -176,7 +181,7 @@ export default class JobSection extends React.Component {
             </JobSectionTitle>
             <JobRoles>
               {job.roles.map((role, index) => (
-                <JobRole key={index}>
+                <JobRole fontColor={fontColor} key={index}>
                   <JobRoleCheck />
                   <JobRoleText>{role}</JobRoleText>
                 </JobRole>
@@ -185,15 +190,21 @@ export default class JobSection extends React.Component {
             <JobSectionTitle>
               Story
             </JobSectionTitle>
-            <JobStory>
-              {job.story}
+            <JobStory fontColor={fontColor}>
+              <ReactMarkdown source={job.story} />
             </JobStory>
             <JobSectionTitle>
               Tools
             </JobSectionTitle>
             <JobToolsWrapper>
-              {job.tools.map(({ logo }, index) => (
-                <JobToolLogo key={index} src={logo} />
+              {job.tools.map(({ logo, name }, index) => (
+                <JobToolLogoWrapper
+                  fontColor={fontColor}
+                  primaryColor={primaryColor}
+                  key={index}
+                >
+                  {name}
+                </JobToolLogoWrapper>
               ))}
             </JobToolsWrapper>
           </JobDetails>

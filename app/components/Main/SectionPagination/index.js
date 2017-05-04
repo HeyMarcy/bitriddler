@@ -21,9 +21,9 @@ const IndicatorsWrapper = styled.div`
 `;
 
 const Indicator = styled.div`
-  width: 10px;
-  height: 10px;
-  margin-top: 10px;
+  width: 15px;
+  height: 15px;
+  margin-top: 15px;
   background: ${(props) => darken(white, !props.isActive ? 0.4 : 0)};
   border-radius: 50%;
   cursor: pointer;

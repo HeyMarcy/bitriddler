@@ -88,7 +88,7 @@ export class JobsPage extends React.PureComponent { // eslint-disable-line react
     return (
       <ScrollArea
         style={{ maxHeight: '100vh' }}
-        speed={0.2}
+        speed={0.9}
         smoothScrolling
         onScroll={this.handleScroll}
         horizontal={false}

@@ -9,7 +9,7 @@ const LeftBox = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: ${(props) => props.animation * 50}vw;
+  width: ${(props) => props.animation * props.width}vw;
   height: 100vh;
   background: ${(props) => props.primaryColor};
 `;
@@ -18,7 +18,7 @@ const RightBox = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  width: ${(props) => props.animation * 50}vw;
+  width: ${(props) => props.animation * props.width}vw;
   height: 100vh;
   background: ${(props) => props.primaryColor};
 `;
@@ -27,7 +27,7 @@ const TopBox = styled.div`
   position: absolute;
   top: 0;
   width: 100vw;
-  height: ${(props) => props.animation * 50}vh;
+  height: ${(props) => props.animation * props.width}vh;
   background: ${(props) => props.primaryColor};
 `;
 
@@ -35,7 +35,7 @@ const BottomBox = styled.div`
   position: absolute;
   bottom: 0;
   width: 100vw;
-  height: ${(props) => props.animation * 50}vh;
+  height: ${(props) => props.animation * props.width}vh;
   background: ${(props) => props.primaryColor};
 `;
 
@@ -51,6 +51,11 @@ export default class AnimationBox extends React.Component {
     openHorizontalValue: React.PropTypes.number,
     openVerticalValue: React.PropTypes.number,
     primaryColor: React.PropTypes.string,
+
+    leftWidth: React.PropTypes.number,
+    rightWidth: React.PropTypes.number,
+    topWidth: React.PropTypes.number,
+    bottomWidth: React.PropTypes.number,
   };
 
   static defaultProps = {
@@ -58,6 +63,10 @@ export default class AnimationBox extends React.Component {
     closeHorizontalValue: 1,
     openVerticalValue: 0,
     openHorizontalValue: 0,
+    leftWidth: 50,
+    rightWidth: 50,
+    topWidth: 50,
+    bottomWidth: 50,
   };
 
   componentWillMount() {
@@ -86,6 +95,10 @@ export default class AnimationBox extends React.Component {
   render() {
     const {
       primaryColor,
+      leftWidth,
+      rightWidth,
+      topWidth,
+      bottomWidth,
       ...props,
     } = this.props;
 
@@ -112,10 +125,10 @@ export default class AnimationBox extends React.Component {
       >
         {({ animateLeft, animateRight, animateTop, animateBottom }) => (
           <Wrapper {...props}>
-            <LeftBox primaryColor={primaryColor} animation={animateLeft} />
-            <RightBox primaryColor={primaryColor} animation={animateRight} />
-            <TopBox primaryColor={primaryColor} animation={animateTop} />
-            <BottomBox primaryColor={primaryColor} animation={animateBottom} />
+            <LeftBox width={leftWidth} primaryColor={primaryColor} animation={animateLeft} />
+            <RightBox width={rightWidth} primaryColor={primaryColor} animation={animateRight} />
+            <TopBox width={topWidth} primaryColor={primaryColor} animation={animateTop} />
+            <BottomBox width={bottomWidth} primaryColor={primaryColor} animation={animateBottom} />
           </Wrapper>
         )}
       </Motion>
