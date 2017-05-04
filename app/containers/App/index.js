@@ -118,7 +118,9 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
             bgColor={contentColor}
             id="outer-container"
           >
-            <Menu />
+            <Menu
+              bgColor={pagePrimaryColor}
+            />
             <div id="page-wrap">
               <Header />
               {showLoader && this.renderLoader(loaderLineConfig, restLoader, startPageAnimation)}

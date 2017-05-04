@@ -26,6 +26,7 @@ injectGlobal`
   }
 
   a {
+    font-size: 0.9em;
     color: inherit;
     cursor: pointer;
   }

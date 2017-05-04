@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-// import { Scrollbars } from 'react-custom-scrollbars';
+import Measure from 'react-measure';
 import ScrollArea from 'react-scrollbar';
 import styled from 'styled-components';
-import { getWindowHeight, getWindowWidth } from 'utils/screen';
+import { getWindowHeight, getWindowWidth, getWindowScrollTop } from 'utils/screen';
 import {
   setPagePrimaryColor,
   routeIsReady,
@@ -16,6 +16,11 @@ import {
 } from 'material-ui/styles/colors';
 import PageContent from './Content';
 import selector from './selectors';
+
+const Wrapper = styled.div`
+  max-width: 100vw;
+  overflow: hidden;
+`;
 
 export class JobsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -29,10 +34,23 @@ export class JobsPage extends React.PureComponent { // eslint-disable-line react
     this.props.setPagePrimaryColor(this.props.jobs[0].primaryColor);
   }
 
-  handleScroll = ({ topPosition }) => {
-    const sectionThreshold = 0.75;
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+    setTimeout(() => {
+      this.handleScroll();
+    }, 200);
+  }
 
-    const topPositionRatio = ((topPosition - getWindowHeight() / 2) / getWindowHeight()) + 0.5;
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    const topPosition = getWindowScrollTop();
+    const sectionThreshold = 0.5;
+    const windowHeight = getWindowHeight();
+
+    const topPositionRatio = ((topPosition - windowHeight / 2) / windowHeight) + 0.5;
     const delta = topPositionRatio - Math.floor(topPositionRatio);
 
     const activeIndex = Math.ceil(topPositionRatio);
@@ -42,23 +60,6 @@ export class JobsPage extends React.PureComponent { // eslint-disable-line react
         activeJobIndex: activeIndex,
       });
     }
-
-    if(this.state.stoppedScrolling) {
-      this.setState({
-        stoppedScrolling: false,
-      });
-    }
-
-    if(this.scrollingTimeout) {
-      clearTimeout(this.scrollingTimeout);
-    }
-
-    this.scrollingTimeout = setTimeout(() => {
-      console.log("stopped scrolling");
-      this.setState({
-        stoppedScrolling: true,
-      });
-    }, 100);
   }
 
   shouldStartJobAnimation = (index) => {
@@ -82,30 +83,29 @@ export class JobsPage extends React.PureComponent { // eslint-disable-line react
     const {
       activeJobIndex,
       startFirstAnimation,
-      stoppedScrolling,
     } = this.state;
 
     return (
-      <ScrollArea
-        style={{ maxHeight: '100vh' }}
-        speed={0.9}
-        smoothScrolling
-        onScroll={this.handleScroll}
-        horizontal={false}
-      >
-        <PageContent
-          activeJobIndex={activeJobIndex}
-          updateActiveJobIndex={(index) => this.setState({ activeJobIndex: index })}
-          stoppedScrolling={stoppedScrolling}
-          loaderLineConfig={loaderLineConfig}
-          firstPrimaryColor={jobs[0].primaryColor}
-          startEntranceAnimation={startAnimation}
-          onEntranceAnimationFinish={this.onEntranceAnimationFinish}
-          shouldStartJobAnimation={this.shouldStartJobAnimation}
-          jobs={jobs}
-          routeIsReady={routeIsReady}
-        />
-      </ScrollArea>
+      <Wrapper>
+        <Measure whitelist={[ 'height', 'width' ]}>
+          {/* Need to re-render when width or height change */}
+          {() => (
+            <PageContent
+              windowWidth={getWindowWidth()}
+              windowHeight={getWindowHeight()}
+              activeJobIndex={activeJobIndex}
+              updateActiveJobIndex={(index) => this.setState({ activeJobIndex: index })}
+              loaderLineConfig={loaderLineConfig}
+              firstPrimaryColor={jobs[0].primaryColor}
+              startEntranceAnimation={startAnimation}
+              onEntranceAnimationFinish={this.onEntranceAnimationFinish}
+              shouldStartJobAnimation={this.shouldStartJobAnimation}
+              jobs={jobs}
+              routeIsReady={routeIsReady}
+            />
+          )}
+        </Measure>
+      </Wrapper>
     );
   }
 }

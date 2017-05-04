@@ -90,11 +90,31 @@ export default class LineAnimation extends React.Component {
     }
   }
 
+  checkEqualValuesIfExist = (val1, val2) => (!val1 && !val2) || val1 === val2;
+
+  checkEqualAnimations = (animation1, animation2) => {
+    return this.checkEqualValuesIfExist(animation1.x, animation2.x) &&
+      this.checkEqualValuesIfExist(animation1.y, animation2.y) &&
+      this.checkEqualValuesIfExist(animation1.angle, animation2.angle) &&
+      this.checkEqualValuesIfExist(animation1.distance, animation2.distance) &&
+      this.checkEqualValuesIfExist(animation1.opacity, animation2.opacity);
+  }
+
+  getUniqAnimations = (animations) => {
+    const uniqAnimations = [ animations[0] ];
+    for (var i = 1; i < animations.length; i++) {
+      if(! this.checkEqualAnimations(animations[i], animations[i - 1])) {
+        uniqAnimations.push(animations[i]);
+      }
+    }
+    return uniqAnimations;
+  }
+
   prepareAnimations = (animations) => {
-    return animations.map(animation => ({
+    return this.getUniqAnimations(animations.map(animation => ({
       ...animation,
       restOn: this.getRestOn(animation),
-    }))
+    })));
   }
 
   checkConfigEquality = (config, destination, key) => {

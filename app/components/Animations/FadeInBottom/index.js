@@ -20,6 +20,7 @@ export default class FadeInBottom extends React.Component {
       damping: React.PropTypes.number,
     }),
     start: React.PropTypes.bool,
+    disable: React.PropTypes.bool,
   };
 
   getDefaultStyles = (children) => children.map(() => ({
@@ -35,11 +36,16 @@ export default class FadeInBottom extends React.Component {
       children,
       springConfig,
       start,
+      disable,
       fromLeft,
       ...props,
     } = this.props;
 
     const items = React.Children.toArray(children);
+
+    if(disable) {
+      return <Wrapper {...props}>{items}</Wrapper>;
+    }
 
     return (
       <StaggeredMotion

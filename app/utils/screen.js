@@ -5,13 +5,25 @@ export const getWindowDimensions = () => {
       d = document,
       e = d.documentElement,
       g = d.getElementsByTagName('body')[0],
+      scrollLeft = (w.pageXOffset || d.scrollLeft) - (d.clientLeft || 0),
+      scrollTop = (w.pageYOffset || d.scrollTop)  - (d.clientTop || 0),
       width = w.innerWidth || e.clientWidth || g.clientWidth,
       height = w.innerHeight|| e.clientHeight|| g.clientHeight;
 
   return {
+    scrollLeft,
+    scrollTop,
     width,
     height,
   };
+}
+
+export const getWindowScrollLeft = () => {
+  return getWindowDimensions().scrollLeft || 0;
+}
+
+export const getWindowScrollTop = () => {
+  return getWindowDimensions().scrollTop || 0;
 }
 
 export const getWindowHeight = () => {
@@ -42,17 +54,8 @@ export const isXLScreen = () => {
   return getWindowWidth() >= breakpoints.xl;
 }
 
-export const getGridLimit = (opts = {}) => {
-  const rows = opts.rows || 3;
-  let cols;
-
-  if (isXSScreen()) cols = opts.xs || 2;
-  if (isSMScreen()) cols = opts.sm || 3;
-  if (isMDScreen()) cols = opts.md || 4;
-  if (isLGScreen()) cols = opts.lg || 4;
-  if (isXLScreen()) cols = opts.xl || 4;
-
-  return cols * rows;
+export const getGridLimit = ({ rows, ...media }) => {
+  return getByMedia(media) * rows;
 }
 
 export const getByMedia = (opts = {}, defaultValue = 0) => {
@@ -71,4 +74,15 @@ export const getByMedia = (opts = {}, defaultValue = 0) => {
   else if (isXLScreen()) {
     return opts.xl || opts.lg || opts.md || opts.sm || opts.xs || defaultValue;
   }
+}
+
+
+export const getScreenName = () => {
+  return getByMedia({
+    xs: 'xs',
+    sm: 'sm',
+    md: 'md',
+    lg: 'lg',
+    xl: 'xl',
+  })
 }

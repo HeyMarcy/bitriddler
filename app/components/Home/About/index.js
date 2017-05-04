@@ -45,7 +45,7 @@ const AboutContentWrapper = styled.div`
 
 const animateValue = 300;
 
-const Title = styled.h3`
+const Title = styled.h2`
   color: ${fullWhite};
   ${(props) => stringifyTranslate({
     x: (1 - props.animateTo) * animateValue,
@@ -54,7 +54,7 @@ const Title = styled.h3`
   })}
 `;
 
-const Subtitle = styled.h4`
+const Subtitle = styled.h3`
   color: ${lightWhite};
   ${(props) => stringifyTranslate({
     x: (1 - props.animateTo) * animateValue,
@@ -63,7 +63,7 @@ const Subtitle = styled.h4`
   })}
 `;
 
-const Description = styled.h5`
+const Description = styled.p`
   color: ${darkWhite};
   max-width: 400px;
   ${(props) => stringifyTranslate({
@@ -243,6 +243,7 @@ export default class About extends React.Component {
       onWorkExperienceClick,
       onSkillsClick,
       onReactPlaygroundClick,
+      showEntranceAnimation,
     } = this.props;
 
     const {
@@ -280,12 +281,6 @@ export default class About extends React.Component {
                   Work experience
                 </StyledButton>
                 <StyledButton
-                  onClick={onSkillsClick}
-                  activeColor={primaryColor}
-                >
-                  Skills
-                </StyledButton>
-                <StyledButton
                   onClick={onReactPlaygroundClick}
                   activeColor={primaryColor}
                 >
@@ -295,15 +290,21 @@ export default class About extends React.Component {
             </AboutContentWrapper>
           </Measure>
         </InnerWrapper>
-        <BoxAnimation
-          openVerticalValue={1 - ((contentHeight + contentPadding * 2) / getWindowHeight())}
-          openHorizontalValue={1 - ((contentWidth + contentPadding * 2) / getWindowWidth())}
-          closeTop={runBoxLeaveAnimation}
-          closeBottom={runBoxLeaveAnimation}
-          closeAll={!runBoxAnimation}
-          primaryColor={primaryColor}
-        />
-        {this.renderLineAnimations({ initialLinesPosition, lineAnimations })}
+        {
+          showEntranceAnimation &&
+          <BoxAnimation
+            openVerticalValue={1 - ((contentHeight + contentPadding * 2) / getWindowHeight())}
+            openHorizontalValue={1 - ((contentWidth + contentPadding * 2) / getWindowWidth())}
+            closeTop={runBoxLeaveAnimation}
+            closeBottom={runBoxLeaveAnimation}
+            closeAll={!runBoxAnimation}
+            primaryColor={primaryColor}
+          />
+        }
+        {
+          showEntranceAnimation &&
+          this.renderLineAnimations({ initialLinesPosition, lineAnimations })
+        }
       </Wrapper>
     );
   }

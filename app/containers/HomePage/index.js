@@ -1,4 +1,5 @@
 import React from 'react';
+import Measure from 'react-measure';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -7,6 +8,7 @@ import StackGrid from 'components/Home/StackGrid';
 import Timeline from 'components/Home/Timeline';
 import SectionPagination from 'components/Main/SectionPagination';
 import { getWindowHeight } from 'utils/screen';
+import { homePageFeatures } from 'utils/features';
 import {
   requestToLeaveRoute,
   routeIsReady,
@@ -41,10 +43,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   leavePage = (route) => {
-    this.setState({
-      runLeaveAnimation: true,
-      leaveRoute: route,
-    });
+    if(homePageFeatures.showEntranceAnimation()) {
+      this.setState({
+        runLeaveAnimation: true,
+        leaveRoute: route,
+      });
+    } else {
+      this.props.requestToLeaveRoute(route);
+    }
   }
 
   gotoWorkExperience = () => this.leavePage('/work');
@@ -58,23 +64,28 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     } = this.state;
 
     const {
-      onAnimationFinish,
+      requestToLeaveRoute,
       routeIsReady,
     } = this.props;
 
     return (
-      <Wrapper>
-        <About
-          primaryColor={PAGE_PRIMARY_COLOR}
+      <Measure whitelist={['width']}>
+        {() => (
+          <Wrapper>
+            <About
+              showEntranceAnimation={homePageFeatures.showEntranceAnimation()}
+              primaryColor={PAGE_PRIMARY_COLOR}
 
-          onLeaveAnimationFinish={({ lineConfig }) => onAnimationFinish(leaveRoute, lineConfig)}
-          runLeaveAnimation={runLeaveAnimation}
+              onLeaveAnimationFinish={({ lineConfig }) => requestToLeaveRoute(leaveRoute, lineConfig)}
+              runLeaveAnimation={runLeaveAnimation}
 
-          onWorkExperienceClick={this.gotoWorkExperience}
-          onSkillsClick={this.gotoSkills}
-          onReactPlaygroundClick={this.gotoReactPlayground}
-        />
-      </Wrapper>
+              onWorkExperienceClick={this.gotoWorkExperience}
+              onSkillsClick={this.gotoSkills}
+              onReactPlaygroundClick={this.gotoReactPlayground}
+            />
+          </Wrapper>
+        )}
+      </Measure>
     );
   }
 }
@@ -84,7 +95,7 @@ const mapStateToProps = selector();
 const mapDispatchToProps = {
   setPagePrimaryColor,
   routeIsReady,
-  onAnimationFinish: requestToLeaveRoute,
+  requestToLeaveRoute,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

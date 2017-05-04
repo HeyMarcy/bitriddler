@@ -8,15 +8,13 @@ import BoxAnimation from 'components/Animations/BoxAnimation';
 import Line from 'components/LineAnimations/Line';
 
 const AnimationWrapper = styled.div`
+  width: 100%;
   height: 100vh;
-  width: 100vw;
   position: absolute;
   overflow: hidden;
   top: 0;
   left: 0;
 `;
-
-const COVER_IMAGE_WIDTH_PERCENTAGE = 60;
 
 export default class EntranceAnimation extends React.Component {
 
@@ -39,7 +37,7 @@ export default class EntranceAnimation extends React.Component {
     }
   }
 
-  getCoverImageStartingX = () => getWindowWidth() * ((100 - COVER_IMAGE_WIDTH_PERCENTAGE) / 100);
+  getCoverImageStartingX = () => getWindowWidth() * ((100 - this.props.imageWidthPercentage) / 100);
 
   startAnimation = (props) => {
     this.setState({
@@ -108,6 +106,7 @@ export default class EntranceAnimation extends React.Component {
     const {
       primaryColor,
       startAnimation,
+      imageWidthPercentage,
       ...props,
     } = this.props;
 
@@ -119,7 +118,7 @@ export default class EntranceAnimation extends React.Component {
           closeLeft={false}
           closeRight={!openRightWall}
           primaryColor={primaryColor}
-          rightWidth={COVER_IMAGE_WIDTH_PERCENTAGE}
+          rightWidth={imageWidthPercentage}
         />
         {this.renderLineAnimations({ initialLinesPosition, lineAnimations })}
       </AnimationWrapper>
