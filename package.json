@@ -225,7 +225,7 @@
     "material-ui": "^0.17.4",
     "minimist": "1.2.0",
     "react": "15.4.1",
-    "react-apple-carousel": "^1.1.0",
+    "react-apple-carousel": "^1.2.0",
     "react-burger-menu": "^2.0.0",
     "react-chartjs-2": "^2.0.5",
     "react-cube-image-reveal": "^1.0.2",

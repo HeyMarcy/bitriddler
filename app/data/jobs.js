@@ -24,6 +24,7 @@ At 15 Oct 2015 I got onboard and started the hand-over process. My first pull re
 
 At the time of writing this, I made 199 pull requests that included 60+ new features, bug fixes, performance optimization, code enhancements and unit tests.
     `,
+    visitLink: 'https://www.black-crows.com/',
     logo: blackcrowsLogo,
     cover: blackcrowsCover,
     primaryColor: colors.black,
@@ -56,6 +57,7 @@ I started working on this project as a full-stack developer at Sept. 2014. Once 
 
 Unfortunately it didnt work out as I hoped. But Goodsense survived and since Mar. 2017 I've been working there as a part-time front-end developer.
     `,
+    visitLink: 'http://dev-goodsense-marketplace.herokuapp.com/product/comme-des-garcons-series-3-incense-eau-de-toilette-zagorsk',
     logo: goodsenseLogo,
     cover: goodsenseCover,
     primaryColor: colors.white,
@@ -87,6 +89,7 @@ For the next 3 months I worked as a part-time front-end developer mainly to conv
 
 My second role was to work with the back-end developer to write the APIs needed to end up with fully editable and customizable application.
 `,
+    visitLink: 'https://dev-fortesolutions.herokuapp.com/',
     cover: forteCover,
     logo: forteLogo,
     primaryColor: colors.red,
@@ -108,6 +111,8 @@ My second role was to work with the back-end developer to write the APIs needed 
     title: 'TasteTastic',
     subtitle: 'Full-stack Developer',
     story: '',
+    visitLink: 'https://tastetastic.pimentagroup.de/',
+    privateLink: true,
     cover: tastetasticCover,
     logo: tastetasticLogo,
     primaryColor: colors.blue,
@@ -139,6 +144,7 @@ For 2 months I worked as a full-time full-stack developer on this project mainly
 
 One of the big challenges in this project was supporting multiple languages, not only for static data but for data saved in the database as well. Also to provide an interface to edit data in multiple languages.
     `,
+    visitLink: 'http://cytix.co.jp',
     cover: cytixCover,
     logo: cytixLogo,
     primaryColor: colors.green,

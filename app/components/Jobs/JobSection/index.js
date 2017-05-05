@@ -94,6 +94,7 @@ const JobDetails = styled(FadeInBottom)`
 const JobHeading = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const JobHeadingRight = styled.div`
@@ -180,6 +181,11 @@ export default class JobSection extends React.Component {
 
   addDot = (str) => str.indexOf('.') < str.length - 1 ? `${str}.` : `${str}`;
 
+  gotoJob = (job) => window.open(
+    job.visitLink,
+    '_blank'
+  );
+
   render() {
     const {
       primaryColor,
@@ -205,7 +211,7 @@ export default class JobSection extends React.Component {
           start={startAnimation}
           disable={noAnimation}
         >
-          <JobHeading>
+          <JobHeading onClick={() => this.gotoJob(job)}>
             <JobLogo src={job.logo} />
             <JobHeadingRight>
               <JobTitle>
