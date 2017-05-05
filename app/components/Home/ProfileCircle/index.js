@@ -1,5 +1,5 @@
 import React from 'react';
-import CubeImageReveal from 'react-cube-image-reveal/src/CubeImageReveal';
+import CubeImageReveal from 'react-cube-image-reveal';
 import styled from 'styled-components';
 
 const items = [

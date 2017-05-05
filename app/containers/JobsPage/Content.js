@@ -8,7 +8,7 @@ import {
   isLGScreen,
   isXLScreen,
 } from 'utils/screen';
-import AppleCarousel from 'react-apple-carousel/src/AppleCarousel';
+import AppleCarousel from 'react-apple-carousel';
 import JobSection, { getImageWidthPercentage } from 'components/Jobs/JobSection';
 import { jobsPageFetaures } from 'utils/features';
 import styled from 'styled-components';

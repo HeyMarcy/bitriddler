@@ -65,7 +65,8 @@
     "env": {
       "production": {
         "only": [
-          "app"
+          "app",
+          "node_modules/react-icons"
         ],
         "plugins": [
           "transform-react-remove-prop-types",
