@@ -1,5 +1,6 @@
 import React from 'react';
 import AppleCarousel from 'react-apple-carousel';
+import Paper from 'components/Layout/Paper';
 import styled from 'styled-components';
 import getRenderSlides from './slides';
 

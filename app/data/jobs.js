@@ -16,7 +16,7 @@ import colors from 'theme/colors';
 export default [
   {
     title: 'Blackcrows',
-    subtitle: 'Front-end / UI Developer',
+    subtitle: 'Front-End / UI Developer',
     story: `
 Started by [Rangle](https://rangle.io/) at Jul 2015, The app was built with AngularJS, Typescript, RxJS, Flux and SASS.
 
@@ -49,13 +49,13 @@ At the time of writing this, I made 199 pull requests that included 60+ new feat
   },
   {
     title: 'Goodsense',
-    subtitle: 'Front-end / UI Developer',
+    subtitle: 'Front-End / UI Developer',
     story: `
 Goodsense is an ecommerce platform where merchants upload their products and using niche marketing strategy we would group each type of products in a marketplace application. It's targeting Japan and China.
 
-I started working on this project as a full-stack developer at Sept. 2014. Once we got a small prototype going the product owner requested to expand our team. This is when my life got exciting, I managed to build a team, built an office, got deep in agile scrum workflow, my plan was to open a startup and be funded by this project.
+I started working on this project as a full-stack developer at Sept. 2014. Once we got a small prototype going the product owner requested to expand our team. Things got exciting, I managed to build a team, built an office, got deep in agile scrum workflow, the plan was to open a startup and be funded by this project.
 
-Unfortunately it didnt work out as I hoped. But Goodsense survived and since Mar. 2017 I've been working there as a part-time front-end developer.
+But unfortunately it didnt work out as I hoped. The good news is Goodsense survived and since Mar. 2017 I've been working there as a part-time front-end developer.
     `,
     visitLink: 'http://dev-goodsense-marketplace.herokuapp.com/product/comme-des-garcons-series-3-incense-eau-de-toilette-zagorsk',
     logo: goodsenseLogo,
@@ -79,7 +79,7 @@ Unfortunately it didnt work out as I hoped. But Goodsense survived and since Mar
   },
   {
     title: 'Fortesolutions',
-    subtitle: 'Front-end / UI Developer',
+    subtitle: 'Front-End / UI Developer',
     story: `
 I started contributing to this project early at the project planning stage. I contributed in taking decisions in the front-end technologies, back-end tools and database design.
 
