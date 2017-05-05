@@ -64,10 +64,6 @@
     ],
     "env": {
       "production": {
-        "only": [
-          "app",
-          "node_modules"
-        ],
         "plugins": [
           "transform-react-remove-prop-types",
           "transform-react-constant-elements",
