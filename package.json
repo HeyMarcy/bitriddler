@@ -64,6 +64,10 @@
     ],
     "env": {
       "production": {
+        "only": [
+          "app",
+          "node_modules/react-icons"
+        ],
         "plugins": [
           "transform-react-remove-prop-types",
           "transform-react-constant-elements",
