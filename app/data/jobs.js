@@ -138,8 +138,6 @@ I started working on this project as a full-stack web developer, I contributed i
 For 2 months I worked as a full-time full-stack developer on this project mainly to convert PSDs to React components, Manage data flow and build the APIs to make different parts of the application editable as requested by the client.
 
 One of the big challenges in this project was supporting multiple languages, not only for static data but for data saved in the database as well. Also to provide an interface to edit data in multiple languages.
-
-Another big challenge was supporting SEO. I learned a lot from this experience.
     `,
     cover: cytixCover,
     logo: cytixLogo,

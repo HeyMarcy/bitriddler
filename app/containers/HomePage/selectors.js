@@ -1,9 +1,9 @@
-import jobs from 'data/jobs';
-import stacks from 'data/stacks';
-import skills from 'data/skills';
+import { createSelector } from 'reselect';
+import { selectPageStartAnimation } from 'containers/App/selectors';
 
-export default () => () => ({
-  jobs,
-  stacks,
-  skills,
-});
+export default () => createSelector(
+  selectPageStartAnimation(),
+  (startAnimation) => ({
+    startAnimation,
+  })
+);

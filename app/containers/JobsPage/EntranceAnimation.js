@@ -42,16 +42,12 @@ export default class EntranceAnimation extends React.Component {
   startAnimation = (props) => {
     this.setState({
       openRightWall: false,
-      initialLinesPosition: this.getInitialLinesPosition(props.loaderLineConfig),
+      initialLinesPosition: this.getInitialLinesPosition(),
       lineAnimations: this.getStartAnimations(),
     });
   }
 
   getInitialLinesPosition = () => ([
-    {
-      distance: getWindowWidth(),
-      y: getWindowHeight() / 2,
-    },
     {
       angle: 90,
       distance: 0,
@@ -62,12 +58,6 @@ export default class EntranceAnimation extends React.Component {
   getStartAnimations = () => ([
     [
       {
-        x: this.getCoverImageStartingX(),
-        distance: 0,
-      },
-    ],
-    [
-      {
         y: getWindowHeight() / 2,
         restOn: ({ y }) => y > getWindowHeight() / 2 - 10,
       },
@@ -75,7 +65,6 @@ export default class EntranceAnimation extends React.Component {
         y: 0,
         opacity: 1,
         distance: getWindowHeight(),
-        restOn: ({ distance }) => distance > getWindowHeight() - 10,
         onFinish: () => this.setState({ openRightWall: true }),
       },
       {

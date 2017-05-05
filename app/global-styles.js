@@ -45,13 +45,13 @@ injectGlobal`
 
   h3 {
     font-size: 1.4em;
-    line-height: 24px;
+    line-height: 28px;
     margin: ${theme.h3.verticalMargin}px 0px;
   }
 
   h4 {
-    font-size: 1.49em;
-    line-height: 32px;
+    font-size: 1.2em;
+    line-height: 28px;
     margin: ${theme.h4.verticalMargin}px 0px;
   }
 
@@ -62,7 +62,7 @@ injectGlobal`
   }
 
   h6 {
-    font-size: 0.99em;
+    font-size: 0.9em;
     line-height: 30px;
     margin: ${theme.h6.verticalMargin}px 0px;
   }

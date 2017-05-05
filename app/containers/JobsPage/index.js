@@ -24,66 +24,16 @@ const Wrapper = styled.div`
 
 export class JobsPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  componentWillMount() {
-    this.setState({
-      startFirstAnimation: false,
-      activeJobIndex: 0,
-      activeButtonIndex: 0,
-    });
-
+  componentDidMount() {
     this.props.setPagePrimaryColor(this.props.jobs[0].primaryColor);
   }
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-    setTimeout(() => {
-      this.handleScroll();
-    }, 200);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
-    const topPosition = getWindowScrollTop();
-    const sectionThreshold = 0.5;
-    const windowHeight = getWindowHeight();
-
-    const topPositionRatio = ((topPosition - windowHeight / 2) / windowHeight) + 0.5;
-    const delta = topPositionRatio - Math.floor(topPositionRatio);
-
-    const activeIndex = Math.ceil(topPositionRatio);
-
-    if(delta > sectionThreshold && this.state.activeJobIndex !== activeIndex) {
-      this.setState({
-        activeJobIndex: activeIndex,
-      });
-    }
-  }
-
-  shouldStartJobAnimation = (index) => {
-    if(index === 0) {
-      return this.state.startFirstAnimation;
-    }
-
-    return index <= this.state.activeJobIndex;
-  }
-
-  onEntranceAnimationFinish = () => this.setState({ startFirstAnimation: true });
-
   render() {
     const {
-      loaderLineConfig,
       jobs,
       startAnimation,
       routeIsReady,
     } = this.props;
-
-    const {
-      activeJobIndex,
-      startFirstAnimation,
-    } = this.state;
 
     return (
       <Wrapper>
@@ -93,13 +43,8 @@ export class JobsPage extends React.PureComponent { // eslint-disable-line react
             <PageContent
               windowWidth={getWindowWidth()}
               windowHeight={getWindowHeight()}
-              activeJobIndex={activeJobIndex}
-              updateActiveJobIndex={(index) => this.setState({ activeJobIndex: index })}
-              loaderLineConfig={loaderLineConfig}
               firstPrimaryColor={jobs[0].primaryColor}
               startEntranceAnimation={startAnimation}
-              onEntranceAnimationFinish={this.onEntranceAnimationFinish}
-              shouldStartJobAnimation={this.shouldStartJobAnimation}
               jobs={jobs}
               routeIsReady={routeIsReady}
             />

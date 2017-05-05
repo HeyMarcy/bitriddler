@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import CubeImageRevealPlayground from 'components/Playground/CubeImageRevealPlayground';
 import ExpandablePlayground from 'components/Playground/ExpandablePlayground';
@@ -7,11 +8,15 @@ import MotionGridPlayground from 'components/Playground/MotionGridPlayground';
 import BottomSheetPlayground from 'components/Playground/BottomSheetPlayground';
 import SwipeableTabsPlayground from 'components/Playground/SwipeableTabsPlayground';
 import AppleCarouselPlayground from 'components/Playground/AppleCarouselPlayground';
+import {
+  setPagePrimaryColor,
+  routeIsReady,
+  requestToLeaveRoute,
+} from 'containers/App/actions';
 import Hero from 'components/Main/Hero';
 import colors from 'theme/colors';
 
-const PRIMARY_COLOR = '#27607D';
-const SECONDARY_COLOR = '#EEE';
+const PRIMARY_COLOR = colors.white;
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,6 +24,11 @@ const Wrapper = styled.div`
 `;
 
 export class Playground extends React.Component {
+
+  componentDidMount() {
+    this.props.setPagePrimaryColor(PRIMARY_COLOR);
+    this.props.routeIsReady();
+  }
 
   renderTab = (name, pckg) => {
     switch(name) {
@@ -159,4 +169,9 @@ Playground.defaultProps = {
 
 };
 
-export default Playground;
+const mapDispatchToProps = {
+  setPagePrimaryColor,
+  routeIsReady,
+};
+
+export default connect(null, mapDispatchToProps)(Playground);

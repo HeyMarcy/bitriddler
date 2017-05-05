@@ -23,6 +23,7 @@ import FadeInBottom from 'components/Animations/FadeInBottom';
 import SublimeHelper from 'components/Animations/SublimeHelper';
 import ReactMarkdown from 'react-markdown';
 import { media } from 'utils/styles';
+import { fade } from 'material-ui/utils/colorManipulator';
 
 const getLargeDesktopImageWidthPercentage = () => 60;
 const getDesktopImageWidthPercentage = () => 50;
@@ -42,33 +43,23 @@ export const getImageWidthPercentage = () => {
 }
 
 const Wrapper = styled.div`
-  background: ${(props) => props.primaryColor};
-  height: 100vh;
-  ${media.md`
-    height: auto;
-  `}
-`;
-
-const InnerWrapper = styled.div`
-  height: 100vh;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: ${(props) => props.isLeft ? `row` : 'row-reverse'};
-  padding: 0px 24px;
+  width: 100%;
+  height: 100%;
   max-width: 1400px;
-
+  margin: 0 auto;
   ${media.md`
     flex-direction: column-reverse;
-    padding: 24px;
     height: auto;
   `}
 `;
 
 const CoverImage = styled.div`
   width: ${getLargeDesktopImageWidthPercentage()}%;
-  height: 100vh;
+  height: 100%;
   ${media.lg`
     width: ${getDesktopImageWidthPercentage()}%;
   `}
@@ -84,21 +75,20 @@ const CoverImage = styled.div`
 
 const JobDetails = styled(FadeInBottom)`
   width: ${98 - getLargeDesktopImageWidthPercentage()}%;
-  max-height: 93vh;
   ${media.lg`
     width: ${98 - getDesktopImageWidthPercentage()}%;
   `}
   ${media.md`
-    height: auto;
     width: 100%;
-    max-height: initial;
+    height: auto;
+    margin-top: 24px;
   `}
-  overflow: hidden;
   color: ${(props) => props.fontColor};
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
 `;
 
 const JobHeading = styled.div`
@@ -118,7 +108,7 @@ const JobTitle = styled.h2`
 `;
 
 const JobSubtitle = styled.h3`
-  color: ${(props) => props.fontColor};
+  color: ${(props) => fade(props.fontColor, 0.8)};
 `;
 
 const JobSectionTitle = styled.h4`
@@ -207,67 +197,66 @@ export default class JobSection extends React.Component {
     return (
       <Wrapper
         primaryColor={primaryColor}
+        isLeft={isLeft}
       >
-        <InnerWrapper isLeft={isLeft}>
-          <JobDetails
-            fontColor={fontColor}
-            fromLeft={isLeft}
-            start={startAnimation}
-            disable={noAnimation}
-          >
-            <JobHeading>
-              <JobLogo src={job.logo} />
-              <JobHeadingRight>
-                <JobTitle>
-                  {job.title}
-                </JobTitle>
-                <JobSubtitle fontColor={fontColor}>
-                  {job.subtitle}
-                </JobSubtitle>
-              </JobHeadingRight>
-            </JobHeading>
+        <JobDetails
+          fontColor={fontColor}
+          fromLeft={isLeft}
+          start={startAnimation}
+          disable={noAnimation}
+        >
+          <JobHeading>
+            <JobLogo src={job.logo} />
+            <JobHeadingRight>
+              <JobTitle>
+                {job.title}
+              </JobTitle>
+              <JobSubtitle fontColor={fontColor}>
+                {job.subtitle}
+              </JobSubtitle>
+            </JobHeadingRight>
+          </JobHeading>
+          <JobSectionTitle>
+            Roles
+          </JobSectionTitle>
+          <JobRoles>
+            {job.roles.map((role, index) => (
+              <JobRole fontColor={fontColor} key={index}>
+                <JobRoleCheck />
+                <JobRoleText>{this.addDot(role)}</JobRoleText>
+              </JobRole>
+            ))}
+          </JobRoles>
+          {
+            job.story &&
             <JobSectionTitle>
-              Roles
+              Story
             </JobSectionTitle>
-            <JobRoles>
-              {job.roles.map((role, index) => (
-                <JobRole fontColor={fontColor} key={index}>
-                  <JobRoleCheck />
-                  <JobRoleText>{this.addDot(role)}</JobRoleText>
-                </JobRole>
-              ))}
-            </JobRoles>
-            {
-              job.story &&
-              <JobSectionTitle>
-                Story
-              </JobSectionTitle>
-            }
-            {
-              job.story &&
-              <JobStory fontColor={fontColor}>
-                <ReactMarkdown source={job.story} />
-              </JobStory>
-            }
-            <JobSectionTitle>
-              Tools
-            </JobSectionTitle>
-            <JobToolsWrapper>
-              {job.tools.map(({ logo, name }, index) => (
-                <JobToolLogoWrapper
-                  fontColor={fontColor}
-                  primaryColor={primaryColor}
-                  key={index}
-                >
-                  {name}
-                </JobToolLogoWrapper>
-              ))}
-            </JobToolsWrapper>
-          </JobDetails>
-          <CoverImage
-            image={job.cover}
-          />
-        </InnerWrapper>
+          }
+          {
+            job.story &&
+            <JobStory fontColor={fontColor}>
+              <ReactMarkdown source={job.story} />
+            </JobStory>
+          }
+          <JobSectionTitle>
+            Tools
+          </JobSectionTitle>
+          <JobToolsWrapper>
+            {job.tools.map(({ logo, name }, index) => (
+              <JobToolLogoWrapper
+                fontColor={fontColor}
+                primaryColor={primaryColor}
+                key={index}
+              >
+                {name}
+              </JobToolLogoWrapper>
+            ))}
+          </JobToolsWrapper>
+        </JobDetails>
+        <CoverImage
+          image={job.cover}
+        />
       </Wrapper>
     );
   }

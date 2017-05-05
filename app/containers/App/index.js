@@ -7,7 +7,7 @@ import materialUiTheme from 'theme/materialui';
 import theme from 'theme/default';
 import styled from 'styled-components';
 
-import LoadingBar from 'components/LineAnimations/LoadingBar';
+import Loader from 'components/Utils/Loader';
 import Header from 'components/Main/Header';
 import Menu from 'components/Main/Menu';
 import { hexToRgb } from 'utils/colors';
@@ -26,7 +26,9 @@ const LoadingWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ContentWrapper = styled.div`
@@ -41,7 +43,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 
   componentWillMount() {
     this.setState({
-      showLoader: false,
+      showLoader: true,
       isFirstTime: true,
     });
   }
@@ -49,22 +51,21 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
   componentWillReceiveProps(nextProps) {
     // Requesting to change route
     if(nextProps.routeToLoad
-      && nextProps.routeToLoad !== this.props.routeToLoad) {
+      && nextProps.routeToLoad !== nextProps.location.pathname) {
       this.setState({
         showLoader: true,
       });
       this.props.push(nextProps.routeToLoad);
     }
 
+    // Route is ready then start loader leave animation
     if(nextProps.routeReady &&
       nextProps.routeReady !== this.props.routeReady &&
-      this.state.showLoader) {
-      console.log('was ready');
-      setTimeout(() => {
-        this.setState({
-          restLoader: true,
-        });
-      }, 2000);
+      this.state.showLoader &&
+      !this.state.startLoaderLeaveAnimation) {
+      this.setState({
+        startLoaderLeaveAnimation: true,
+      });
     }
 
     if(nextProps.pagePrimaryColor && this.props.pagePrimaryColor) {
@@ -74,17 +75,22 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
     }
   }
 
-  renderLoader(lineConfig, restLoader, startPageAnimation) {
+  renderLoader() {
+    const {
+      startPageAnimation,
+    } = this.props;
+
+    const {
+      startLoaderLeaveAnimation,
+    } = this.state;
+
     return (
       <LoadingWrapper>
-        <LoadingBar
-          initialDistance={lineConfig.distance}
-          rest={restLoader}
-          onRest={(config) => {
-            startPageAnimation(config);
-            this.setState({
-              showLoader: false,
-            });
+        <Loader
+          startLeaveAnimation={startLoaderLeaveAnimation}
+          onLeave={() => {
+            this.setState({ showLoader: false });
+            startPageAnimation();
           }}
         />
       </LoadingWrapper>
@@ -96,7 +102,6 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 
   render() {
     const {
-      loaderLineConfig,
       startPageAnimation,
       pagePrimaryColor,
       children,
@@ -118,12 +123,12 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
             bgColor={contentColor}
             id="outer-container"
           >
-            <Menu
+            {/*<Menu
               bgColor={pagePrimaryColor}
-            />
+            />*/}
             <div id="page-wrap">
               <Header />
-              {showLoader && this.renderLoader(loaderLineConfig, restLoader, startPageAnimation)}
+              {showLoader && this.renderLoader()}
               <ContentWrapper
                 showLoader={showLoader}
               >

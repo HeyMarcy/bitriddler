@@ -29,11 +29,6 @@ export const selectRouteReady = () => createSelector(
   (state) => state.getIn(['requestedRoute', 'isReady'])
 );
 
-export const selectLoaderLineConfig = () => createSelector(
-  selectAppDomain(),
-  (state) => state.getIn(['requestedRoute', 'loaderLineConfig'])
-);
-
 export const selectPagePrimaryColor = () => createSelector(
   selectAppDomain(),
   (state) => state.getIn(['requestedRoute', 'primaryColor'])
@@ -47,13 +42,11 @@ export const selectPageStartAnimation = () => createSelector(
 export default () => createSelector(
   selectRouteToLoad(),
   selectRouteReady(),
-  selectLoaderLineConfig(),
   selectPagePrimaryColor(),
   selectPageStartAnimation(),
-  (routeToLoad, routeReady, loaderLineConfig, pagePrimaryColor, startAnimation) => ({
+  (routeToLoad, routeReady, pagePrimaryColor, startAnimation) => ({
     routeToLoad,
     routeReady,
-    loaderLineConfig: loaderLineConfig && loaderLineConfig.toJS(),
     pagePrimaryColor,
     startAnimation,
   })

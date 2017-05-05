@@ -1,13 +1,11 @@
 import jobs from 'data/jobs';
 import { createSelector } from 'reselect';
-import { selectLoaderLineConfig, selectPageStartAnimation } from 'containers/App/selectors';
+import { selectPageStartAnimation } from 'containers/App/selectors';
 
 export default () => createSelector(
-  selectLoaderLineConfig(),
   selectPageStartAnimation(),
-  (loadLineConfig, startAnimation) => ({
-    loadLineConfig: loadLineConfig && loadLineConfig.toJS(),
-    jobs,
+  (startAnimation) => ({
     startAnimation,
+    jobs,
   })
 );

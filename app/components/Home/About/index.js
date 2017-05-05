@@ -63,7 +63,7 @@ const Subtitle = styled.h3`
   })}
 `;
 
-const Description = styled.p`
+const Description = styled.h4`
   color: ${darkWhite};
   max-width: 400px;
   ${(props) => stringifyTranslate({
@@ -94,7 +94,9 @@ export default class About extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(nextState.contentWidth > 10 && nextState.lineAnimations.length === 0) {
+    if(nextState.contentWidth > 10
+      && nextState.lineAnimations.length === 0
+      && nextProps.startAnimation) {
       this.runLinesEnterAnimations(nextState);
     }
   }
@@ -116,8 +118,8 @@ export default class About extends React.Component {
       lineAnimations: this.getStartAnimations({
         verticalSpace,
         horizontalSpace,
-        contentWidth,
-        contentHeight,
+        contentWidth: contentWidth + contentPadding * 2,
+        contentHeight: contentHeight + contentPadding * 2,
       })
     });
   }
@@ -145,59 +147,51 @@ export default class About extends React.Component {
 
   getStartAnimations = ({ verticalSpace, horizontalSpace, contentHeight, contentWidth }) => ([
     [
-      { opacity: 1, x: 0, distance: getWindowWidth() },
-      { y: verticalSpace, onStart: this.runBoxAnimation },
+      { opacity: 0.2, x: 0, distance: getWindowWidth() },
+      { opacity: 1, y: verticalSpace, onStart: this.runBoxAnimation },
+      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth, onFinish: () => this.setState({ openRightAndLeft: true  }) },
+      { x: 0, distance: getWindowWidth(), onFinish: () => this.setState({ openTopAndBottom: true }) },
+      { y: 0, }
+    ],
+    [
+      { opacity: 0.2, x: 0, distance: getWindowWidth() },
+      { opacity: 1, y: getWindowHeight() - verticalSpace },
       { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
-      { x: getWindowWidth() / 2 - contentWidth / 2 - contentWidth },
-      { x: getWindowWidth() / 2 - contentWidth / 2 + contentWidth },
-      { x: getWindowWidth() / 2 - contentWidth / 2 - contentWidth },
+      { x: 0, distance: getWindowWidth() },
+      { y: getWindowHeight(), }
     ],
     [
-      { opacity: 1, x: 0, distance: getWindowWidth() },
-      { y: getWindowHeight() - verticalSpace },
-      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
-      { x: getWindowWidth() / 2 - contentWidth / 2 + contentWidth },
-      { x: getWindowWidth() / 2 - contentWidth / 2 - contentWidth },
-      { x: getWindowWidth() / 2 - contentWidth / 2 + contentWidth },
-    ],
-    [
-      { opacity: 1, y: 0, distance: getWindowHeight() },
-      { x: horizontalSpace },
+      { opacity: 0.2, y: 0, distance: getWindowHeight() },
+      { opacity: 1, x: horizontalSpace },
       { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
-      { y: getWindowHeight() / 2 - contentHeight / 2 - contentHeight },
-      { y: getWindowHeight() / 2 - contentHeight / 2 + contentHeight },
-      { y: getWindowHeight() / 2 - contentHeight / 2 - contentHeight },
+      { x: 0 - 10, opacity: 0 },
     ],
     [
-      { opacity: 1, y: 0, distance: getWindowHeight() },
-      { x: getWindowWidth() - horizontalSpace },
+      { opacity: 0.2, y: 0, distance: getWindowHeight() },
+      { opacity: 1, x: getWindowWidth() - horizontalSpace },
       { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
-      { y: getWindowHeight() / 2 - contentHeight / 2 + contentHeight },
-      { y: getWindowHeight() / 2 - contentHeight / 2 - contentHeight },
-      { y: getWindowHeight() / 2 - contentHeight / 2 + contentHeight },
+      { x: getWindowWidth() + 10, opacity: 0 },
     ]
   ]);
 
   getLeaveAnimations = ({ contentWidth, contentHeight, onLeaveAnimationFinish }) => ([
     // top
     [
-      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
-      { y: getWindowHeight() / 2, onStart: this.runBoxLeaveAnimation, restOn: true },
+      { y: getWindowHeight() / 2, onStart: this.runBoxLeaveAnimation, restOn: true, opacity: 0 },
+      { x: getWindowWidth() / 2, distance: 0 },
     ],
     // Bottom
     [
-      { x: getWindowWidth() / 2 - contentWidth / 2, distance: contentWidth },
-      { y: getWindowHeight() / 2, restOn: true, onFinish: (config) => onLeaveAnimationFinish({ lineConfig: config }) },
+      { y: getWindowHeight() / 2, restOn: true },
+      { x: getWindowWidth() / 2, distance: 0, onFinish: (config) => onLeaveAnimationFinish({ lineConfig: config }) },
     ],
     // Left
     [
-      { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
-      { distance: 0, y: getWindowHeight() / 2, restOn: true },
+      { distance: 0 }
     ],
     // Right
     [
-      { y: getWindowHeight() / 2 - contentHeight / 2, distance: contentHeight },
-      { distance: 0, y: getWindowHeight() / 2, restOn: true },
+      { distance: 0 }
     ]
   ]);
 
@@ -244,6 +238,8 @@ export default class About extends React.Component {
       onSkillsClick,
       onReactPlaygroundClick,
       showEntranceAnimation,
+      startAnimation,
+      loadLineConfig,
     } = this.props;
 
     const {
@@ -254,7 +250,23 @@ export default class About extends React.Component {
       initialLinesPosition,
       lineAnimations,
       contentPadding,
+      openRightAndLeft,
+      openTopAndBottom,
     } = this.state;
+
+    let openVerticalValue, openHorizontalValue;
+
+    if(openTopAndBottom) {
+      openVerticalValue = 0;
+      openHorizontalValue = 0;
+    }
+    else if(openRightAndLeft) {
+      openVerticalValue = 1 - ((contentHeight + contentPadding * 2) / getWindowHeight());
+      openHorizontalValue = 0;
+    } else {
+      openVerticalValue = 1 - ((contentHeight + contentPadding * 2) / getWindowHeight());
+      openHorizontalValue = 1 - ((contentWidth + contentPadding * 2) / getWindowWidth());
+    }
 
     return (
       <Wrapper primaryColor={primaryColor}>
@@ -280,12 +292,6 @@ export default class About extends React.Component {
                 >
                   Work experience
                 </StyledButton>
-                <StyledButton
-                  onClick={onReactPlaygroundClick}
-                  activeColor={primaryColor}
-                >
-                  React playground
-                </StyledButton>
               </ButtonsWrapper>
             </AboutContentWrapper>
           </Measure>
@@ -293,8 +299,8 @@ export default class About extends React.Component {
         {
           showEntranceAnimation &&
           <BoxAnimation
-            openVerticalValue={1 - ((contentHeight + contentPadding * 2) / getWindowHeight())}
-            openHorizontalValue={1 - ((contentWidth + contentPadding * 2) / getWindowWidth())}
+            openVerticalValue={openVerticalValue}
+            openHorizontalValue={openHorizontalValue}
             closeTop={runBoxLeaveAnimation}
             closeBottom={runBoxLeaveAnimation}
             closeAll={!runBoxAnimation}

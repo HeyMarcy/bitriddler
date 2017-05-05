@@ -1,7 +1,6 @@
 import React from 'react';
 import AppleCarousel from 'react-apple-carousel';
 import styled from 'styled-components';
-import Paper from 'components/Layout/Paper';
 import getRenderSlides from './slides';
 
 const Wrapper = styled.div`
@@ -37,17 +36,12 @@ export default class AppleCarouselPlayground extends React.Component {
 
   render() {
     const {
-      parallaxValue,
-    } = this.state;
-
-    const {
       secondaryColor,
     } = this.props;
 
     return (
       <Wrapper>
         <AppleCarousel
-          parallaxValue={parallaxValue}
           renderSlides={getRenderSlides(parallaxValue)}
         />
         <Description bgColor={secondaryColor}>

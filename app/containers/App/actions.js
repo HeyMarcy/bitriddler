@@ -1,12 +1,11 @@
 import { LEAVE_ROUTE, ROUTE_READY, START_PAGE_ANIMATION, SET_PAGE_PRIMARY_COLOR } from './constants';
 
-export const requestToLeaveRoute = (route, loaderLineConfig) => ({
+export const requestToLeaveRoute = (route) => ({
   type: LEAVE_ROUTE,
   route,
-  loaderLineConfig,
 });
 
-export const routeIsReady = (primaryColor) => ({
+export const routeIsReady = () => ({
   type: ROUTE_READY,
 });
 
@@ -15,7 +14,6 @@ export const setPagePrimaryColor = (primaryColor) => ({
   primaryColor,
 });
 
-export const startPageAnimation = (loaderLineConfig) => ({
+export const startPageAnimation = () => ({
   type: START_PAGE_ANIMATION,
-  loaderLineConfig,
 });
