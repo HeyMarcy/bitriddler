@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Measure from 'react-measure';
-import ScrollArea from 'react-scrollbar';
 import styled from 'styled-components';
 import { getWindowHeight, getWindowWidth, getWindowScrollTop } from 'utils/screen';
 import {

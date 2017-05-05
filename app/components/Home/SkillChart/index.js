@@ -1,5 +1,4 @@
 import React from 'react';
-import { Bar as BarChart } from 'react-chartjs-2';
 import { darken } from 'material-ui/utils/colorManipulator';
 import { getWindowWidth, getWindowHeight } from 'utils/screen';
 import SkillScore from './SkillScore';

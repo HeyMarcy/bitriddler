@@ -1,9 +1,4 @@
 import React from 'react';
-import StarRating from 'react-star-rating-component';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
-
-import Slider from 'react-slick';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -54,13 +49,6 @@ export default class StackGrid extends React.Component {
                 <SkillTool key={index} src={logo} />
               ))}
             </SkillToolsWrapper>
-            <SkillRating>
-              <StarRating
-                name={`rate${index}`}
-                starCount={10}
-                value={scorePercentage / 10}
-              />
-            </SkillRating>
           </SkillWrapper>
         ))}
       </Wrapper>
