@@ -60,7 +60,6 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 
     // Route is ready then start loader leave animation
     if(nextProps.routeReady &&
-      nextProps.routeReady &&
       nextProps.routeReady !== this.props.routeReady &&
       this.state.showLoader &&
       !this.state.startLoaderLeaveAnimation) {
