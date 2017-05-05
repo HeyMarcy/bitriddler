@@ -40,6 +40,10 @@ export default class AppleCarouselPlayground extends React.Component {
       secondaryColor,
     } = this.props;
 
+    const {
+      parallaxValue,
+    } = this.state;
+
     return (
       <Wrapper>
         <AppleCarousel
