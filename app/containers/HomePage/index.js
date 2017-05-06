@@ -83,8 +83,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   gotoWorkExperience = () => this.leavePage('/work');
-  gotoSkills = () => this.leavePage('/skills');
-  gotoReactPlayground = () => this.leavePage('/playground');
+  gotoContact = () => this.leavePage('/contact');
 
   getCoverImage = (screenWidth, screenHeight) => {
     const hThreshold = 40;
@@ -129,8 +128,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               runLeaveAnimation={runLeaveAnimation}
 
               onWorkExperienceClick={this.gotoWorkExperience}
-              onSkillsClick={this.gotoSkills}
-              onReactPlaygroundClick={this.gotoReactPlayground}
+              onContactClick={this.gotoContact}
             />
           </Wrapper>
         )}
