@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import FacebookIcon from 'react-icons/fa/facebook';
 import MailIcon from 'react-icons/fa/envelope';
-import PhoneIcon from 'react-icons/fa/mobile';
+import PhoneIcon from 'react-icons/fa/phone';
 import LinkedinIcon from 'react-icons/fa/linkedin';
 import coverImage768 from 'assets/home/cover768x513.jpg';
 
