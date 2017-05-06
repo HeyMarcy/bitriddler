@@ -235,7 +235,7 @@ export default class About extends React.Component {
       runLeaveAnimation,
       onLeaveAnimationFinish,
       onWorkExperienceClick,
-      onSkillsClick,
+      onContactClick,
       onReactPlaygroundClick,
       showEntranceAnimation,
       startAnimation,
@@ -290,7 +290,13 @@ export default class About extends React.Component {
                   onClick={onWorkExperienceClick}
                   activeColor={primaryColor}
                 >
-                  Work experience
+                  Showcase
+                </StyledButton>
+                <StyledButton
+                  onClick={onContactClick}
+                  activeColor={primaryColor}
+                >
+                  Contact
                 </StyledButton>
               </ButtonsWrapper>
             </AboutContentWrapper>
