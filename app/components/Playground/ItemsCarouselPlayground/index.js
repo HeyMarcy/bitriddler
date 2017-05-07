@@ -1,7 +1,7 @@
 import React from 'react';
 import { presets } from 'react-motion';
 import Measure from 'react-measure';
-import ItemsCarousel from 'react-items-carousel';
+import ItemsCarousel from 'react-items-carousel/src/ItemsCarousel';
 import range from 'lodash/range';
 import styled from 'styled-components';
 import SelectField from 'material-ui/SelectField';
@@ -45,7 +45,7 @@ const Controller = styled.div`
   margin-bottom: 12px;
 `;
 
-const AppShellItem = styled.div`
+const PlaceholderItem = styled.div`
   height: 200px;
   display: flex;
   background: #900;
@@ -73,19 +73,30 @@ const SlideSubtitle = styled.h6`
 `;
 
 const titles = [
-  'Totally',
+  'Very',
   'Build with',
-  'Psst!',
   'Placeholders',
 ];
 
 const subtitles = [
   'customizable',
   'React motion',
-  'Try on mobile!',
   'Can use placeholders until data loads',
 ];
 
+const ItemButton = styled.div`
+  padding: 20px;
+  background: ${(props) => props.isActive ? '#900' : '#333'};
+  color: #FFF;
+  margin-right: 20px;
+  margin-bottom: 20px;
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  margin: 20px;
+  flex-wrap: wrap;
+`;
 
 export class ItemsCarouselPlayground extends React.Component {
 
@@ -93,51 +104,25 @@ export class ItemsCarouselPlayground extends React.Component {
     this.resetDefaultConfigurations();
   }
 
-  resetMobileConfigurations = () => {
+  resetDefaultConfigurations = () => {
     this.setState({
-      children: [],
-
-      totalNumberOfCards: 10,
       presetKey: 'noWobble',
-      numberOfCards: 2,
-      slidesToScroll: 2,
-      freeScrolling: true,
-      disableScrolling: false,
-      showChevron: false,
-      addFirstAndLastPadding: true,
-      outsideChevron: false,
-
-      hide: true,
-    });
-
-    setTimeout(() => {
-      this.setState({
-        hide: false,
-        children: this.createChildren(this.state.totalNumberOfCards, this.props.primaryColor),
-      })
-    }, 100);
-  };
-
-  resetDesktopConfigurations = () => {
-    this.setState({
-      children: [],
-
-      totalNumberOfCards: 20,
-      presetKey: 'noWobble',
-      numberOfCards: 5,
-      slidesToScroll: 5,
+      numberOfCards: 3,
+      slidesToScroll: 3,
       freeScrolling: false,
-      disableScrolling: false,
       showChevron: true,
       addFirstAndLastPadding: false,
+      children: [],
       outsideChevron: true,
-
-      hide: true,
+      totalNumberOfCards: 20,
+      showSlither: true,
+      activeItemIndex: 0,
+      activePosition: 'left',
+      gutter: 10,
     });
 
     setTimeout(() => {
       this.setState({
-        hide: false,
         children: this.createChildren(this.state.totalNumberOfCards, this.props.primaryColor),
       })
     }, 100);
@@ -145,32 +130,14 @@ export class ItemsCarouselPlayground extends React.Component {
 
   isMobile = () => isSMScreen() || isXSScreen();
 
-  resetDefaultConfigurations = () => {
-    this.isMobile() ? this.resetMobileConfigurations() : this.resetDesktopConfigurations();
-  };
-
   updateConfiguration = (config) => {
-    this.setState({
-      hide: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        hide: false,
-        ...config,
-      });
-    }, 100);
+    this.setState(config);
   };
 
   updateTotalNumberOfCards = (value) => {
     this.setState({
-      children: [],
+      children: this.createChildren(value, this.props.primaryColor),
     });
-    setTimeout(() => {
-      this.setState({
-        totalNumberOfCards: value,
-        children: this.createChildren(value, this.props.primaryColor),
-      });
-    }, 100);
   };
 
   createChildren = (n, bgColor) => range(n).map(i => (
@@ -180,19 +147,23 @@ export class ItemsCarouselPlayground extends React.Component {
     </SlideItem>
   ));
 
+  changeActiveItem = (activeItemIndex) => this.setState({ activeItemIndex });
+
   render() {
     const {
       presetKey,
       numberOfCards,
       slidesToScroll,
       freeScrolling,
-      disableScrolling,
       showChevron,
       addFirstAndLastPadding,
-      hide,
       children,
       outsideChevron,
       totalNumberOfCards,
+      showSlither,
+      activeItemIndex,
+      activePosition,
+      gutter,
     } = this.state;
 
     const {
@@ -207,7 +178,7 @@ export class ItemsCarouselPlayground extends React.Component {
             <Controller>
               <SelectField
                 floatingLabelFixed
-                floatingLabelText="Total number of cards"
+                floatingLabelText="Total number of children"
                 value={totalNumberOfCards}
                 onChange={(e, i, value) => this.updateTotalNumberOfCards(value)}
               >
@@ -228,7 +199,7 @@ export class ItemsCarouselPlayground extends React.Component {
                 ))}
               </SelectField>
             </Controller>
-            <Controller>
+            {/*<Controller>
               <SelectField
                 floatingLabelFixed
                 floatingLabelText="Slides to scroll"
@@ -239,6 +210,30 @@ export class ItemsCarouselPlayground extends React.Component {
                 {range(6).map(val => (
                   <MenuItem key={val} value={val + 1} primaryText={val + 1} />
                 ))}
+              </SelectField>
+            </Controller>*/}
+            <Controller>
+              <SelectField
+                floatingLabelFixed
+                floatingLabelText="Gutter"
+                value={gutter}
+                onChange={(e, i, gutter) => this.updateConfiguration({ gutter })}
+              >
+                {range(5).map(val => (
+                  <MenuItem key={val} value={(val + 1) * 5} primaryText={(val + 1) * 5} />
+                ))}
+              </SelectField>
+            </Controller>
+            <Controller>
+              <SelectField
+                floatingLabelFixed
+                floatingLabelText="Active position"
+                value={activePosition}
+                onChange={(e, i, value) => this.updateConfiguration({ activePosition: value })}
+              >
+                <MenuItem value={'left'} primaryText={'left'} />
+                <MenuItem value={'center'} primaryText={'center'} />
+                <MenuItem value={'right'} primaryText={'right'} />
               </SelectField>
             </Controller>
             <Controller>
@@ -253,13 +248,6 @@ export class ItemsCarouselPlayground extends React.Component {
                 <MenuItem value={'wobbly'} primaryText={'wobbly'} />
                 <MenuItem value={'stiff'} primaryText={'stiff'} />
               </SelectField>
-            </Controller>
-            <Controller>
-              <Toggle
-                toggled={disableScrolling}
-                label={'Disable scrolling'}
-                onToggle={(_, isChecked) => this.updateConfiguration({ disableScrolling: isChecked })}
-              />
             </Controller>
             <Controller>
               <Toggle
@@ -284,52 +272,56 @@ export class ItemsCarouselPlayground extends React.Component {
             </Controller>
             <Controller>
               <Toggle
+                toggled={showSlither}
+                label={'Show slither of next item'}
+                onToggle={(_, isChecked) => this.updateConfiguration({ showSlither: isChecked })}
+              />
+            </Controller>
+            <Controller>
+              <Toggle
                 toggled={outsideChevron}
                 label={'Outside chevron'}
                 onToggle={(_, isChecked) => this.updateConfiguration({ outsideChevron: isChecked })}
               />
             </Controller>
-            <Controller>
-              <RaisedButton
-                label={'Reset configurations'}
-                onClick={this.resetDefaultConfigurations}
-              />
-            </Controller>
           </Paper>
         </Controllers>
-        <DemoWrapper noHorizontalPadding={addFirstAndLastPadding}>
-          {
-            !hide &&
-            <ItemsCarousel
-              freeScrolling={freeScrolling}
-              disableScrolling={disableScrolling}
+        <DemoWrapper>
+          <ItemsCarousel
+            numberOfCards={numberOfCards}
+            freeScrolling={freeScrolling}
+            showSlither={showSlither}
+            firstAndLastGutter={addFirstAndLastPadding}
+            gutter={gutter}
 
-              firstItemGutter={addFirstAndLastPadding ? 24 : 0}
-              lastItemGutter={addFirstAndLastPadding ? 24 : 0}
-              gutter={12}
+            enablePlaceholder
+            minimumPlaceholderTime={2000}
+            numberOfPlaceholderItems={6}
+            appShellItem={<PlaceholderItem />}
 
-              enableAppShell
-              minimumAppShellTime={2000}
-              numberOfShellItems={6}
-              appShellItem={<AppShellItem />}
+            rightChevron={showChevron && <div>&#10097;</div>}
+            leftChevron={showChevron && <div>&#10096;</div>}
+            chevronWidth={showChevron ? gutter * 2 : 0}
+            outsideChevron={outsideChevron}
 
-              numberOfCards={numberOfCards}
-              slidesToScroll={slidesToScroll}
+            springConfig={presets[presetKey]}
 
-              outsideChevron={outsideChevron}
-              chevronWidth={showChevron ? 24 : 0}
-              rightChevron={showChevron && <div>&#10097;</div>}
-              leftChevron={showChevron && <div>&#10096;</div>}
-
-              centerExactly
-
-              springConfig={presets[presetKey]}
-            >
-              {children}
-            </ItemsCarousel>
-          }
+            // Active item configurations
+            requestToChangeActive={this.changeActiveItem}
+            activeItemIndex={activeItemIndex}
+            activePosition={activePosition}
+            children={children}
+          />
         </DemoWrapper>
-        }
+        <Paper>
+          <ButtonsWrapper>
+            {range(totalNumberOfCards).map((item, index) => (
+              <ItemButton isActive={index === activeItemIndex} onClick={() => this.changeActiveItem(index)} key={index}>
+                {index + 1}
+              </ItemButton>
+            ))}
+          </ButtonsWrapper>
+        </Paper>
       </Wrapper>
     );
   }

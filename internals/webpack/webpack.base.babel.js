@@ -18,7 +18,7 @@ module.exports = (options) => ({
     }, {
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel-loader',
-      exclude: /node_modules\/(?!(react-cube-image-reveal|react-apple-carousel|react-icons)\/).*/, // Exclude all node_modules except gscomponents and gssdk
+      exclude: /node_modules\/(?!(react-cube-image-reveal|react-apple-carousel|react-items-carousel|react-icons)\/).*/, // Exclude all node_modules except gscomponents and gssdk
       query: options.babelQuery,
     }, {
       // Do not transform vendor's CSS with CSS-modules
