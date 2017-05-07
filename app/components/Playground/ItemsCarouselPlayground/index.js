@@ -73,16 +73,14 @@ const SlideSubtitle = styled.h6`
 `;
 
 const titles = [
-  'Totally',
+  'Very',
   'Build with',
-  'Psst!',
   'Placeholders',
 ];
 
 const subtitles = [
   'customizable',
   'React motion',
-  'Try on mobile!',
   'Can use placeholders until data loads',
 ];
 
