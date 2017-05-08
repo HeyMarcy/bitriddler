@@ -73,7 +73,7 @@ export default class EntranceAnimation extends React.Component {
   }
 
   renderLineAnimations({ initialLinesPosition, lineAnimations, lineColor }) {
-    const waitFor = 2000;
+    const waitFor = 500;
 
     return initialLinesPosition.map((initialPosition, index) => (
       <Line
