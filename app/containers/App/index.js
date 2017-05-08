@@ -20,6 +20,7 @@ import selectors from './selectors';
 const Wrapper = styled.div`
   background-color: ${(props) => props.bgColor};
   ${(props) => !props.noBgTransition && `transition: background-color 1000ms linear;`}
+  min-height: 100vh;
 `;
 
 const LoadingWrapper = styled.div`

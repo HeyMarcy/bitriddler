@@ -60,7 +60,7 @@ export default class EntranceAnimation extends React.Component {
 
   // Top bottom, left right
   getInitialLinesPosition = () => ([
-    { opacity: 1, y: getWindowHeight() / 2, x: getWindowWidth() / 2, distance: 0 },
+    { opacity: 0, y: getWindowHeight() / 2, x: getWindowWidth() / 2, distance: 0 },
   ]);
 
   getStartAnimations = () => {
@@ -73,7 +73,7 @@ export default class EntranceAnimation extends React.Component {
   }
 
   renderLineAnimations({ initialLinesPosition, lineAnimations, lineColor }) {
-    const waitFor = 100;
+    const waitFor = 2000;
 
     return initialLinesPosition.map((initialPosition, index) => (
       <Line

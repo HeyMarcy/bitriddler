@@ -15,6 +15,7 @@ import preloadImage from 'components/Utils/Image/preloadImage';
 import coverImage2560 from 'assets/opensource/cover2560x1709.jpg';
 import coverImage1920 from 'assets/opensource/cover1920x1282.jpg';
 import coverImage768 from 'assets/opensource/cover768x513.jpg';
+import { opensourcePageFeatures } from 'utils/features';
 import { getWindowHeight, getWindowWidth } from 'utils/screen';
 import EntranceAnimation from './EntranceAnimation';
 import selectors from './selectors';
@@ -178,6 +179,12 @@ export class OpensourcePage extends React.Component {
     '_blank'
   );
 
+  showEntranceAnimation = () =>
+    opensourcePageFeatures.showEntranceAnimation();
+
+  shouldStartOpensourceAnimation = () =>
+    !this.showEntranceAnimation() || (this.state.startOpensourceAnimation && this.props.startAnimation);
+
   render() {
     const {
       opensource,
@@ -195,7 +202,7 @@ export class OpensourcePage extends React.Component {
         />
         <StaggeredMotion
           defaultStyles={this.getDefaultStyles(opensource)}
-          styles={this.getStyles(startOpensourceAnimation)}
+          styles={this.getStyles(this.shouldStartOpensourceAnimation())}
         >
           {(styles) => (
             <OpensourcesWrapper>
@@ -232,7 +239,7 @@ export class OpensourcePage extends React.Component {
           )}
         </StaggeredMotion>
         {
-          !startOpensourceAnimation &&
+          this.showEntranceAnimation() && !startOpensourceAnimation &&
           <EntranceAnimation
             startAnimation={startAnimation}
             wallColor={PAGE_PRIMARY_COLOR}
