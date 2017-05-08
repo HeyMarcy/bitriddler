@@ -106,8 +106,19 @@ export class OpensourcePage extends React.Component {
   componentWillMount() {
     this.props.setPagePrimaryColor(PAGE_PRIMARY_COLOR);
     this.setState({
+      startAnimation: false,
       startOpensourceAnimation: false,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.startAnimation && !this.props.startAnimation) {
+      setTimeout(() => {
+        this.setState({
+          startAnimation: true,
+        });
+      }, 2000);
+    }
   }
 
   componentDidMount() {
@@ -188,10 +199,10 @@ export class OpensourcePage extends React.Component {
   render() {
     const {
       opensource,
-      startAnimation,
     } = this.props;
 
     const {
+      startAnimation,
       startOpensourceAnimation,
     } = this.state;
 
