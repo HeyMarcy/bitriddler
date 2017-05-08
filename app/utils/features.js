@@ -17,3 +17,7 @@ export const jobsPageFetaures = {
 export const homePageFeatures = {
   showEntranceAnimation: () => !isXSScreen(),
 };
+
+export const opensourcePageFeatures = {
+  showEntranceAnimation: () => !isXSScreen(),
+};

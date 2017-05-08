@@ -52,6 +52,23 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/opensource',
+      name: 'opensource',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/OpensourcePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '/contact',
       name: 'contact',
       getComponent(nextState, cb) {

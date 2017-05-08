@@ -1,7 +1,7 @@
 import React from 'react';
 import { presets } from 'react-motion';
 import Measure from 'react-measure';
-import ItemsCarousel from 'react-items-carousel/src/ItemsCarousel';
+import ItemsCarousel from 'react-items-carousel';
 import range from 'lodash/range';
 import styled from 'styled-components';
 import SelectField from 'material-ui/SelectField';

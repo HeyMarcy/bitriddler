@@ -84,8 +84,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   gotoWorkExperience = () => this.leavePage('/work');
   gotoContact = () => this.leavePage('/contact');
+  gotoOpensource = () => this.leavePage(`/opensource`);
 
-  getCoverImage = (screenWidth, screenHeight) => {
+  getCoverImage = () => {
+    const screenWidth = getWindowWidth();
+    const screenHeight = getWindowHeight();
     const hThreshold = 40;
     const vThreshold = 40;
 
@@ -117,7 +120,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       <Measure whitelist={['width']}>
         {() => (
           <Wrapper>
-            <Hero image={this.getCoverImage(getWindowWidth(), getWindowHeight())} />
+            <Hero
+              image={this.getCoverImage()}
+            />
             <About
               startAnimation={startAnimation}
 
@@ -129,6 +134,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
               onWorkExperienceClick={this.gotoWorkExperience}
               onContactClick={this.gotoContact}
+              onOpensourceClick={this.gotoOpensource}
             />
           </Wrapper>
         )}

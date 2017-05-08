@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import styled from 'styled-components';
 
@@ -41,21 +42,22 @@ const BottomBox = styled.div`
 
 export default class AnimationBox extends React.Component {
   static propTypes = {
-    closeAll: React.PropTypes.bool,
-    closeLeft: React.PropTypes.bool,
-    closeRight: React.PropTypes.bool,
-    closeTop: React.PropTypes.bool,
-    closeBottom: React.PropTypes.bool,
-    closeHorizontalValue: React.PropTypes.number,
-    closeVerticalValue: React.PropTypes.number,
-    openHorizontalValue: React.PropTypes.number,
-    openVerticalValue: React.PropTypes.number,
-    primaryColor: React.PropTypes.string,
+    closeAll: PropTypes.bool,
+    closeLeft: PropTypes.bool,
+    closeRight: PropTypes.bool,
+    closeTop: PropTypes.bool,
+    closeBottom: PropTypes.bool,
+    closeHorizontalValue: PropTypes.number,
+    closeVerticalValue: PropTypes.number,
+    openHorizontalValue: PropTypes.number,
+    openVerticalValue: PropTypes.number,
+    primaryColor: PropTypes.string,
 
-    leftWidth: React.PropTypes.number,
-    rightWidth: React.PropTypes.number,
-    topWidth: React.PropTypes.number,
-    bottomWidth: React.PropTypes.number,
+    leftWidth: PropTypes.number,
+    rightWidth: PropTypes.number,
+    topWidth: PropTypes.number,
+    bottomWidth: PropTypes.number,
+    onRest: PropTypes.func,
   };
 
   static defaultProps = {
@@ -99,6 +101,7 @@ export default class AnimationBox extends React.Component {
       rightWidth,
       topWidth,
       bottomWidth,
+      onRest,
       ...props,
     } = this.props;
 
@@ -122,6 +125,7 @@ export default class AnimationBox extends React.Component {
           animateTop: spring(animateTop),
           animateBottom: spring(animateBottom),
         }}
+        onRest={onRest}
       >
         {({ animateLeft, animateRight, animateTop, animateBottom }) => (
           <Wrapper {...props}>
