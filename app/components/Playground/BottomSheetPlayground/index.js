@@ -46,7 +46,7 @@ export class BottomSheetPlayground extends React.Component {
 
         <BottomSheetModal zIndex={10000} open={this.state.showSmall} onRequestClose={() => this.setState({ showSmall: false })}>
           <div>
-            <h1>Bottom sheet modal content</h1>
+            <h3>Bottom sheet modal content</h3>
             <ul>
               <li>Animates from bottom to top</li>
               <li>If the content height is more than the height of the device it will be scrollable.</li>
@@ -60,7 +60,7 @@ export class BottomSheetPlayground extends React.Component {
 
         <BottomSheetModal zIndex={10000} open={this.state.showLarge} onRequestClose={() => this.setState({ showLarge: false })}>
           <div>
-            <h1>Bottom sheet modal content</h1>
+            <h3>Bottom sheet modal content</h3>
             <RaisedButton
               label={'Click me to close the modal'}
                onClick={() => this.setState({ showLarge: !this.state.showLarge })}

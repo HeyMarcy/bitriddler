@@ -235,6 +235,7 @@ export default class About extends React.Component {
       runLeaveAnimation,
       onLeaveAnimationFinish,
       onWorkExperienceClick,
+      onOpensourceClick,
       onContactClick,
       onReactPlaygroundClick,
       showEntranceAnimation,
@@ -297,6 +298,12 @@ export default class About extends React.Component {
                   activeColor={primaryColor}
                 >
                   Contact
+                </StyledButton>
+                <StyledButton
+                  onClick={onOpensourceClick}
+                  activeColor={primaryColor}
+                >
+                  Opensource
                 </StyledButton>
               </ButtonsWrapper>
             </AboutContentWrapper>
