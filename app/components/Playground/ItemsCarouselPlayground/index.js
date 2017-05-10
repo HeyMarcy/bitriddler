@@ -12,6 +12,7 @@ import Toggle from 'material-ui/Toggle';
 import {
   isSMScreen,
   isXSScreen,
+  getWindowWidth,
 } from 'utils/screen';
 import { lightWhite } from 'material-ui/styles/colors';
 
@@ -23,8 +24,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const DemoWrapper = styled(Paper)`
+const DemoWrapper = styled.div`
   min-height: 200px;
+  max-width: 1200px;
 `;
 
 const DemoTitle = styled.h2`
@@ -108,12 +110,12 @@ export class ItemsCarouselPlayground extends React.Component {
     this.setState({
       presetKey: 'noWobble',
       numberOfCards: 3,
-      slidesToScroll: 3,
+      slidesToScroll: 1,
       freeScrolling: false,
       showChevron: true,
       addFirstAndLastPadding: false,
       children: [],
-      outsideChevron: true,
+      outsideChevron: getWindowWidth() > 1200 ? true : false,
       totalNumberOfCards: 20,
       showSlither: true,
       activeItemIndex: 0,
@@ -199,7 +201,7 @@ export class ItemsCarouselPlayground extends React.Component {
                 ))}
               </SelectField>
             </Controller>
-            {/*<Controller>
+            <Controller>
               <SelectField
                 floatingLabelFixed
                 floatingLabelText="Slides to scroll"
@@ -211,7 +213,7 @@ export class ItemsCarouselPlayground extends React.Component {
                   <MenuItem key={val} value={val + 1} primaryText={val + 1} />
                 ))}
               </SelectField>
-            </Controller>*/}
+            </Controller>
             <Controller>
               <SelectField
                 floatingLabelFixed
@@ -291,6 +293,7 @@ export class ItemsCarouselPlayground extends React.Component {
             numberOfCards={numberOfCards}
             freeScrolling={freeScrolling}
             showSlither={showSlither}
+            slidesToScroll={slidesToScroll}
             firstAndLastGutter={addFirstAndLastPadding}
             gutter={gutter}
 
@@ -299,8 +302,8 @@ export class ItemsCarouselPlayground extends React.Component {
             numberOfPlaceholderItems={6}
             appShellItem={<PlaceholderItem />}
 
-            rightChevron={showChevron && <div>&#10097;</div>}
-            leftChevron={showChevron && <div>&#10096;</div>}
+            rightChevron={showChevron && '>'}
+            leftChevron={showChevron && '<'}
             chevronWidth={showChevron ? gutter * 2 : 0}
             outsideChevron={outsideChevron}
 
