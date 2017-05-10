@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import styled from 'styled-components';
 import CubeImageRevealPlayground from 'components/Playground/CubeImageRevealPlayground';
 import ExpandablePlayground from 'components/Playground/ExpandablePlayground';
@@ -13,14 +14,22 @@ import {
   routeIsReady,
   requestToLeaveRoute,
 } from 'containers/App/actions';
+import Button from 'components/Utils/Button';
 import Hero from 'components/Main/Hero';
 import colors from 'theme/colors';
+import selectors from './selectors';
 
 const PRIMARY_COLOR = colors.white;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export class Playground extends React.Component {
@@ -84,58 +93,46 @@ export class Playground extends React.Component {
     }
   }
 
+  getOpensourceByGithub = (github) => {
+    const {
+      opensource,
+    } = this.props;
+
+    const found = opensource.find((one) => one.github === github);
+
+    if(! found) {
+      throw new Error("Opensource not found!");
+    }
+
+    return {
+      title: found.title,
+      subtitle: found.description,
+      primaryColor: found.primaryColor,
+      secondaryColor: colors.greySecondary,
+      heroHidden: github === 'react-apple-carousel',
+    };
+  }
+
   getPackage = (name) => {
     switch(name) {
       case 'cube-image-reveal':
-        return {
-          title: 'Cube Image Reveal',
-          subtitle: 'Another creative way to animate images into view',
-          primaryColor: colors.blue,
-          secondaryColor: colors.greySecondary,
-        };
+        return this.getOpensourceByGithub('react-cube-image-reveal');
       case 'expandable':
-        return {
-          title: 'Expandable views',
-          subtitle: '',
-          primaryColor: colors.purple,
-          secondaryColor: colors.greySecondary,
-        };
+        return this.getOpensourceByGithub('react-expandable');
       case 'apple-carousel':
-        return {
-          heroHidden: true,
-          primaryColor: colors.red,
-          secondaryColor: colors.greySecondary,
-        };
+        return this.getOpensourceByGithub('react-apple-carousel');
       case 'bottom-sheet':
-        return {
-          title: 'Bottom Sheet',
-          subtitle: 'Bottom sheet for mobile',
-          primaryColor: colors.grey,
-          secondaryColor: colors.greySecondary,
-        };
+        return this.getOpensourceByGithub('react-bottom-sheet');
       case 'items-carousel':
-        return {
-          title: 'Items Carousel',
-          subtitle: 'A simple carousel, build on ReactMotion.',
-          primaryColor: colors.orange,
-          secondaryColor: colors.greySecondary,
-        };
+        return this.getOpensourceByGithub('react-items-carousel');
       case 'motion-grid':
-        return {
-          title: 'Motion Grid',
-          subtitle: 'A simple grid with pagination strategy like instagram.',
-          primaryColor: colors.green,
-          secondaryColor: colors.greySecondary,
-        };
+        return this.getOpensourceByGithub('react-motion-grid');
       case 'swipeable-tabs':
-        return {
-          title: 'Swipeable tabs',
-          subtitle: 'Tabs that swipe!',
-          primaryColor: colors.brown,
-          secondaryColor: colors.greySecondary,
-        };
+        return this.getOpensourceByGithub('react-swipeable-tabs');
     }
   }
+
+  gotoOpensource = () => this.props.requestToLeaveRoute(`/opensource`);
 
   render() {
     const {
@@ -152,26 +149,30 @@ export class Playground extends React.Component {
           <Hero
             title={pckg.title}
             subtitle={pckg.subtitle}
+            buttonText={'More open source'}
+            onButtonClick={this.gotoOpensource}
             bgColor={pckg.primaryColor}
           />
         }
         {this.renderTab(packageName, pckg)}
+        {
+          pckg.heroHidden &&
+          <ButtonWrapper>
+            <Button secondary onClick={this.gotoOpensource}>
+              More open source
+            </Button>
+          </ButtonWrapper>
+        }
       </Wrapper>
     );
   }
 }
 
-Playground.propTypes = {
-
-};
-
-Playground.defaultProps = {
-
-};
-
 const mapDispatchToProps = {
   setPagePrimaryColor,
   routeIsReady,
+  requestToLeaveRoute,
+  push,
 };
 
-export default connect(null, mapDispatchToProps)(Playground);
+export default connect(selectors(), mapDispatchToProps)(Playground);

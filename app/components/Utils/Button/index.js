@@ -9,19 +9,25 @@ import {
 const Button = styled.button`
   cursor: pointer;
   background: ${transparent};
-  color: ${white};
-  border: 1px solid ${white};
+  color: ${(props) => props.color};
+  border: 1px solid ${(props) => props.color};
   transition: background-color 0.5s ease,
               color 0.5s ease;
   &:hover {
-    background: ${white};
-    color: ${(props) => props.activeColor};
+    background: ${(props) => props.color};
+    color: ${(props) => props.activeColor || props.inverseColor};
   }
 `;
 
-export default ({ activeColor, ...props }) => (
-  <Button
-    activeColor={activeColor}
-    {...props}
-  />
-);
+const PrimaryButton = styled(Button)`
+`;
+
+const SecondaryButton = styled(Button)`
+`;
+
+export default ({ secondary, activeColor, ...props }) => {
+  if(secondary) {
+    return <SecondaryButton color={black} inverseColor={white} activeColor={activeColor} {...props} />
+  }
+  return <PrimaryButton color={white} inverseColor={black} activeColor={activeColor} {...props} />
+}

@@ -1,23 +1,16 @@
 import tools from './tools';
+import colors from 'theme/colors';
 
 export default [
   {
     category: 'react-component',
     tools: [tools.react],
     tags: ['react', 'react-motion', 'carousel'],
-    title: 'React Apple Carousel',
-    description: 'An apple-like carousel build with React and ReactMotion.',
-    demo: 'playground/apple-carousel',
-    github: 'react-apple-carousel',
-  },
-  {
-    category: 'react-component',
-    tools: [tools.react],
-    tags: ['react', 'react-motion', 'material'],
-    title: 'React Bottom sheet',
-    description: 'Material bottom sheet component that you can use instead of modal in mobile.',
-    demo: 'playground/bottom-sheet',
-    github: 'react-bottom-sheet',
+    title: 'React Items Carousel',
+    description: 'A nice and easy-to-use carousel to use in your project, build with React and React Motion',
+    demo: 'playground/items-carousel',
+    github: 'react-items-carousel',
+    primaryColor: colors.blue,
   },
   {
     category: 'react-component',
@@ -27,6 +20,7 @@ export default [
     description: 'Another creative way to animate images into view, supports multiple animations.',
     demo: 'playground/cube-image-reveal',
     github: 'react-cube-image-reveal',
+    primaryColor: colors.orange,
   },
   {
     category: 'react-component',
@@ -36,24 +30,17 @@ export default [
     description: 'Expanding sections component, build with React and React Motion. Supports multiple expands.',
     demo: 'playground/expandable',
     github: 'react-expandable',
+    primaryColor: colors.purple,
   },
   {
     category: 'react-component',
     tools: [tools.react],
     tags: ['react', 'react-motion', 'carousel'],
-    title: 'React Items Carousel',
-    description: 'A nice and easy-to-use carousel to use in your project, build with React and React Motion',
-    demo: 'playground/items-carousel',
-    github: 'react-items-carousel',
-  },
-  {
-    category: 'react-component',
-    tools: [tools.react],
-    tags: ['react', 'react-motion', 'grid'],
-    title: 'React Motion Grid',
-    description: 'Grid with pagination strategy like instagram, build with ReactMotion.',
-    demo: 'playground/motion-grid',
-    github: 'react-motion-grid',
+    title: 'React Apple Carousel',
+    description: 'An apple-like carousel build with React and ReactMotion.',
+    demo: 'playground/apple-carousel',
+    github: 'react-apple-carousel',
+    primaryColor: colors.red,
   },
   {
     category: 'react-component',
@@ -63,6 +50,27 @@ export default [
     description: 'Tabs component build with swipping feature.',
     demo: 'playground/swipeable-tabs',
     github: 'react-swipeable-tabs',
+    primaryColor: colors.brown,
+  },
+  {
+    category: 'react-component',
+    tools: [tools.react],
+    tags: ['react', 'react-motion', 'grid'],
+    title: 'React Motion Grid',
+    description: 'Grid with pagination strategy like instagram, build with ReactMotion.',
+    demo: 'playground/motion-grid',
+    github: 'react-motion-grid',
+    primaryColor: colors.green,
+  },
+  {
+    category: 'react-component',
+    tools: [tools.react],
+    tags: ['react', 'react-motion', 'material'],
+    title: 'React Bottom sheet',
+    description: 'Material bottom sheet component that you can use instead of modal in mobile.',
+    demo: 'playground/bottom-sheet',
+    github: 'react-bottom-sheet',
+    primaryColor: colors.grey,
   },
   {
     category: 'project',
@@ -72,5 +80,6 @@ export default [
     description: 'Source code for my protfoilo build with React, Redux and Redux-saga.',
     demo: '',
     github: 'bitriddler',
+    primaryColor: colors.white,
   },
 ];

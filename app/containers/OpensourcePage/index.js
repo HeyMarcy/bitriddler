@@ -117,7 +117,7 @@ export class OpensourcePage extends React.Component {
         this.setState({
           startAnimation: true,
         });
-      }, 2000);
+      }, 1000);
     }
   }
 

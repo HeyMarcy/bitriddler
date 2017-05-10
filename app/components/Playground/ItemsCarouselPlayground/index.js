@@ -302,8 +302,8 @@ export class ItemsCarouselPlayground extends React.Component {
             numberOfPlaceholderItems={6}
             appShellItem={<PlaceholderItem />}
 
-            rightChevron={showChevron && '>'}
-            leftChevron={showChevron && '<'}
+            rightChevron={showChevron && <span>{'>'}</span>}
+            leftChevron={showChevron && <span>{'<'}</span>}
             chevronWidth={showChevron ? gutter * 2 : 0}
             outsideChevron={outsideChevron}
 

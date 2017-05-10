@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from 'components/Utils/Button';
 import { darkWhite } from 'material-ui/styles/colors';
 
 const Wrapper = styled.div`
@@ -25,10 +26,20 @@ const HeroSubtitle = styled.h5`
   text-align: center;
 `;
 
-const Hero = ({ title, subtitle, bgColor, ...props }) => (
+const StyledButton = styled(Button)`
+  margin-right: 10px;
+`;
+
+const Hero = ({ title, subtitle, bgColor, onButtonClick, buttonText, ...props }) => (
   <Wrapper bgColor={bgColor} {...props}>
     <HeroTitle>{title}</HeroTitle>
     <HeroSubtitle>{subtitle}</HeroSubtitle>
+    <StyledButton
+      onClick={onButtonClick}
+      activeColor={bgColor}
+    >
+      {buttonText}
+    </StyledButton>
   </Wrapper>
 );
 
