@@ -32,7 +32,7 @@ injectGlobal`
   }
 
   h1 {
-    font-size: 6.98em;
+    font-size: 4em;
     line-height: 48px;
     margin: ${theme.h1.verticalMargin}px 0px;
   }

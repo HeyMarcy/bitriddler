@@ -241,6 +241,7 @@ export default class About extends React.Component {
       showEntranceAnimation,
       startAnimation,
       loadLineConfig,
+      about,
     } = this.props;
 
     const {
@@ -278,13 +279,13 @@ export default class About extends React.Component {
           >
             <AboutContentWrapper>
               <Title>
-                Kareem Mohamed,
+                {about.fullName},
               </Title>
               <Subtitle>
-                Front-end / UI Developer
+                {about.primaryRole}
               </Subtitle>
               <Description>
-                Hi. I produce elegant, performant, and accessible digital experiences. Currently working at Blackcrows, FR.
+                {about.summary}
               </Description>
               <ButtonsWrapper>
                 <StyledButton

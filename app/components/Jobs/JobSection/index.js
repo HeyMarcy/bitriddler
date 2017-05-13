@@ -118,6 +118,7 @@ const JobSectionTitle = styled.h4`
 const JobToolsWrapper = styled.div`
   display: flex;
   font-size: 0.9em;
+  flex-wrap: wrap;
 `;
 
 const JobToolLogoWrapper = styled.h5`

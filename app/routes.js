@@ -86,6 +86,23 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/resume',
+      name: 'resume',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/CVPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '/playground/:packageName',
       name: 'playground',
       getComponent(nextState, cb) {

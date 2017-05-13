@@ -1,0 +1,16 @@
+
+
+import { renderToString } from 'react-dom/server';
+import { CVPage } from 'containers/CVPage';
+import jobs from 'data/jobs';
+import educations from 'data/educations';
+import skills from 'data/skills';
+console.log(renderToString(
+  <CVPage
+    jobs={jobs}
+    educations={educations}
+    skills={skills}
+    routeIsReady={() => {}}
+    setPagePrimaryColor={() => {}}
+  />
+));

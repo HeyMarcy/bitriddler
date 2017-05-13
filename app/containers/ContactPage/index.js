@@ -9,7 +9,7 @@ import {
   setPagePrimaryColor,
 } from 'containers/App/actions';
 import colors from 'theme/colors';
-import Share from 'components/Contact/ContactIcons';
+import ContactIcons from 'components/Contact/ContactIcons';
 import IntroEntranceAnimation from 'components/EntranceAnimations/IntroEntranceAnimation';
 import Writer from 'components/Animations/Writer';
 import { fade, darken } from 'material-ui/utils/colorManipulator';
@@ -69,6 +69,7 @@ export class ContactPage extends React.PureComponent { // eslint-disable-line re
       requestToLeaveRoute,
       routeIsReady,
       startAnimation,
+      contact,
     } = this.props;
 
     const {
@@ -89,7 +90,9 @@ export class ContactPage extends React.PureComponent { // eslint-disable-line re
               />
             </Subtitle>
             <ShareWrapper>
-              <Share />
+              <ContactIcons
+                contact={contact}
+              />
             </ShareWrapper>
           </Content>
         </Measure>
