@@ -27,6 +27,7 @@ const Wrapper = styled.div`
 const DemoWrapper = styled.div`
   min-height: 200px;
   max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const DemoTitle = styled.h2`
