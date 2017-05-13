@@ -21,24 +21,24 @@ const SocialWrapper = styled.a`
   padding: 10px;
 `;
 
-const ContactIcons = ({ ...props }) => (
+const ContactIcons = ({ contact, ...props }) => (
   <Wrapper {...props}>
-    <SocialWrapper bgColor={'#3b5998'} color={'white'} href={'https://www.facebook.com/karim.m.aly.9'} target={'_blank'}>
+    <SocialWrapper bgColor={'#3b5998'} color={'white'} href={'https://www.facebook.com/' + contact.facebook} target={'_blank'}>
       <FacebookIcon
         size={20}
       />
     </SocialWrapper>
-    <SocialWrapper bgColor={'#0077B5'} color={'white'} href={'https://www.linkedin.com/in/kareem-mohamed-908aa3116/'} target={'_blank'}>
+    <SocialWrapper bgColor={'#0077B5'} color={'white'} href={'https://www.linkedin.com/in/' + contact.linkedin} target={'_blank'}>
       <LinkedinIcon
         size={20}
       />
     </SocialWrapper>
-    <SocialWrapper bgColor={'white'} color={'#333'} href={'mailto:bitriddler@gmail.com'}>
+    <SocialWrapper bgColor={'white'} color={'#333'} href={'mailto:' + contact.mail}>
       <MailIcon
         size={20}
       />
     </SocialWrapper>
-    <SocialWrapper bgColor={'#333'} color={'white'} href={'tel:+201066088961'}>
+    <SocialWrapper bgColor={'#333'} color={'white'} href={'tel:' + contact.phoneNumber}>
       <PhoneIcon
         size={20}
       />

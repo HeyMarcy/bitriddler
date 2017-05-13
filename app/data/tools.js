@@ -188,6 +188,12 @@ export default {
     color: orange600,
     type: 'management',
   },
+  webpack: {
+    name: 'Webpack',
+    logo: angularjsLogo,
+    color: red600,
+    type: 'frontend',
+  },
 };
 
 

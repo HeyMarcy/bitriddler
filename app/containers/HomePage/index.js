@@ -114,6 +114,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       requestToLeaveRoute,
       routeIsReady,
       startAnimation,
+      about,
     } = this.props;
 
     return (
@@ -124,6 +125,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               image={this.getCoverImage()}
             />
             <About
+              about={about}
               startAnimation={startAnimation}
 
               showEntranceAnimation={homePageFeatures.showEntranceAnimation()}
