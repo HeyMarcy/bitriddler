@@ -2,10 +2,10 @@ import React from 'react';
 import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'utils/styled-components';
 import materialUiTheme from 'theme/materialui';
 import theme from 'theme/default';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 
 import Loader from 'components/Utils/Loader';
 import Header from 'components/Main/Header';

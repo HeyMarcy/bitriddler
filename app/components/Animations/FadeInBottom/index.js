@@ -1,6 +1,6 @@
 import React from 'react';
 import { StaggeredMotion, spring } from 'react-motion';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 
 const MAX_TRANSLATE_Y = 100;
 

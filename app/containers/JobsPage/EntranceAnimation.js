@@ -3,7 +3,7 @@ import {
   getWindowWidth,
   getWindowHeight,
 } from 'utils/screen';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import BoxAnimation from 'components/Animations/BoxAnimation';
 import Line from 'components/LineAnimations/Line';
 

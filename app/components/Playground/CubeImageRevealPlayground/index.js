@@ -1,7 +1,7 @@
 import React from 'react';
 import { presets } from 'react-motion';
 import range from 'lodash/range';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import CubeImageReveal from 'react-cube-image-reveal';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';

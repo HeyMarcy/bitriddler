@@ -3,7 +3,7 @@ import { presets } from 'react-motion';
 import Measure from 'react-measure';
 import ItemsCarousel from 'react-items-carousel';
 import range from 'lodash/range';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import SelectField from 'material-ui/SelectField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'components/Layout/Paper';

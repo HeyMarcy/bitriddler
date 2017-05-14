@@ -4,7 +4,7 @@ import { getWindowWidth, getWindowHeight } from 'utils/screen';
 import SkillScore from './SkillScore';
 import TitleIcon from 'react-icons/md/work';
 import CheckIcon from 'react-icons/md/check';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import {
   grey200,
   grey500,

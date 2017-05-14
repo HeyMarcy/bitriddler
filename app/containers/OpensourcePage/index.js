@@ -6,7 +6,7 @@ import {
   setPagePrimaryColor,
 } from 'containers/App/actions';
 import { spring, StaggeredMotion } from 'react-motion';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import colors from 'theme/colors';
 import GithubIcon from 'react-icons/fa/github';
 import DemoIcon from 'react-icons/fa/external-link';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Measure from 'react-measure';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { white } from 'material-ui/styles/colors';
 import Box from 'components/Utils/Box';
 import preloadImage from './preloadImage';

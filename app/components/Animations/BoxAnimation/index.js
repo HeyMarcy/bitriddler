@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 
 const Wrapper = styled.div`
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import Measure from 'react-measure';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import About from 'components/Home/About';
 import StackGrid from 'components/Home/StackGrid';
 import Timeline from 'components/Home/Timeline';

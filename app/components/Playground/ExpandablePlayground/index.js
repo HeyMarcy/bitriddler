@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import Checkbox from 'material-ui/Checkbox';
 import CodeBreaker from 'components/Animations/CodeBreaker';
 import code from './code';

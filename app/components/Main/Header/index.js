@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../Logo';
 import { scaleRotate as Menu } from 'react-burger-menu';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 
 const Wrapper = styled.div`
   position: absolute;

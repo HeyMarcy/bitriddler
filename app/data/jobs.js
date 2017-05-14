@@ -205,7 +205,7 @@ One of the big challenges in this project was supporting multiple languages, not
       'Designed and implemented data storage solutions with MySQL',
       'Built reusable code and libraries for future use',
       'Interpreted and executed designs correctly as requested by clients.',
-      'Creating animations with JQuery.',
+      'Workflow tools included: HTML, CSS, jQuery, and Git',
     ],
     tools: [
       tools.php,

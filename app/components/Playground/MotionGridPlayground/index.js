@@ -1,7 +1,7 @@
 import React from 'react';
 import { presets } from 'react-motion';
 import Measure from 'react-measure';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import MotionGrid from 'react-motion-grid';
 import range from 'lodash/range';
 import flatten from 'lodash/flatten';

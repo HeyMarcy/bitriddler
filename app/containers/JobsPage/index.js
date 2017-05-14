@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Measure from 'react-measure';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { getWindowHeight, getWindowWidth, getWindowScrollTop } from 'utils/screen';
 import {
   setPagePrimaryColor,

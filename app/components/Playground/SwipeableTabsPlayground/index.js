@@ -1,7 +1,7 @@
 import React from 'react';
 import { presets } from 'react-motion';
 import Tabs from 'react-swipeable-tabs';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import Toggle from 'material-ui/Toggle';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Measure from 'react-measure';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { getWindowHeight, getWindowWidth } from 'utils/screen';
 import {
   requestToLeaveRoute,

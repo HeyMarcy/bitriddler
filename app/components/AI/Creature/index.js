@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { lineIntersectsRectange, toRadians, getLineSecondPoint, addPoints } from 'utils/math';
 import {
   fullWhite,

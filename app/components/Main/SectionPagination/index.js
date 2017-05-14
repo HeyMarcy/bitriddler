@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { white } from 'material-ui/styles/colors';
 import { darken } from 'material-ui/utils/colorManipulator';
 import range from 'lodash/range';

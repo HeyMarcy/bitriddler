@@ -1,6 +1,6 @@
 import React from 'react';
 import CheckIcon from 'react-icons/md/check';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { fade } from 'material-ui/utils/colorManipulator';
 
 const JobsWrapper = styled.div`

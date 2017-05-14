@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import FacebookIcon from 'react-icons/fa/facebook';
 import MailIcon from 'react-icons/fa/envelope';
 import PhoneIcon from 'react-icons/fa/phone';

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/atom-one-light.css';
 

@@ -3,7 +3,7 @@ import { slide as Menu } from 'react-burger-menu';
 import CloseIcon from 'react-icons/md/close';
 import BurgerIcon from 'react-icons/md/menu';
 import menuStyles from './menuStyles';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import colors from 'theme/colors';
 
 const Wrapper = styled.div`

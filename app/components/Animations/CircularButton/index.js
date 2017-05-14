@@ -2,7 +2,7 @@ import React from 'react';
 import { Motion, spring } from 'react-motion';
 import MdUpIcon from 'react-icons/go/triangle-up';
 import MdDownIcon from 'react-icons/go/triangle-down';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { black, white, darkWhite, grey200 } from 'material-ui/styles/colors';
 import { getWindowHeight, getWindowWidth } from 'utils/screen';
 

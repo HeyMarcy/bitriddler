@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import {
   transparent,
   white,
@@ -21,6 +21,14 @@ const Button = styled.button`
 
 const PrimaryButton = styled(Button)`
 `;
+
+// const getFunctions = (object) => Object.getOwnPropertyNames(object).filter(function (p) {
+//   console.log('object', p, object[p]);
+//   return typeof object[p] === 'function';
+// });
+
+// console.log(PrimaryButton);
+// console.log('new Object', new PrimaryButton().generateAndInjectStyles({}, {}))
 
 const SecondaryButton = styled(Button)`
 `;

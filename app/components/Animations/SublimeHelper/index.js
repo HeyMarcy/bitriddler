@@ -1,6 +1,6 @@
 import React from 'react';
 import Popover from 'material-ui/Popover';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { grey200, grey500, grey800, blue700 } from 'material-ui/styles/colors';
 import Writer from 'components/Animations/Writer';
 import randomItems from './random';

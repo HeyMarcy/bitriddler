@@ -11,7 +11,7 @@ import {
 import AppleCarousel from 'react-apple-carousel';
 import JobSection, { getImageWidthPercentage } from 'components/Jobs/JobSection';
 import { jobsPageFetaures } from 'utils/features';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import RightChevronIcon from 'react-icons/md/chevron-right';
 import LeftChevronIcon from 'react-icons/md/chevron-left';
 import colors from 'theme/colors';

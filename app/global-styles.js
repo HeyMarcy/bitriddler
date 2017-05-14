@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'utils/styled-components';
 import theme from 'theme/default';
 
 /* eslint no-unused-expressions: 0 */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import SkillChart from 'components/Home/SkillChart';
 import SkillsBoxes from './SkillsBoxes';
 import EntranceAnimation from './EntranceAnimation';

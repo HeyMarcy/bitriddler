@@ -1,6 +1,6 @@
 import React from 'react';
 import { Motion, spring } from 'react-motion';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { getWindowHeight, getWindowWidth } from 'utils/screen';
 import { getLineSecondPoint, addPoints } from 'utils/math';
 import FloatingActionButton from 'material-ui/FloatingActionButton';

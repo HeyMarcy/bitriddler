@@ -1,6 +1,6 @@
 import React from 'react';
 import Measure from 'react-measure';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 
 const StyledBox = styled.div`
   height: ${(props) => props.height}px;

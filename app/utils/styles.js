@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from 'utils/styled-components';
 import breakpoints from './breakpoints';
 
 // use ${unit} in breakpoints to work properly cross-browser and support users

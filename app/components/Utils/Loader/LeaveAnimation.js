@@ -1,6 +1,6 @@
 import React from 'react';
 import { Motion, spring } from 'react-motion';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 
 const ItemWrapper = styled.div`
   display: flex;

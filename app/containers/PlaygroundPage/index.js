@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import CubeImageRevealPlayground from 'components/Playground/CubeImageRevealPlayground';
 import ExpandablePlayground from 'components/Playground/ExpandablePlayground';
 import ItemsCarouselPlayground from 'components/Playground/ItemsCarouselPlayground';

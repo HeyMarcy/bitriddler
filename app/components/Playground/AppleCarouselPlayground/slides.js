@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'utils/styled-components';
 import { calculateChildrenParallaxAnimation, calculateImageParallaxAnimation, stringifyTranslate } from './animation';
 
 const SlideWrapper = styled.div`
