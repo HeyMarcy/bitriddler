@@ -105,59 +105,8 @@ const OpensourceActionText = styled.h6`
 export class OpensourcePage extends React.Component {
   componentWillMount() {
     this.props.setPagePrimaryColor(PAGE_PRIMARY_COLOR);
-    this.setState({
-      startAnimation: false,
-      startOpensourceAnimation: false,
-    });
+    this.props.routeIsReady();
   }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.startAnimation && !this.props.startAnimation) {
-      setTimeout(() => {
-        this.setState({
-          startAnimation: true,
-        });
-      }, 1000);
-    }
-  }
-
-  componentDidMount() {
-    this.loadImage();
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if(nextState.imageLoaded && !this.state.imageLoaded) {
-      this.props.routeIsReady();
-    }
-  }
-
-  getCoverImage = () => {
-    const screenWidth = getWindowWidth();
-    const screenHeight = getWindowHeight();
-    const hThreshold = 40;
-    const vThreshold = 40;
-
-    if(screenWidth > (1920 + hThreshold) || screenHeight > (1282 + vThreshold)) {
-      return coverImage2560;
-    }
-
-    if(screenWidth > (768 + hThreshold) || screenHeight > (513 + vThreshold)) {
-      return coverImage1920;
-    }
-
-    return coverImage768;
-  }
-
-  loadImage() {
-    if(!this.state.imageLoaded && !this.state.imageLoading) {
-      const src = this.getCoverImage();
-      this.setState({ imageLoading: src });
-      preloadImage(src, () => {
-        this.setState({ imageLoaded: src });
-      });
-    }
-  }
-
 
   getDefaultStyles = (opensource) => opensource.map(() => ({
     translateY: 500,
@@ -178,8 +127,6 @@ export class OpensourcePage extends React.Component {
     };
   });
 
-  startOpensourceAnimation = () => this.setState({ startOpensourceAnimation: true });
-
   gotoGithub = (opensource) => window.open(
     `http://github.com/bitriddler/${opensource.github}`,
     '_blank'
@@ -190,30 +137,17 @@ export class OpensourcePage extends React.Component {
     '_blank'
   );
 
-  showEntranceAnimation = () =>
-    opensourcePageFeatures.showEntranceAnimation();
-
-  shouldStartOpensourceAnimation = () =>
-    !this.showEntranceAnimation() || (this.state.startOpensourceAnimation && this.props.startAnimation);
-
   render() {
     const {
       opensource,
-    } = this.props;
-
-    const {
       startAnimation,
-      startOpensourceAnimation,
-    } = this.state;
+    } = this.props;
 
     return (
       <Wrapper>
-        <Hero
-          image={this.getCoverImage()}
-        />
         <StaggeredMotion
           defaultStyles={this.getDefaultStyles(opensource)}
-          styles={this.getStyles(this.shouldStartOpensourceAnimation())}
+          styles={this.getStyles(startAnimation)}
         >
           {(styles) => (
             <OpensourcesWrapper>
@@ -249,15 +183,6 @@ export class OpensourcePage extends React.Component {
             </OpensourcesWrapper>
           )}
         </StaggeredMotion>
-        {
-          this.showEntranceAnimation() && !startOpensourceAnimation &&
-          <EntranceAnimation
-            startAnimation={startAnimation}
-            wallColor={PAGE_PRIMARY_COLOR}
-            lineColor={colors.whiteInverse}
-            onFinish={this.startOpensourceAnimation}
-          />
-        }
       </Wrapper>
     );
   }

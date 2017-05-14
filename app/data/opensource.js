@@ -7,7 +7,7 @@ export default [
     tools: [tools.react],
     tags: ['react', 'react-motion', 'carousel'],
     title: 'React Items Carousel',
-    description: 'A nice and easy-to-use carousel to use in your project, build with React and React Motion',
+    description: 'An easy-to-use carousel and supports many different customizations',
     demo: 'playground/items-carousel',
     github: 'react-items-carousel',
     primaryColor: colors.blue,

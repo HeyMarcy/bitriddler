@@ -15,6 +15,8 @@ import {
   getWindowWidth,
 } from 'utils/screen';
 import { lightWhite } from 'material-ui/styles/colors';
+import Highlight from 'react-highlight';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -325,6 +327,42 @@ export class ItemsCarouselPlayground extends React.Component {
               </ItemButton>
             ))}
           </ButtonsWrapper>
+        </Paper>
+        <Paper>
+          <Highlight className={"js"}>
+{
+`
+    <ItemsCarousel
+      numberOfCards={${numberOfCards}}
+      freeScrolling={${!!freeScrolling}}
+      showSlither={${!!showSlither}}
+      slidesToScroll={${slidesToScroll}}
+      firstAndLastGutter={${!!addFirstAndLastPadding}}
+      gutter={${gutter}}
+
+      enablePlaceholder
+      minimumPlaceholderTime={2000}
+      numberOfPlaceholderItems={6}
+      appShellItem={<PlaceholderComponent />}
+
+      rightChevron={${showChevron && `<ChevronRight />`}}
+      leftChevron={${showChevron && `<ChevronLeft />`}}
+      chevronWidth={${showChevron ? gutter * 2 : 0}}
+      outsideChevron={${!!outsideChevron}}
+
+      springConfig={${JSON.stringify(presets[presetKey])}}
+
+      requestToChangeActive={() => this.setState({ activeItemIndex })}
+      activeItemIndex={activeItemIndex}
+      activePosition={'${activePosition}'}
+      children={[
+        ${children.map((child, i) => `<SlideItem key={${i}} />,`).join(`
+        `)}
+      ]}
+    />
+`
+}
+          </Highlight>
         </Paper>
       </Wrapper>
     );
