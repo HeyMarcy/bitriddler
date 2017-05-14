@@ -1,8 +1,9 @@
-import forteCover from 'assets/timeline/forte.png';
-import blackcrowsCover from 'assets/timeline/with_shadow.jpg';
-import goodsenseCover from 'assets/timeline/goodsense.jpg';
-import tastetasticCover from 'assets/timeline/test2.jpg';
-import cytixCover from 'assets/timeline/cytix.jpg';
+import forteCover from 'assets/timeline/forte_cover.png';
+import blackcrowsCover from 'assets/timeline/blackcrows_cover.jpg';
+import goodsenseCover from 'assets/timeline/goodsense_cover.jpg';
+import tastetasticCover from 'assets/timeline/tastetastic_cover.jpg';
+import cytixCover from 'assets/timeline/cytix_cover.jpg';
+import almousaCover from 'assets/timeline/almousa_cover.jpg';
 
 import forteLogo from 'assets/timeline/forte_logo.jpg';
 import blackcrowsLogo from 'assets/timeline/blackcrows_logo.jpg';
@@ -19,6 +20,11 @@ export default [
     subtitle: 'Front End Developer',
     dateFrom: 'Oct 2015',
     dateTo: 'Present',
+
+    summary: `
+Started by rangle.io at Jul 2015, The app was built with AngularJS, Typescript, RxJS, Flux and SASS. My first contribution was made at Nov 1, 2015. Since then I have been the main Front End developer. At the time of writing this I made 199 contributions that included 60+ new features, bug fixes, performance optimization, code enhancements and unit tests.
+`,
+
     story: `
 Started by [Rangle](https://rangle.io/) at Jul 2015, The app was built with AngularJS, Typescript, RxJS, Flux and SASS.
 
@@ -54,6 +60,10 @@ At the time of writing this, I made 199 pull requests that included 60+ new feat
     subtitle: 'Full Stack Developer',
     dateFrom: 'Sept 2014',
     dateTo: 'May 2017',
+    summary: `
+Goodsense is an ecommerce platform that's centered around niche marketing. I started working on this project as a Full Stack developer at Sept. 2014. It was build with React, Redux, ReduxSaga, NodeJS, MongoDB and Typescript. Till May 2017 I have been the main developer working on the project. Managing both the Front and Back End.
+`,
+
     story: `
 Goodsense is an ecommerce platform where merchants upload their products to be sold on our different marketplaces (niche marketing). It's targeting Japan and China.
 
@@ -121,7 +131,7 @@ My second role was to work with the Back End developer to write the APIs needed 
     years: 2,
   },
   {
-    title: 'TasteTastic',
+    title: 'PimentaGroup',
     subtitle: 'Full Stack Developer',
     dateFrom: 'Nov 2016',
     dateTo: 'Apr 2017',
@@ -181,5 +191,27 @@ One of the big challenges in this project was supporting multiple languages, not
       tools.mongodb,
     ],
     years: 0.5,
+  },
+  {
+    title: 'AlmousaGroup',
+    subtitle: 'PHP Web Developer',
+    dateFrom: 'Feb 2012',
+    dateTo: 'Sept 2012',
+    visitLink: 'http://www.almousa-group.com.sa/',
+    cover: almousaCover,
+    primaryColor: colors.orange,
+    fontColor: colors.orangeInverse,
+    roles: [
+      'Designed and implemented data storage solutions with MySQL',
+      'Built reusable code and libraries for future use',
+      'Interpreted and executed designs correctly as requested by clients.',
+      'Creating animations with JQuery.',
+    ],
+    tools: [
+      tools.php,
+      tools.laravel,
+      tools.mysql,
+    ],
+    years: 1,
   },
 ];

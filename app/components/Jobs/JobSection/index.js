@@ -65,7 +65,8 @@ const CoverImage = styled.div`
   `}
   ${media.md`
     width: 100%;
-    height: 60vh;
+    height: 40vh;
+    margin: 24px;
   `}
   background: url(${(props) => props.image});
   background-size: contain;
@@ -213,7 +214,7 @@ export default class JobSection extends React.Component {
           disable={noAnimation}
         >
           <JobHeading onClick={() => this.gotoJob(job)}>
-            <JobLogo src={job.logo} />
+            {job.logo && <JobLogo src={job.logo} />}
             <JobHeadingRight>
               <JobTitle>
                 {job.title}
