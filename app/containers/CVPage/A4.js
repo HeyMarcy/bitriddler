@@ -8,8 +8,8 @@ const Wrapper = styled.div`
   height: ${(props) => A4_RATIO * props.width}px;
   overflow: hidden;
   margin: 0 auto;
-  border-right: 1px solid #333;
-  border-left: 1px solid #333;
+  // border-right: 1px solid #333;
+  // border-left: 1px solid #333;
 `;
 
 export default ({ width = 1200, children }) => (

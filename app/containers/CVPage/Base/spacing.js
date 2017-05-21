@@ -26,13 +26,13 @@ export default {
     verticalPadding: 20,
     datePadding: 10,
     checkPadding: 10,
-    toolsTopMargin: 10,
+    toolsTopMargin: 8,
     toolRightMargin: 10,
   },
   skills: {
-    verticalPadding: 2,
-    titleRightMargin: 15,
-    scoreWidth: 10,
-    scoreMargin: 8,
+    verticalPadding: 0,
+    titleRightMargin: 10,
+    scoreWidth: 8,
+    scoreMargin: 5,
   },
 };

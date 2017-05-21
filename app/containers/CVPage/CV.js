@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   color: ${(props) => props.color};
   ${media.sm`
-    flex-direction: column;
+    flex-direction: column-reverse;
   `}
 `;
 
@@ -67,6 +67,11 @@ const Paper = styled.div`
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   margin-top: ${VERTICAL_PADDING / 2}px;
   margin-bottom: ${VERTICAL_PADDING / 2}px;
+
+  ${(props) => props.hideOnDesktop ? `display: none;` : `display: block;`}
+  ${media.sm`
+    ${(props) => props.hideOnMobile ? `display: none;` : `display: block;`}
+  `}
 `;
 
 const Header = styled.div`
@@ -107,8 +112,8 @@ const CV = ({
       <FirstColumn>
 
         {/* About */}
-        <Paper isFirst>
-          <Content height={isXSScreen() || isSMScreen() ? null : skillsHeight}>
+        <Paper isFirst hideOnMobile>
+          <Content height={skillsHeight}>
             <AboutMePaper
               about={about}
               jobTitleFontColor={grey700}
@@ -208,6 +213,17 @@ const CV = ({
 
       </FirstColumn>
       <SecondColumn>
+
+        {/* About */}
+        <Paper isFirst hideOnDesktop>
+          <Content>
+            <AboutMePaper
+              about={about}
+              jobTitleFontColor={grey700}
+            />
+          </Content>
+        </Paper>
+
         {/* Skills paper */}
         <Measure
           whitelist={['width', 'height']}
@@ -222,7 +238,13 @@ const CV = ({
             </Header>
             <Content>
               <SkillsPaper
-                numberOfColumns={2}
+                numberOfColumns={3}
+                columnsTitles={[
+                  'Frontend',
+                  'Backend',
+                  'Other',
+                ]}
+                columnTitleColor={blue}
                 inactiveColor={grey200}
                 activeColor={blue}
                 skills={skills}

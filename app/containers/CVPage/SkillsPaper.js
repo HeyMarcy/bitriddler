@@ -34,10 +34,19 @@ const SkillTitle = styled(Fonts.H5)`
   margin-right: ${spacing.skills.titleRightMargin}px;
 `;
 
-const SkillsPaper = ({ skills, numberOfColumns = 1, activeColor, inactiveColor, ...props }) => (
+const SkillColumnTitle = styled(Fonts.H5)`
+  margin: 0;
+  color: ${(props) => props.color};
+`;
+
+const SkillsPaper = ({ skills, columnTitleColor, numberOfColumns = 1, columnsTitles = [], activeColor, inactiveColor, ...props }) => (
   <SkillsWrapper verticalPadding={VERTICAL_PADDING}>
     {chunk(skills, skills.length / numberOfColumns).map((column, i) => (
       <SkillColumn key={i}>
+        {
+          columnsTitles[i] &&
+          <SkillColumnTitle color={columnTitleColor}>{columnsTitles[i]}</SkillColumnTitle>
+        }
         {column.map((skill, j) => (
           <SkillWrapper
             verticalPadding={VERTICAL_PADDING}

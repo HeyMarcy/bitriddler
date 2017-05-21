@@ -28,7 +28,7 @@ import sparkLogo from 'assets/tools/spark.png';
 
 export default {
   react: {
-    name: 'React',
+    name: 'ReactJS',
     logo: reactLogo,
     color: lightBlue600,
     type: 'frontend',
@@ -81,7 +81,7 @@ export default {
     type: 'frontend',
   },
   postcss: {
-    name: 'Postcss',
+    name: 'PostCSS',
     logo: postcssLogo,
     color: deepOrange600,
     type: 'frontend',
@@ -93,19 +93,19 @@ export default {
     type: 'frontend',
   },
   nodejs: {
-    name: 'Nodejs',
+    name: 'NodeJS',
     logo: nodejsLogo,
     color: lightGreen600,
     type: 'backend',
   },
   graphql: {
-    name: 'Graphql',
+    name: 'GraphQL',
     logo: graphqlLogo,
     color: pink600,
     type: 'backend',
   },
   mongodb: {
-    name: 'Mongodb',
+    name: 'MongoDB',
     logo: mongodbLogo,
     color: green600,
     type: 'database',
@@ -123,7 +123,7 @@ export default {
     type: 'backend',
   },
   mysql: {
-    name: 'Mysql',
+    name: 'MySQL',
     // @todo
     logo: 'https://code-maven.com/img/angularjs.png',
     color: orange600,
@@ -137,14 +137,14 @@ export default {
     type: 'backend',
   },
   laravel: {
-    name: 'Laravel',
+    name: 'PHP Laravel',
     // @todo
     logo: 'https://code-maven.com/img/angularjs.png',
     color: deepOrange600,
     type: 'backend',
   },
   codeigniter: {
-    name: 'Codeigniter',
+    name: 'PHP Codeigniter',
     // @todo
     logo: 'https://code-maven.com/img/angularjs.png',
     color: red600,
@@ -190,9 +190,25 @@ export default {
   },
   webpack: {
     name: 'Webpack',
-    logo: angularjsLogo,
     color: red600,
     type: 'frontend',
+  },
+  cpp: {
+    name: 'C++',
+    color: red600,
+    type: 'backend',
+  },
+  unitTesting: {
+    name: 'UnitTest'
+  },
+  postgreSQL: {
+    name: 'PostgreSQL'
+  },
+  selenium: {
+    name: 'Selenium',
+  },
+  gulp: {
+    name: 'Gulp',
   },
 };
 

@@ -51,6 +51,33 @@ export default [
     tool: tools.php,
     scorePercentage: 50,
   },
+
+
+  // Another tools
+  {
+    tool: tools.webpack,
+    scorePercentage: 70,
+  },
+  {
+    tool: tools.gulp,
+    scorePercentage: 60,
+  },
+  {
+    tool: tools.selenium,
+    scorePercentage: 80,
+  },
+  {
+    tool: tools.java,
+    scorePercentage: 80,
+  },
+  {
+    tool: tools.cpp,
+    scorePercentage: 30,
+  },
+  {
+    tool: tools.postgreSQL,
+    scorePercentage: 40,
+  },
   // {
   //   tool: tools.java,
   //   scorePercentage: 70,
