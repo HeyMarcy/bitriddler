@@ -1,6 +1,7 @@
 /* eslint consistent-return:0 */
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const logger = require('./logger');
 
 const argv = require('minimist')(process.argv.slice(2));
@@ -8,7 +9,11 @@ const setup = require('./middlewares/frontendMiddleware');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
 const resolve = require('path').resolve;
+const setupPdfConverter = require('./pdf-converter');
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
@@ -23,6 +28,8 @@ setup(app, {
 const host = '0.0.0.0'; // Let http.Server use its default IPv6/4 host
 
 const port = argv.port || process.env.PORT || 3000;
+
+setupPdfConverter(app);
 
 // Start your app.
 app.listen(port, host, (err) => {

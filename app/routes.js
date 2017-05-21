@@ -91,12 +91,16 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/CVPage'),
+          import('containers/CVPage/reducer'),
+          import('containers/CVPage/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([component, reducer, sagas]) => {
           renderRoute(component);
+          injectReducer('CVPage', reducer.default);
+          injectSagas(sagas.default);
         });
 
         importModules.catch(errorLoading);

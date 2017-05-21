@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'utils/styled-components';
+import Fonts from './Base/Fonts';
+import spacing from './Base/spacing';
 
 const AboutWrapper = styled.div`
   display: flex;
@@ -18,25 +20,24 @@ const ProfileImage = styled.div`
   background: url('${(props) => props.image}');
   background-size: cover;
   background-position: center center;
-  width: 100px;
-  height: 100px;
+  width: ${spacing.about.imageSize}px;
+  height: ${spacing.about.imageSize}px;
   border-radius: 50%;
+  margin-bottom: ${spacing.about.imageBottomMargin}px;
 `;
 
-const DisplayName = styled.h2`
-  font-size: 1.7em;
+const DisplayName = styled(Fonts.H2)`
+  margin: 0;
   text-transform: uppercase;
-  margin-bottom: 0px;
 `;
 
-const CurrentJobTitle = styled.h4`
-  margin-top: 0px;
-  margin-bottom: 0px;
-  font-size: 1.3em;
+const CurrentJobTitle = styled(Fonts.H4)`
+  margin: 0;
   color: ${(props) => props.color};
 `;
 
-const Summary = styled.p`
+const Summary = styled(Fonts.P)`
+  margin: 0;
 `;
 
 const AboutMePaper = ({ about, jobTitleFontColor }) => (

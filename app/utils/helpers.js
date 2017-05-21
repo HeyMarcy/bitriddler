@@ -4,7 +4,7 @@ export const containId = (ids, id) => ids.map(stringifyId).indexOf(stringifyId(i
 
 export const compareIds = (id1, id2) => stringifyId(id1) == stringifyId(id2);
 
-export const getDocumentId = object => (object instanceof Object) && object._id ? String(object._id) : String(object); 
+export const getDocumentId = object => (object instanceof Object) && object._id ? String(object._id) : String(object);
 
 export const unique = (array) => array.filter((val, i, self) => self.indexOf(val) === i);
 
@@ -120,4 +120,12 @@ export const convertToUnderscore = (str) => str.replace(/([A-Z])/g, function($1)
 export const isEmail = (text) => {
   const r = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
   return r.test(text);
+}
+
+export function escapeRegExp(str) {
+  return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+export function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }

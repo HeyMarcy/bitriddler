@@ -28,24 +28,11 @@ export class TestPage extends React.PureComponent { // eslint-disable-line react
   componentDidMount() {
     this.props.setPagePrimaryColor(PAGE_PRIMARY_COLOR);
     this.props.routeIsReady();
-    // console.log("RENDER TO STRING");
-    // console.log(renderToString(
-    //   <Button
-    //     primary
-    //     activeColor={'#333'}
-    //   >
-    //     TEST TEST
-    //   </Button>
-    // ));
-
-    converter(this.render());
   }
 
   render() {
     return (
       <Wrapper>
-        <h1>TEST</h1>
-        <Button primary />
       </Wrapper>
     );
   }

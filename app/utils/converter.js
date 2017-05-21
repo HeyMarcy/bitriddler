@@ -1,8 +1,15 @@
 import { StyleSheet } from 'utils/styled-components';
 import { renderToString } from 'react-dom/server';
+import { replaceAll } from 'utils/helpers';
+import parse from 'styled-components/lib/vendor/postcss-safe-parser/parse'
+import postcssNested from 'styled-components/lib/vendor/postcss-nested';
+import autoprefix from 'styled-components/lib/utils/autoprefix';
 import uniq from 'lodash/uniq';
+import flatten from 'lodash/flatten';
 
-export const getAllClassNames = (html) => uniq(html.match(/class="(.*?)"/g).map(className => className.replace(`class="`, '').replace(`"`, '')));
+export const getAllClassNames = (html) => uniq(
+  flatten(html.match(/class="(.*?)"/g).map(className => className.replace(`class="`, '').replace(`"`, '').split(" ")))
+);
 
 /**
  * This method will not output the following conditions
@@ -24,10 +31,16 @@ export default (component) => {
 
   const componentRules = StyleSheet.rules().filter(isComponentRule);
   const globalRules = StyleSheet.rules().filter(isGlobal);
-  const css = componentRules.concat(globalRules).map(rule => rule.cssText).join('');
+  const pureCSS = globalRules.concat(componentRules).map(rule => rule.cssText).join('');
+
+
+  // Autoprefix and nested rules
+  const root = parse(pureCSS);
+  postcssNested(root)
+  autoprefix(root)
 
   return {
     html,
-    css,
+    css: root.toResult().css,
   };
 }

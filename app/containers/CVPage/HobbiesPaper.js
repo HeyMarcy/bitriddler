@@ -22,10 +22,6 @@ const Image = styled.img`
   width: 100%;
 `;
 
-const Title = styled.h6`
-  font-size: 0.7em;
-`;
-
 const HobbiesPaper = ({ hobbies }) => (
   <Wrapper>
     {hobbies.map((hobby, index) => (

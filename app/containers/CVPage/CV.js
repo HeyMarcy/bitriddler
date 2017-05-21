@@ -3,7 +3,7 @@ import Measure from 'react-measure';
 import styled from 'utils/styled-components';
 import colors from 'theme/colors';
 import { media } from 'utils/styles';
-import { white, black, grey200, grey600 } from 'material-ui/styles/colors';
+import { white, black, grey200, grey700 } from 'material-ui/styles/colors';
 import {
   isXSScreen,
   isSMScreen,
@@ -15,9 +15,20 @@ import SkillsPaper from './SkillsPaper';
 import ContactMePaper from './ContactMePaper'
 import HobbiesPaper from './HobbiesPaper';
 import AboutMePaper from './AboutMePaper';
+import AwardsPaper from './AwardsPaper';
+import ReferencesPaper from './ReferencesPaper';
+import Fonts from './Base/Fonts';
+import spacing from './Base/spacing';
 
-const VERTICAL_PADDING = 24;
-const HORIZONTAL_PADDING = 36;
+const VERTICAL_PADDING = spacing.verticalPadding;
+const HORIZONTAL_PADDING = spacing.horizontalPadding;
+
+const OuterWrapper = styled.div`
+  max-width: 1200px;
+  overflow: hidden;
+  margin: 0 auto;
+  font-size: 14px;
+`;
 
 const Wrapper = styled.div`
   padding: ${VERTICAL_PADDING / 2}px 20px;
@@ -29,7 +40,7 @@ const Wrapper = styled.div`
   `}
 `;
 
-const firstColumnWidth = 35;
+const firstColumnWidth = spacing.firstColumnWidth;
 
 const FirstColumn = styled.div`
   display: flex;
@@ -63,7 +74,8 @@ const Header = styled.div`
   padding: ${VERTICAL_PADDING}px ${HORIZONTAL_PADDING}px;
 `;
 
-const Title = styled.h2`
+const Title = styled(Fonts.H2)`
+  margin: 0;
   color: ${(props) => props.color};
 `;
 
@@ -81,133 +93,166 @@ const CV = ({
   contact,
   hobbies,
   skills,
+  workenvironment,
   otherSkills,
   educations,
+  awards,
+  references,
   jobs,
   skillsHeight,
   onSkillsHeightChange,
 }) => (
-  <Wrapper color={black}>
-    <FirstColumn>
+  <OuterWrapper>
+    <Wrapper color={black}>
+      <FirstColumn>
 
-      {/* About */}
-      <Paper isFirst>
-        <Content height={isXSScreen() || isSMScreen() ? null : skillsHeight}>
-          <AboutMePaper
-            about={about}
-            jobTitleFontColor={grey600}
-          />
-        </Content>
-      </Paper>
-
-      {/* Contact me */}
-      <Paper bgColor={blue}>
-        <Header>
-          <Title color={white}>
-            Contact me
-          </Title>
-        </Header>
-        <Content>
-          <ContactMePaper
-            iconFontColor={blue}
-            fontColor={white}
-            iconBgColor={white}
-            contact={contact}
-          />
-        </Content>
-      </Paper>
-
-      {/* Education paper */}
-      <Paper>
-        <Header>
-          <Title color={blue}>
-            Education
-          </Title>
-        </Header>
-        <Content>
-          <EducationsPaper
-            locationFontColor={fadedBlack}
-            dateFontColor={blue}
-            verticalPadding={VERTICAL_PADDING}
-            educations={educations}
-          />
-        </Content>
-      </Paper>
-
-      {/* other skills */}
-      <Paper>
-        <Header>
-          <Title color={blue}>
-            Other skills
-          </Title>
-        </Header>
-        <Content>
-          <SkillsPaper
-            inactiveColor={grey200}
-            activeColor={blue}
-            skills={otherSkills}
-          />
-        </Content>
-      </Paper>
-
-
-
-      {/* Hobbies paper */}
-      <Paper isLast>
-        <Content>
-          <HobbiesPaper
-            hobbies={hobbies}
-          />
-        </Content>
-      </Paper>
-
-    </FirstColumn>
-    <SecondColumn>
-      {/* Skills paper */}
-      <Measure
-        whitelist={['width', 'height']}
-        includeMargin={false}
-        onMeasure={({ height }) => onSkillsHeightChange(height)}
-      >
+        {/* About */}
         <Paper isFirst>
+          <Content height={isXSScreen() || isSMScreen() ? null : skillsHeight}>
+            <AboutMePaper
+              about={about}
+              jobTitleFontColor={grey700}
+            />
+          </Content>
+        </Paper>
+
+        {/* Contact me */}
+        <Paper bgColor={blue}>
+          <Header>
+            <Title color={white}>
+              Contact me
+            </Title>
+          </Header>
+          <Content>
+            <ContactMePaper
+              iconFontColor={blue}
+              fontColor={white}
+              iconBgColor={white}
+              contact={contact}
+            />
+          </Content>
+        </Paper>
+
+        {/* Education paper */}
+        <Paper>
           <Header>
             <Title color={blue}>
-              Professional Skills
+              Education
+            </Title>
+          </Header>
+          <Content>
+            <EducationsPaper
+              locationFontColor={fadedBlack}
+              dateFontColor={blue}
+              educations={educations}
+            />
+          </Content>
+        </Paper>
+
+        {/* Work environment */}
+        <Paper>
+          <Header>
+            <Title color={blue}>
+              Development Tools
             </Title>
           </Header>
           <Content>
             <SkillsPaper
-              numberOfColumns={2}
               inactiveColor={grey200}
               activeColor={blue}
-              skills={skills}
+              skills={workenvironment}
             />
           </Content>
         </Paper>
-      </Measure>
+
+        {/* Awards */}
+        <Paper>
+          <Header>
+            <Title color={blue}>
+              Awards
+            </Title>
+          </Header>
+          <Content>
+            <AwardsPaper
+              summaryColor={grey700}
+              awards={awards}
+            />
+          </Content>
+        </Paper>
+
+        {/* References */}
+        <Paper isLast>
+          <Header>
+            <Title color={blue}>
+              References
+            </Title>
+          </Header>
+          <Content>
+            <ReferencesPaper
+              summaryColor={grey700}
+              references={references}
+            />
+          </Content>
+        </Paper>
 
 
-      {/* Working experience paper */}
-      <Paper>
-        <Header>
-          <Title color={blue}>
-            Working Experience
-          </Title>
-        </Header>
-        <Content>
-          <JobsPaper
-            rolesFontColor={fadedBlack}
-            dateFontColor={blue}
-            toolBgColor={blue}
-            toolFontColor={white}
-            verticalPadding={VERTICAL_PADDING}
-            jobs={jobs}
-          />
-        </Content>
-      </Paper>
 
-    </SecondColumn>
-  </Wrapper>
+        {/* Hobbies paper */}
+        {/*<Paper isLast>
+          <Content>
+            <HobbiesPaper
+              hobbies={hobbies}
+            />
+          </Content>
+        </Paper>*/}
+
+      </FirstColumn>
+      <SecondColumn>
+        {/* Skills paper */}
+        <Measure
+          whitelist={['width', 'height']}
+          includeMargin={false}
+          onMeasure={({ height }) => onSkillsHeightChange(height)}
+        >
+          <Paper isFirst>
+            <Header>
+              <Title color={blue}>
+                Professional Skills
+              </Title>
+            </Header>
+            <Content>
+              <SkillsPaper
+                numberOfColumns={2}
+                inactiveColor={grey200}
+                activeColor={blue}
+                skills={skills}
+              />
+            </Content>
+          </Paper>
+        </Measure>
+
+
+        {/* Working experience paper */}
+        <Paper>
+          <Header>
+            <Title color={blue}>
+              Working Experience
+            </Title>
+          </Header>
+          <Content>
+            <JobsPaper
+              rolesFontColor={grey700}
+              dateFontColor={blue}
+              toolBgColor={blue}
+              toolFontColor={white}
+              jobs={jobs}
+            />
+          </Content>
+        </Paper>
+
+      </SecondColumn>
+    </Wrapper>
+  </OuterWrapper>
 );
 
 CV.propTypes = {

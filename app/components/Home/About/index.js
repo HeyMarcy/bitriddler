@@ -75,11 +75,13 @@ const Description = styled.h4`
 
 const ButtonsWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin-top: 10px;
 `;
 
 const StyledButton = styled(Button)`
   margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 export default class About extends React.Component {
@@ -237,6 +239,7 @@ export default class About extends React.Component {
       onWorkExperienceClick,
       onOpensourceClick,
       onContactClick,
+      onResumeClick,
       onReactPlaygroundClick,
       showEntranceAnimation,
       startAnimation,
@@ -305,6 +308,12 @@ export default class About extends React.Component {
                   activeColor={primaryColor}
                 >
                   Opensource
+                </StyledButton>
+                <StyledButton
+                  onClick={onResumeClick}
+                  activeColor={primaryColor}
+                >
+                  Resume
                 </StyledButton>
               </ButtonsWrapper>
             </AboutContentWrapper>

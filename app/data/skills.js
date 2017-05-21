@@ -18,12 +18,22 @@ export default [
     scorePercentage: 70,
   },
   {
-    tool: tools.typescript,
-    scorePercentage: 70,
+    tool: tools.sass,
+    scorePercentage: 60,
   },
+  {
+    tool: tools.postcss,
+    scorePercentage: 65,
+  },
+
+
   {
     tool: tools.nodejs,
     scorePercentage: 80,
+  },
+  {
+    tool: tools.typescript,
+    scorePercentage: 70,
   },
   {
     tool: tools.graphql,
@@ -38,24 +48,12 @@ export default [
     scorePercentage: 40,
   },
   {
-    tool: tools.sass,
-    scorePercentage: 60,
-  },
-  {
-    tool: tools.postcss,
-    scorePercentage: 65,
-  },
-  {
-    tool: tools.less,
-    scorePercentage: 60,
+    tool: tools.php,
+    scorePercentage: 50,
   },
   // {
   //   tool: tools.java,
   //   scorePercentage: 70,
-  // },
-  // {
-  //   tool: tools.php,
-  //   scorePercentage: 50,
   // },
   // {
   //   tool: tools.laravel,

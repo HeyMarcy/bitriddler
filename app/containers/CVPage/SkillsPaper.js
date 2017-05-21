@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'utils/styled-components';
 import chunk from 'lodash/chunk';
 import SkillScore from './SkillScore';
+import Fonts from './Base/Fonts';
+import spacing from './Base/spacing';
+
+const VERTICAL_PADDING = spacing.skills.verticalPadding;
 
 const SkillsWrapper = styled.div`
   display: flex;
@@ -24,25 +28,25 @@ const SkillWrapper = styled.div`
   margin-bottom: ${(props) => props.verticalPadding / 2}px;
 `;
 
-const SkillTitle = styled.h5`
+const SkillTitle = styled(Fonts.H5)`
   margin: 0;
-  flex-basis: 30%;
-  margin-right: 10px;
+  flex-basis: 50%;
+  margin-right: ${spacing.skills.titleRightMargin}px;
 `;
 
-const SkillsPaper = ({ skills, numberOfColumns = 1, activeColor, inactiveColor, verticalPadding, ...props }) => (
-  <SkillsWrapper verticalPadding={verticalPadding}>
+const SkillsPaper = ({ skills, numberOfColumns = 1, activeColor, inactiveColor, ...props }) => (
+  <SkillsWrapper verticalPadding={VERTICAL_PADDING}>
     {chunk(skills, skills.length / numberOfColumns).map((column, i) => (
       <SkillColumn key={i}>
         {column.map((skill, j) => (
           <SkillWrapper
-            verticalPadding={8}
+            verticalPadding={VERTICAL_PADDING}
             isFirst={j === 0}
             isLast={j === column.length - 1}
             key={j}
           >
             <SkillTitle>
-              {skill.tool.name}
+              {skill.tool ? skill.tool.name : skill.name}
             </SkillTitle>
             <SkillScore
               inactiveColor={inactiveColor}

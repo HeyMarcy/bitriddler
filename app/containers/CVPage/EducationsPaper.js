@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'utils/styled-components';
+import Fonts from './Base/Fonts';
+import spacing from './Base/spacing';
+
+const VERTICAL_PADDING = spacing.education.verticalPadding;
 
 const EducationsWrapper = styled.div`
   display: flex;
@@ -11,14 +15,17 @@ const EducationWrapper = styled.div`
   ${(props) => !props.isLast && `margin-bottom: ${props.verticalPadding / 2}px;`}
 `;
 
-const EducationTitle = styled.h3`
+const EducationTitle = styled(Fonts.H3)`
+  margin: 0;
 `;
 
-const EducationLocation = styled.h4`
+const EducationLocation = styled(Fonts.H4)`
+  margin: 0;
   color: ${(props) => props.color};
 `;
 
-const EducationDate = styled.h5`
+const EducationDate = styled(Fonts.H5)`
+  margin: 0;
   display: flex;
   color: ${(props) => props.color};
 `;
@@ -27,16 +34,16 @@ const EducationDateFrom = styled.div`
 `;
 
 const EducationDateSeparator = styled.div`
-  padding: 0 10px;
+  padding: 0 ${spacing.education.datePadding}px;
 `;
 
 const EducationDateTo = styled.div`
 `;
 
-const EducationsPaper = ({ educations, locationFontColor, dateFontColor, verticalPadding, ...props }) => (
+const EducationsPaper = ({ educations, locationFontColor, dateFontColor, ...props }) => (
   <EducationsWrapper>
     {educations.map((education, index) => (
-      <EducationWrapper verticalPadding={verticalPadding} isFirst={index === 0} isLast={index === educations.length - 1} key={index}>
+      <EducationWrapper verticalPadding={VERTICAL_PADDING} isFirst={index === 0} isLast={index === educations.length - 1} key={index}>
         <EducationTitle>
           {education.title}
         </EducationTitle>

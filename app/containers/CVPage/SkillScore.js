@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'utils/styled-components';
 import range from 'lodash/range';
+import spacing from './Base/spacing';
 
 const getMinValue = (val1, val2) => val1 < val2 ? val1 : val2;
-const scorePointWidth = 10;
-const margin = 8;
+const scorePointWidth = spacing.skills.scoreWidth;
+const margin = spacing.skills.scoreMargin;
 
 const Wrapper = styled.div`
   display: flex;

@@ -1,21 +1,12 @@
 import { injectGlobal } from 'utils/styled-components';
 import theme from 'theme/default';
+import colors from 'theme/colors';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   html,
   body {
-    height: 100%;
-    width: 100%;
-  }
-
-  body {
     font-family: 'Open Sans', sans-serif;
-  }
-
-  #app {
-    min-height: 100%;
-    min-width: 100%;
   }
 
   /* https://material.io/guidelines/style/typography.html# */

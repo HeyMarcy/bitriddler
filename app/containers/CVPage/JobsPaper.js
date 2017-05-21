@@ -2,6 +2,10 @@ import React from 'react';
 import CheckIcon from 'react-icons/md/check';
 import styled from 'utils/styled-components';
 import { fade } from 'material-ui/utils/colorManipulator';
+import Fonts from './Base/Fonts';
+import spacing from './Base/spacing';
+
+const VERTICAL_PADDING = spacing.jobs.verticalPadding;
 
 const JobsWrapper = styled.div`
   display: flex;
@@ -13,10 +17,12 @@ const JobWrapper = styled.div`
   ${(props) => !props.isLast && `margin-bottom: ${props.verticalPadding / 2}px;`}
 `;
 
-const JobTitle = styled.h3`
+const JobTitle = styled(Fonts.H3)`
+  margin: 0;
 `;
 
-const JobDate = styled.h5`
+const JobDate = styled(Fonts.H5)`
+  margin: 0;
   display: flex;
   color: ${(props) => props.color};
 `;
@@ -25,13 +31,13 @@ const JobDateFrom = styled.div`
 `;
 
 const JobDateSeparator = styled.div`
-  padding: 0 10px;
+  padding: 0 ${spacing.jobs.datePadding}px;
 `;
 
 const JobDateTo = styled.div`
 `;
 
-const JobSummary = styled.p`
+const JobSummary = styled(Fonts.P)`
   color: ${(props) => props.color};
 `;
 
@@ -47,48 +53,47 @@ const JobHeaderLeft = styled.div`
 const JobHeaderRight = styled.div`
 `;
 
-const JobLogo = styled.img`
-  height: 60px;
-  margin-right: 10px;
-`;
-
 const JobRoles = styled.ul`
+  margin: 0;
   list-style: none;
 `;
 
 const JobRole = styled.li`
   padding-left: 0;
-  color: ${(props) => props.color};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  margin: 0;
+  color: ${(props) => props.color};
 `;
 
 const JobRoleCheck = styled.div`
-  margin-right: 10px;
+  margin-right: ${spacing.jobs.checkPadding}px;
 `;
 
-const JobRoleText = styled.span`
+const JobRoleText = styled(Fonts.P)`
+  margin: 0;
 `;
 
 const JobToolsWrapper = styled.div`
   display: flex;
-  font-size: 0.9em;
   flex-wrap: wrap;
+  margin-top: ${spacing.jobs.toolsTopMargin}px;
 `;
 
-const JobToolLogoWrapper = styled.h5`
-  margin-right: 10px;
+const JobToolLogoWrapper = styled(Fonts.P)`
+  margin: 0;
+  margin-right: ${spacing.jobs.toolRightMargin}px;
   background: ${(props) => props.bgColor};
   color: ${(props) => props.color};
-  padding: 4px 10px;
+  padding: 2px 5px;
 `;
 
 const addDot = (str) => str.indexOf('.') < str.length - 1 ? `${str}.` : `${str}`;
 
-const JobsPaper = ({ useSummary = false, jobs, rolesFontColor, dateFontColor, toolBgColor, toolFontColor, verticalPadding, ...props }) => (
+const JobsPaper = ({ useSummary = false, jobs, rolesFontColor, dateFontColor, toolBgColor, toolFontColor, ...props }) => (
   <JobsWrapper>
     {jobs.map((job, index) => (
-      <JobWrapper verticalPadding={verticalPadding} isFirst={index === 0} isLast={index === jobs.length - 1} key={index}>
+      <JobWrapper verticalPadding={VERTICAL_PADDING} isFirst={index === 0} isLast={index === jobs.length - 1} key={index}>
         <JobHeader>
           <JobHeaderLeft>
             <JobTitle>
@@ -118,7 +123,7 @@ const JobsPaper = ({ useSummary = false, jobs, rolesFontColor, dateFontColor, to
             {job.roles.map((role, index) => (
               <JobRole color={rolesFontColor} key={index}>
                 <JobRoleCheck>
-                  <CheckIcon size={16} />
+                  <CheckIcon size={12} />
                 </JobRoleCheck>
                 <JobRoleText>{addDot(role)}</JobRoleText>
               </JobRole>

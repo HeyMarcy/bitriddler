@@ -4,6 +4,8 @@ import MailIcon from 'react-icons/fa/envelope';
 import PhoneIcon from 'react-icons/fa/phone';
 import WebsiteIcon from 'react-icons/fa/location-arrow';
 import LocationIcon from 'react-icons/fa/map-marker';
+import spacing from './Base/spacing';
+import Fonts from './Base/Fonts';
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,15 +27,15 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: ${spacing.contact.iconPadding}px;
 `;
 
-const ContactText = styled.div`
-  margin-left: 25px;
+const ContactText = styled(Fonts.P)`
+  margin-left: ${spacing.contact.textPadding}px;
 `;
 
-const ICON_SIZE = 20;
-const VERTICAL_PADDING = 8;
+const ICON_SIZE = spacing.contact.iconSize;
+const VERTICAL_PADDING = spacing.contact.verticalPadding;
 
 const ContactMePaper = ({ contact, fontColor, iconFontColor, iconBgColor }) => (
   <Wrapper color={fontColor}>

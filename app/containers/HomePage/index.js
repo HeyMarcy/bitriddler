@@ -85,6 +85,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   gotoWorkExperience = () => this.leavePage('/work');
   gotoContact = () => this.leavePage('/contact');
   gotoOpensource = () => this.leavePage(`/opensource`);
+  gotoResume = () =>this.leavePage(`/resume`);
 
   getCoverImage = () => {
     const screenWidth = getWindowWidth();
@@ -137,6 +138,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               onWorkExperienceClick={this.gotoWorkExperience}
               onContactClick={this.gotoContact}
               onOpensourceClick={this.gotoOpensource}
+              onResumeClick={this.gotoResume}
             />
           </Wrapper>
         )}
