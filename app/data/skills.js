@@ -55,6 +55,10 @@ export default [
 
   // Another tools
   {
+    tool: tools.jquery,
+    scorePercentage: 80,
+  },
+  {
     tool: tools.webpack,
     scorePercentage: 70,
   },
@@ -69,10 +73,6 @@ export default [
   {
     tool: tools.java,
     scorePercentage: 80,
-  },
-  {
-    tool: tools.cpp,
-    scorePercentage: 30,
   },
   {
     tool: tools.postgreSQL,

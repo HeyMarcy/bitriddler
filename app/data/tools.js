@@ -45,6 +45,10 @@ export default {
     color: red600,
     type: 'frontend',
   },
+  jquery: {
+    name: 'JQuery',
+    type: 'frontend',
+  },
   sass: {
     name: 'SASS',
     logo: sassLogo,

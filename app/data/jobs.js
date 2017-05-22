@@ -212,6 +212,7 @@ One of the big challenges in this project was supporting multiple languages, not
       tools.php,
       tools.laravel,
       tools.mysql,
+      tools.jquery,
     ],
     years: 1,
   },
